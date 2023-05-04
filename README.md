@@ -9,10 +9,21 @@ O trabalho consiste na criação de um sistema Orientado a Objetos observando o 
 
 O trabalho começa com a definição do projeto que pode ser [lida aqui]().
 
-![](https://github.com/GuiJR777/trabalho_dsoo_2023/blob/main/images/logo.png)
-
 Após isso foi feito o [mapa de telas e a modelagem de classes](https://miro.com/app/board/uXjVMZAc4QA=/?share_link_id=995939172948).
 
+### Sobre
+Nosso sistema é um app de aluguel de imóveis para temporada.
+Um tinder entre turistas com desejo de passar as férias no litoral e proprietários de imóvel que desejam alugar seus imóveis durante o verão.
+
+Batizamos nosso app de **Litorei**.
+
+![](https://github.com/GuiJR777/trabalho_dsoo_2023/blob/main/images/logo.png)
+
+Mas afinal de onde surgiu o nome Litorei?
+
+![](https://github.com/GuiJR777/Litorei/blob/main/images/definicao.png)
+
+Litorar é passar um tempo de qualidade no litoral, aproveitando todas as belezas naturais das praias de Florianópolis.
 
 ### Como usar
 
