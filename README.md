@@ -1,4 +1,5 @@
 # Litorei
+
 ## Trabalho Desenvolvimento de Sistemas Orientados a Objetos I 2023
 
 Repositório para criação de trabalho da disciplina de Desenvolvimento de Sistemas Orientados a Objetos I do curso de Sistemas de Informação da UFSC.
@@ -7,11 +8,12 @@ O trabalho consiste na criação de um sistema Orientado a Objetos observando o 
 
 ### Documentação
 
-O trabalho começa com a definição do projeto que pode ser [lida aqui]().
+O trabalho começa com a definição do projeto que pode ser [lida aqui](https://github.com/GuiJR777/Litorei/blob/main/docs/descri%C3%A7%C3%A3o.md).
 
 Após isso foi feito o [mapa de telas e a modelagem de classes](https://miro.com/app/board/uXjVMZAc4QA=/?share_link_id=995939172948).
 
 ### Sobre
+
 Nosso sistema é um app de aluguel de imóveis para temporada.
 Um tinder entre turistas com desejo de passar as férias no litoral e proprietários de imóvel que desejam alugar seus imóveis durante o verão.
 
