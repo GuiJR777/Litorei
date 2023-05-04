@@ -1,7 +1,9 @@
+from abc import ABC
+
 from decorators import validar_tipo_do_parametro
 
 
-class Usuario:
+class Usuario(ABC):
     def __init__(
         self, nome: str, email: str, telefone: str, senha: str, documento: str
     ) -> None:
