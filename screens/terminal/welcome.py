@@ -1,22 +1,20 @@
 from screens.terminal.screen import Screen
+from screens.terminal.login import Login
 
 
 class Welcome(Screen):
     def __init__(self) -> None:
         super().__init__()
+        self.titulo = "Bem vindo"
         self.add_opcao(1, self.__tela_imoveis)
         self.add_opcao(2, self.__tela_login)
 
     def entrada(self) -> None:
-        self.clear_terminal()
-
-        self.__show_welcome()
-
-        self.clear_terminal(2)
-
+        self.show_titulo()
         self.__show_options()
 
-    def __show_welcome(self) -> None:
+    def show_welcome(self) -> None:
+        self.clear_terminal()
         self.digitar_na_tela("Bem vindo ao Litorei!")
         self.show(
             """
@@ -30,6 +28,7 @@ class Welcome(Screen):
 
             """,
         )
+        self.clear_terminal(2)
 
     def __show_options(self) -> None:
         self.show("Selecione uma opção:")
@@ -45,7 +44,7 @@ class Welcome(Screen):
         if not self.opcao_valida(opcao):
             self.show_error("Opção inválida!")
             self.clear_terminal(1)
-            self.__show_options()
+            self.entrada()
 
         self.clear_terminal(1)
         self.mapa_opcoes[int(opcao)]()
@@ -54,10 +53,7 @@ class Welcome(Screen):
         self.show("Tela de imóveis")
         input("Pressione enter para voltar...")
         self.clear_terminal(1)
-        self.__show_options()
+        self.entrada()
 
     def __tela_login(self) -> None:
-        self.show("Tela de login")
-        input("Pressione enter para voltar...")
-        self.clear_terminal(1)
-        self.__show_options()
+        self.trocar_de_tela(Login())
