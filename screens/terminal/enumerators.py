@@ -1,7 +1,7 @@
 import enum
 
 
-class TiposDeRespostas(enum):
+class TiposDeRespostas(enum.Enum):
     TEXTO = "texto"
     NUMERICO = "numerico"
     EMAIL = "email"

@@ -1,12 +1,14 @@
 from typing import List
-from utils.decorators import validar_tipo_do_parametro
+
+from enumerators import TipoProprietario
 from exceptions import ImovelNaoEncontradoException
-from usuario import Usuario
 from imovel import Imovel
-from enumerators import TipoLocador
+from usuario import Usuario
+
+from utils.decorators import validar_tipo_do_parametro
 
 
-class Locador(Usuario):
+class Proprietario(Usuario):
     def __init__(
         self,
         nome: str,
@@ -14,20 +16,21 @@ class Locador(Usuario):
         telefone: str,
         senha: str,
         documento: str,
-        tipo: TipoLocador,
+        tipo: TipoProprietario,
+        titulo: str,
         endereco: str,
         preco: str,
         informacoes: str,
     ) -> None:
         super().__init__(nome, email, telefone, senha, documento)
         self.__imoveis: List[Imovel] = []
-        self.__tipo: TipoLocador = None
+        self.__tipo: TipoProprietario = None
 
         self.tipo = tipo
-        self.criar_imovel(endereco, preco, informacoes)
+        self.criar_imovel(titulo, endereco, preco, informacoes)
 
     @property
-    def tipo(self) -> TipoLocador:
+    def tipo(self) -> TipoProprietario:
         return self.__tipo
 
     @property
@@ -35,13 +38,13 @@ class Locador(Usuario):
         return self.__imoveis
 
     @tipo.setter
-    @validar_tipo_do_parametro(TipoLocador)
-    def tipo(self, tipo: TipoLocador) -> None:
+    @validar_tipo_do_parametro(TipoProprietario)
+    def tipo(self, tipo: TipoProprietario) -> None:
         self.__tipo = tipo
 
     @validar_tipo_do_parametro(str)
-    def criar_imovel(self, endereco, preco, informacoes) -> None:
-        imovel = Imovel(endereco, preco, informacoes, self)
+    def criar_imovel(self, titulo, endereco, preco, informacoes) -> None:
+        imovel = Imovel(titulo, endereco, preco, informacoes, self)
 
         self.__imoveis.append(imovel)
 

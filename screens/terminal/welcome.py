@@ -15,7 +15,7 @@ class Welcome(Screen):
 
     def show_welcome(self) -> None:
         self.clear_terminal()
-        self.digitar_na_tela("Bem vindo ao Litorei!")
+        self.digitar_na_tela("Bem vindo ao ...")
         self.show_success(
             """
  _       _  _                       _

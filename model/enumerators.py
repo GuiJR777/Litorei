@@ -7,6 +7,6 @@ class StatusImovel(enum.Enum):
     INDISPONIVEL = "Indisponível"
 
 
-class TipoLocador(enum.Enum):
+class TipoProprietario(enum.Enum):
     PESSOA_FISICA = "Pessoa Física"
     PESSOA_JURIDICA = "Pessoa Jurídica"

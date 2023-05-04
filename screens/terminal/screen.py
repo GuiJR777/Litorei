@@ -85,7 +85,7 @@ class Screen(ABC):
 
         try:
             match tipo_resposta:
-                case TiposDeRespostas.NUMERO:
+                case TiposDeRespostas.NUMERICO:
                     if not resposta.isnumeric():
                         raise ValueError(
                             "Resposta inválida, precisa ser um número"
@@ -108,6 +108,8 @@ class Screen(ABC):
         except ValueError as error:
             self.show_error(str(error))
             return self.questionar(questao, tipo_resposta)
+
+        return resposta
 
     def get_opcao(self) -> None:
         opcao = input("Opção: ")

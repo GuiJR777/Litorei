@@ -1,7 +1,7 @@
 from hashlib import md5
 
 from enumerators import StatusImovel
-from locador import Locador
+from proprietario import Proprietario
 
 from utils.decorators import validar_tipo_do_parametro
 
@@ -9,38 +9,51 @@ from utils.decorators import validar_tipo_do_parametro
 class Imovel:
     def __init__(
         self,
+        titulo: str,
         endereco: str,
         preco: float,
         informacoes: str,
-        proprietario: Locador,
+        proprietario: Proprietario,
     ) -> None:
+        self.__titulo = titulo
         self.__endereco = None
         self.__preco = None
         self.__informacoes = None
-        self.__proprietario: Locador = None
+        self.__proprietario: Proprietario = None
         self.__status: StatusImovel = StatusImovel.DISPONIVEL
         self.__identificador: str = None
 
         self.__validar_parametros_construtor(
-            endereco, preco, informacoes, proprietario
+            titulo, endereco, preco, informacoes, proprietario
         )
 
     def __validar_parametros_construtor(
         self,
+        titulo: str,
         endereco: str,
         preco: float,
         informacoes: str,
-        proprietario: Locador,
+        proprietario: Proprietario,
     ) -> None:
+        self.titulo = titulo
         self.endereco = endereco
         self.preco = preco
         self.informacoes = informacoes
 
-        if proprietario is not None and isinstance(proprietario, Locador):
+        if proprietario is not None and isinstance(proprietario, Proprietario):
             self.__proprietario = proprietario
 
-        chave_id = f"{endereco}{preco}{informacoes}{proprietario.nome}"
+        chave_id = f"{titulo}{endereco}{preco}{informacoes}{proprietario.nome}"
         self.__identificador = md5(chave_id.encode("utf-8")).hexdigest()
+
+    @property
+    def titulo(self) -> str:
+        return self.__titulo
+
+    @titulo.setter
+    @validar_tipo_do_parametro(str)
+    def titulo(self, titulo: str) -> None:
+        self.__titulo = titulo
 
     @property
     def endereco(self) -> str:
@@ -74,7 +87,7 @@ class Imovel:
         return self.__identificador
 
     @property
-    def proprietario(self) -> Locador:
+    def proprietario(self) -> Proprietario:
         return self.__proprietario
 
     @property

@@ -1,4 +1,5 @@
 from screens.terminal.screen import Screen
+from screens.terminal.cadastro_usuario import CadastroUsuario
 
 
 class Login(Screen):
@@ -22,10 +23,8 @@ class Login(Screen):
         self.get_opcao()()
 
     def __tela_cadastro(self) -> None:
-        self.show("Tela de cadastro")
-        input("Pressione enter para voltar...")
-        self.clear_terminal(1)
-        self.entrada()
+        cadastro = CadastroUsuario()
+        self.trocar_de_tela(cadastro)
 
     def __tela_login(self) -> None:
         self.show("Tela de login")
