@@ -19,18 +19,7 @@ class Login(Screen):
         self.show_opcao(2, "Login")
         self.show_opcao(3, "Voltar")
 
-        self.__get_option()
-
-    def __get_option(self) -> None:
-        opcao = input("Opção: ")
-
-        if not self.opcao_valida(opcao):
-            self.show_error("Opção inválida!")
-            self.clear_terminal(1)
-            self.entrada()
-
-        self.clear_terminal(1)
-        self.mapa_opcoes[int(opcao)]()
+        self.get_opcao()()
 
     def __tela_cadastro(self) -> None:
         self.show("Tela de cadastro")

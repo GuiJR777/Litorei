@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 from time import sleep
 
 from screens.terminal.log_colors import ColorPrinter
+from screens.terminal.enumerators import TiposDeRespostas
 
 
 class Screen(ABC):
@@ -73,6 +74,51 @@ class Screen(ABC):
             delay = random.uniform(min_delay, max_delay)
             sleep(delay)
         print()
+
+    def questionar(self, questao: str, tipo_resposta: TiposDeRespostas) -> str:
+        self.digitar_na_tela(questao)
+
+        if tipo_resposta == TiposDeRespostas.SIM_OU_NAO:
+            resposta = input("Responda com 's' ou 'n': ")
+        else:
+            resposta = input("Resposta: ")
+
+        try:
+            match tipo_resposta:
+                case TiposDeRespostas.NUMERO:
+                    if not resposta.isnumeric():
+                        raise ValueError(
+                            "Resposta inválida, precisa ser um número"
+                        )
+                case TiposDeRespostas.TEXTO:
+                    if not resposta:
+                        raise ValueError(
+                            "Resposta inválida, precisa ser um texto"
+                        )
+                case TiposDeRespostas.SIM_OU_NAO:
+                    if resposta.lower() not in ["s", "n"]:
+                        raise ValueError(
+                            "Resposta inválida, precisa ser 's' ou 'n'"
+                        )
+                case TiposDeRespostas.EMAIL:
+                    if "@" not in resposta:
+                        raise ValueError(
+                            "Resposta inválida, precisa ser um email"
+                        )
+        except ValueError as error:
+            self.show_error(str(error))
+            return self.questionar(questao, tipo_resposta)
+
+    def get_opcao(self) -> None:
+        opcao = input("Opção: ")
+
+        if not self.opcao_valida(opcao):
+            self.show_error("Opção inválida!")
+            self.clear_terminal(1)
+            self.entrada()
+
+        self.clear_terminal(1)
+        self.mapa_opcoes[int(opcao)]()
 
     def opcao_valida(self, opcao: str) -> bool:
         if (

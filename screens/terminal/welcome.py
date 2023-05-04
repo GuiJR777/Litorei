@@ -16,7 +16,7 @@ class Welcome(Screen):
     def show_welcome(self) -> None:
         self.clear_terminal()
         self.digitar_na_tela("Bem vindo ao Litorei!")
-        self.show(
+        self.show_success(
             """
  _       _  _                       _
 | |     (_)| |                     (_)
@@ -36,18 +36,7 @@ class Welcome(Screen):
         self.show_opcao(2, "Login")
         self.show_opcao(0, "Sair")
 
-        self.__get_option()
-
-    def __get_option(self) -> None:
-        opcao = input("Opção: ")
-
-        if not self.opcao_valida(opcao):
-            self.show_error("Opção inválida!")
-            self.clear_terminal(1)
-            self.entrada()
-
-        self.clear_terminal(1)
-        self.mapa_opcoes[int(opcao)]()
+        self.get_opcao()
 
     def __tela_imoveis(self) -> None:
         self.show("Tela de imóveis")
