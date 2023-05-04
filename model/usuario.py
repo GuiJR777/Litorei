@@ -1,6 +1,6 @@
 from abc import ABC
 
-from decorators import validar_tipo_do_parametro
+from utils.decorators import validar_tipo_do_parametro
 
 
 class Usuario(ABC):

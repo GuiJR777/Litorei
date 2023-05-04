@@ -1,5 +1,5 @@
 from typing import List
-from decorators import validar_tipo_do_parametro
+from utils.decorators import validar_tipo_do_parametro
 from exceptions import ImovelNaoEncontradoException
 from usuario import Usuario
 from imovel import Imovel

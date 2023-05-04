@@ -3,7 +3,7 @@ from hashlib import md5
 from enumerators import StatusImovel
 from locador import Locador
 
-from decorators import validar_tipo_do_parametro
+from utils.decorators import validar_tipo_do_parametro
 
 
 class Imovel:
