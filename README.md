@@ -1,10 +1,11 @@
-# Trabalho Desenvolvimento de Sistemas Orientados a Objetos I 2023
+# Litorei
+## Trabalho Desenvolvimento de Sistemas Orientados a Objetos I 2023
 
 Repositório para criação de trabalho da disciplina de Desenvolvimento de Sistemas Orientados a Objetos I do curso de Sistemas de Informação da UFSC.
 
 O trabalho consiste na criação de um sistema Orientado a Objetos observando o padrão MVC que em primeiro momento funcionará pelo terminal mas que depois deve receber uma GUI.
 
-## Documentação
+### Documentação
 
 O trabalho começa com a definição do projeto que pode ser [lida aqui]().
 
@@ -13,7 +14,7 @@ O trabalho começa com a definição do projeto que pode ser [lida aqui]().
 Após isso foi feito o [mapa de telas e a modelagem de classes](https://miro.com/app/board/uXjVMZAc4QA=/?share_link_id=995939172948).
 
 
-## Como usar
+### Como usar
 
 Para usar basta clonar o projeto, instalar o Python 3.10 ou superior, criar uma virtual env com o comando:
 
