@@ -31,6 +31,15 @@ class Screen(ABC):
     def show_opcao(self, opcao: int, content: str) -> None:
         self.__color_printer.print_yellow(f"{opcao} - {content}")
 
+    def show_error(self, content: str) -> None:
+        self.__color_printer.print_red(content)
+
+    def show_success(self, content: str) -> None:
+        self.__color_printer.print_green(content)
+
+    def show_info(self, content: str) -> None:
+        self.__color_printer.print_blue(content)
+
     @staticmethod
     def clear_terminal(time_to_wait: int = 0) -> None:
         sleep(time_to_wait)
@@ -47,7 +56,7 @@ class Screen(ABC):
     def opcao_valida(self, opcao: str) -> bool:
         if (
             not opcao.isnumeric()
-            and int(opcao) not in self.__mapa_opcoes.keys()
+            or int(opcao) not in self.__mapa_opcoes.keys()
         ):
             return False
         return True

@@ -43,21 +43,21 @@ class Welcome(Screen):
         opcao = input("Opção: ")
 
         if not self.opcao_valida(opcao):
-            self.show("Opção inválida!")
-            self.clear_terminal(2)
+            self.show_error("Opção inválida!")
+            self.clear_terminal(1)
             self.__show_options()
 
-        self.clear_terminal(2)
+        self.clear_terminal(1)
         self.mapa_opcoes[int(opcao)]()
 
     def __tela_imoveis(self) -> None:
         self.show("Tela de imóveis")
         input("Pressione enter para voltar...")
-        self.clear_terminal(2)
+        self.clear_terminal(1)
         self.__show_options()
 
     def __tela_login(self) -> None:
         self.show("Tela de login")
         input("Pressione enter para voltar...")
-        self.clear_terminal(2)
+        self.clear_terminal(1)
         self.__show_options()
