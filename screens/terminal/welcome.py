@@ -1,5 +1,6 @@
 from screens.terminal.screen import Screen
 from screens.terminal.login import Login
+from screens.terminal.listagem_imoveis import ListagemImoveis
 
 
 class Welcome(Screen):
@@ -39,10 +40,7 @@ class Welcome(Screen):
         self.get_opcao()
 
     def __tela_imoveis(self) -> None:
-        self.show("Tela de imóveis")
-        input("Pressione enter para voltar...")
-        self.clear_terminal(1)
-        self.entrada()
+        self.trocar_de_tela(ListagemImoveis())
 
     def __tela_login(self) -> None:
         self.trocar_de_tela(Login())

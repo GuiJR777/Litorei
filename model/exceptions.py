@@ -15,3 +15,7 @@ class ImovelNaoEncontradoException(Exception):
         super().__init__(
             f"O imóvel com identificador {identificador} não foi encontrado."
         )
+
+
+class ImovelJaCadastradoException(Exception):
+    super().__init__("O imovel já está cadastrado.")

@@ -1,7 +1,10 @@
 from typing import List
 
 from enumerators import TipoProprietario
-from exceptions import ImovelNaoEncontradoException
+from exceptions import (
+    ImovelNaoEncontradoException,
+    ImovelJaCadastradoException,
+)
 from imovel import Imovel
 from usuario import Usuario
 
@@ -17,17 +20,14 @@ class Proprietario(Usuario):
         senha: str,
         documento: str,
         tipo: TipoProprietario,
-        titulo: str,
-        endereco: str,
-        preco: str,
-        informacoes: str,
+        imovel: Imovel,
     ) -> None:
         super().__init__(nome, email, telefone, senha, documento)
         self.__imoveis: List[Imovel] = []
         self.__tipo: TipoProprietario = None
 
         self.tipo = tipo
-        self.criar_imovel(titulo, endereco, preco, informacoes)
+        self.adicionar_imovel(imovel)
 
     @property
     def tipo(self) -> TipoProprietario:
@@ -43,10 +43,14 @@ class Proprietario(Usuario):
         self.__tipo = tipo
 
     @validar_tipo_do_parametro(str)
-    def criar_imovel(self, titulo, endereco, preco, informacoes) -> None:
-        imovel = Imovel(titulo, endereco, preco, informacoes, self)
+    def adicionar_imovel(self, imovel_para_adicionar: Imovel) -> None:
+        for imovel in self.__imoveis:
+            identificador = imovel_para_adicionar.identificador
+            if imovel.identificador == identificador:
+                raise ImovelJaCadastradoException(identificador)
 
-        self.__imoveis.append(imovel)
+        if imovel is not None and isinstance(imovel, Imovel):
+            self.__imoveis.append(imovel)
 
     @validar_tipo_do_parametro(str)
     def buscar_imovel(self, identificador: str) -> Imovel:

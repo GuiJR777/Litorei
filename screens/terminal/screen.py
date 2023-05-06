@@ -44,9 +44,9 @@ class Screen(ABC):
         self.__color_printer.print_blue(
             f"""
 🅻 🅸 🆃 🅾 🆁 🅴 🅸
-{'=' * 100}
+{'=' * 60}
 {self.titulo}
-{'=' * 100}
+{'=' * 60}
             """
         )
 
