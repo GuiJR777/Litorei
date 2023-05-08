@@ -1,13 +1,14 @@
 from model.enumerators import TipoProprietario
+from screens.terminal.abstract_screen import Screen
 from screens.terminal.enumerators import TiposDeRespostas
-from screens.terminal.screen import Screen
 
 
 class CadastroUsuario(Screen):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, view) -> None:
+        super().__init__(view)
         self.titulo = "Tela de Cadastro"
         self.__payload = {}
+
         self.add_opcao(1, self.__iniciar_cadastro_proprietario)
         self.add_opcao(2, self.__iniciar_cadastro_locatario)
         self.add_opcao(3, self.voltar_para_tela_anterior)
@@ -32,11 +33,13 @@ class CadastroUsuario(Screen):
         self.__questionar_pf_ou_pj()
         self.__criar_primeiro_imovel()
         self.__mostra_resultado()
+        self.view.proprietario.cadastrar(self.__payload)
 
     def __iniciar_cadastro_locatario(self) -> None:
         self.__questoes_comuns()
         self.__questionar_cpf()
         self.__mostra_resultado()
+        self.view.locatario.cadastrar(self.__payload)
 
     def __questoes_comuns(self) -> None:
         data = {

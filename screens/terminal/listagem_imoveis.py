@@ -1,9 +1,9 @@
-from screens.terminal.screen import Screen
+from screens.terminal.abstract_screen import Screen
 
 
 class ListagemImoveis(Screen):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, view) -> None:
+        super().__init__(view)
         self.titulo = "Imóveis"
 
     def entrada(self) -> None:
@@ -37,11 +37,11 @@ class ListagemImoveis(Screen):
 
     def __get_imoveis(self) -> None:
         return [
-            "Lindo apartamento em Copacabana, com vista para o mar. - R$ 350,00.", # noqa
+            "Lindo apartamento em Copacabana, com vista para o mar. - R$ 350,00.",  # noqa
             "Casa espaçosa em São Paulo, ideal para famílias. - R$ 500,00.",
-            "Chalé aconchegante em Campos do Jordão, perfeito para um final de semana romântico. - R$ 300,00.", # noqa
-            "Cobertura luxuosa em Brasília, com piscina e churrasqueira. - R$ 1.200,00.", # noqa
-            "Sítio tranquilo em Minas Gerais, cercado por natureza. - R$ 400,00.", # noqa
+            "Chalé aconchegante em Campos do Jordão, perfeito para um final de semana romântico. - R$ 300,00.",  # noqa
+            "Cobertura luxuosa em Brasília, com piscina e churrasqueira. - R$ 1.200,00.",  # noqa
+            "Sítio tranquilo em Minas Gerais, cercado por natureza. - R$ 400,00.",  # noqa
         ]
 
     def __show_imovel(self, imovel: str) -> None:

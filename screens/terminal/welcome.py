@@ -1,11 +1,11 @@
-from screens.terminal.screen import Screen
-from screens.terminal.login import Login
+from screens.terminal.abstract_screen import Screen
 from screens.terminal.listagem_imoveis import ListagemImoveis
+from screens.terminal.login import Login
 
 
 class Welcome(Screen):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, view) -> None:
+        super().__init__(view)
         self.titulo = "Bem vindo"
         self.add_opcao(1, self.__tela_imoveis)
         self.add_opcao(2, self.__tela_login)
@@ -40,7 +40,7 @@ class Welcome(Screen):
         self.get_opcao()
 
     def __tela_imoveis(self) -> None:
-        self.trocar_de_tela(ListagemImoveis())
+        self.trocar_de_tela(ListagemImoveis)
 
     def __tela_login(self) -> None:
-        self.trocar_de_tela(Login())
+        self.trocar_de_tela(Login)

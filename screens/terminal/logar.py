@@ -1,10 +1,10 @@
+from screens.terminal.abstract_screen import Screen
 from screens.terminal.enumerators import TiposDeRespostas
-from screens.terminal.screen import Screen
 
 
 class Logar(Screen):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, view) -> None:
+        super().__init__(view)
         self.titulo = "Logar no sistema"
 
     def entrada(self) -> None:

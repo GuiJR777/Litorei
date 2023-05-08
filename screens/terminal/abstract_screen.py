@@ -5,16 +5,22 @@ from time import sleep
 
 from screens.terminal.log_colors import ColorPrinter
 from screens.terminal.enumerators import TiposDeRespostas
+from view.base_view import BaseView
 
 
 class Screen(ABC):
-    def __init__(self) -> None:
+    def __init__(self, view: BaseView()) -> None:
+        self.__view = view
         self.titulo = ""
         self.ultima_tela: Screen = None
         self.__color_printer = ColorPrinter()
         self.__mapa_opcoes = {
             0: self.sair,
         }
+
+    @property
+    def view(self):
+        return self.__view
 
     @property
     def mapa_opcoes(self) -> dict:
@@ -28,6 +34,7 @@ class Screen(ABC):
         self.show_info(self.__titulo)
 
     def trocar_de_tela(self, tela) -> None:
+        tela = tela(self.view)
         self.clear_terminal(1)
         tela.ultima_tela = self
         tela.entrada()

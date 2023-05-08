@@ -1,11 +1,11 @@
-from screens.terminal.screen import Screen
+from screens.terminal.abstract_screen import Screen
 from screens.terminal.cadastro_usuario import CadastroUsuario
 from screens.terminal.logar import Logar
 
 
 class Login(Screen):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, view) -> None:
+        super().__init__(view)
         self.titulo = "Tela de Login"
         self.add_opcao(1, self.__tela_cadastro)
         self.add_opcao(2, self.__tela_login)
@@ -24,9 +24,7 @@ class Login(Screen):
         self.get_opcao()()
 
     def __tela_cadastro(self) -> None:
-        cadastro = CadastroUsuario()
-        self.trocar_de_tela(cadastro)
+        self.trocar_de_tela(CadastroUsuario)
 
     def __tela_login(self) -> None:
-        logar = Logar()
-        self.trocar_de_tela(logar)
+        self.trocar_de_tela(Logar)
