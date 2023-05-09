@@ -3,49 +3,25 @@ import random
 from abc import ABC, abstractmethod
 from time import sleep
 
-from screens.terminal.log_colors import ColorPrinter
+from getpass4 import getpass
+
 from screens.terminal.enumerators import TiposDeRespostas
-from view.base_view import BaseView
+from screens.terminal.log_colors import ColorPrinter
 
 
 class Screen(ABC):
-    def __init__(self, view: BaseView()) -> None:
-        self.__view = view
+    def __init__(self) -> None:
         self.titulo = ""
         self.ultima_tela: Screen = None
         self.__color_printer = ColorPrinter()
-        self.__mapa_opcoes = {
-            0: self.sair,
-        }
-
-    @property
-    def view(self):
-        return self.__view
-
-    @property
-    def mapa_opcoes(self) -> dict:
-        return self.__mapa_opcoes
-
-    def add_opcao(self, opcao: int, funcao) -> None:
-        self.__mapa_opcoes[opcao] = funcao
 
     @abstractmethod
     def entrada(self) -> None:
         self.show_info(self.__titulo)
 
-    def trocar_de_tela(self, tela) -> None:
-        tela = tela(self.view)
-        self.clear_terminal(1)
-        tela.ultima_tela = self
-        tela.entrada()
-
-    def voltar_para_tela_anterior(self) -> None:
-        self.clear_terminal(1)
-        self.ultima_tela.entrada()
-
-    @staticmethod
-    def show(content: str) -> None:
-        print(content)
+    @abstractmethod
+    def campos(self) -> None:
+        pass
 
     def show_titulo(self) -> None:
         self.__color_printer.print_blue(
@@ -82,11 +58,18 @@ class Screen(ABC):
             sleep(delay)
         print()
 
-    def questionar(self, questao: str, tipo_resposta: TiposDeRespostas) -> str:
+    def questionar(
+        self,
+        questao: str,
+        tipo_resposta: TiposDeRespostas,
+        opcoes_validas: list = [],
+    ) -> str:
         self.digitar_na_tela(questao)
 
         if tipo_resposta == TiposDeRespostas.SIM_OU_NAO:
             resposta = input("Responda com 's' ou 'n': ")
+        elif tipo_resposta == TiposDeRespostas.SENHA:
+            resposta = getpass("Resposta: ")
         else:
             resposta = input("Resposta: ")
 
@@ -112,30 +95,38 @@ class Screen(ABC):
                         raise ValueError(
                             "Resposta inválida, precisa ser um email"
                         )
+                case TiposDeRespostas.MULTIPLA_ESCOLHA:
+                    if resposta not in opcoes_validas:
+                        raise ValueError(
+                            "Resposta inválida, precisa ser uma das opções:"
+                            + ", ".join(opcoes_validas)
+                        )
+                case TiposDeRespostas.SENHA:
+                    if not resposta:
+                        raise ValueError(
+                            "Resposta inválida, precisa ser uma senha"
+                        )
+
         except ValueError as error:
             self.show_error(str(error))
             return self.questionar(questao, tipo_resposta)
 
         return resposta
 
-    def get_opcao(self) -> None:
-        opcao = input("Opção: ")
+    def selecionar(self, opcoes: dict) -> None:
+        for opcao, descricao in opcoes.items():
+            self.show_opcao(opcao, descricao)
 
-        if not self.opcao_valida(opcao):
+        opcao_selecionada = input("Opção: ")
+
+        if opcao_selecionada not in opcoes.keys():
             self.show_error("Opção inválida!")
             self.clear_terminal(1)
             self.entrada()
 
         self.clear_terminal(1)
-        self.mapa_opcoes[int(opcao)]()
 
-    def opcao_valida(self, opcao: str) -> bool:
-        if (
-            not opcao.isnumeric()
-            or int(opcao) not in self.__mapa_opcoes.keys()
-        ):
-            return False
-        return True
+        return opcao_selecionada
 
     def sair(self) -> None:
         self.clear_terminal(1)

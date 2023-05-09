@@ -1,10 +1,9 @@
-from imovel import Imovel
-from locatario import Locatario
+from model.imovel import Imovel
 
 
-class Aluguel(Locatario, Imovel):
+class Aluguel:
     def __init__(self, locatario: str, imovel: str) -> None:
-        self.__locatario: Locatario = None
+        self.__locatario = None
         self.__imovel: Imovel = None
         self.__data_locacao = None
         self.__data_devolucao = None
@@ -14,14 +13,12 @@ class Aluguel(Locatario, Imovel):
     def __validar_parametros_construtor(
         self, locatario: str, imovel: str
     ) -> None:
-        if locatario is not None and isinstance(locatario, Locatario):
-            self.__locatario = locatario
+        self.__locatario = locatario
 
-        if imovel is not None and isinstance(imovel, Imovel):
-            self.__imovel = imovel
+        self.__imovel = imovel
 
     @property
-    def locatario(self) -> Locatario:
+    def locatario(self):
         return self.__locatario
 
     @property

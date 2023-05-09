@@ -1,19 +1,20 @@
 from screens.terminal.abstract_screen import Screen
 
 
-class CadastroUsuario(Screen):
-    def __init__(self) -> None:
+class CadastroLogin(Screen):
+    def __init_(self) -> None:
         super().__init__()
-        self.titulo = "Tela de Cadastro"
+        self.titulo = "Cadastro e Login"
 
     def entrada(self) -> None:
         self.clear_terminal()
         self.show_titulo()
 
-    def campos(self) -> None:
+    def campos(self) -> str:
         return self.selecionar(
             {
-                "1": "Estou procurando um imóvel",
-                "2": "Quero anunciar meus imóveis",
+                "1": "Cadastrar-se",
+                "2": "Logar",
+                "3": "Voltar",
             }
         )

@@ -1,20 +1,12 @@
 from screens.terminal.abstract_screen import Screen
-from screens.terminal.listagem_imoveis import ListagemImoveis
-from screens.terminal.login import Login
 
 
 class Welcome(Screen):
-    def __init__(self, view) -> None:
-        super().__init__(view)
+    def __init__(self) -> None:
+        super().__init__()
         self.titulo = "Bem vindo"
-        self.add_opcao(1, self.__tela_imoveis)
-        self.add_opcao(2, self.__tela_login)
 
     def entrada(self) -> None:
-        self.show_titulo()
-        self.__show_options()
-
-    def show_welcome(self) -> None:
         self.clear_terminal()
         self.digitar_na_tela("Bem vindo ao ...")
         self.show_success(
@@ -31,16 +23,5 @@ class Welcome(Screen):
         )
         self.clear_terminal(2)
 
-    def __show_options(self) -> None:
-        self.show("Selecione uma opção:")
-        self.show_opcao(1, "Ver imóveis")
-        self.show_opcao(2, "Login")
-        self.show_opcao(0, "Sair")
-
-        self.get_opcao()
-
-    def __tela_imoveis(self) -> None:
-        self.trocar_de_tela(ListagemImoveis)
-
-    def __tela_login(self) -> None:
-        self.trocar_de_tela(Login)
+    def campos(self) -> None:
+        pass
