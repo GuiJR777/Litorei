@@ -1,7 +1,6 @@
 from hashlib import md5
 
-from enumerators import StatusImovel
-from proprietario import Proprietario
+from model.enumerators import StatusImovel
 
 from utils.decorators import validar_tipo_do_parametro
 
@@ -13,13 +12,13 @@ class Imovel:
         endereco: str,
         preco: float,
         informacoes: str,
-        proprietario: Proprietario,
+        proprietario,
     ) -> None:
         self.__titulo = titulo
         self.__endereco = None
         self.__preco = None
         self.__informacoes = None
-        self.__proprietario: Proprietario = None
+        self.__proprietario = None
         self.__status: StatusImovel = StatusImovel.DISPONIVEL
         self.__identificador: str = None
 
@@ -33,15 +32,14 @@ class Imovel:
         endereco: str,
         preco: float,
         informacoes: str,
-        proprietario: Proprietario,
+        proprietario,
     ) -> None:
         self.titulo = titulo
         self.endereco = endereco
         self.preco = preco
         self.informacoes = informacoes
 
-        if proprietario is not None and isinstance(proprietario, Proprietario):
-            self.__proprietario = proprietario
+        self.__proprietario = proprietario
 
         chave_id = f"{titulo}{endereco}{preco}{informacoes}{proprietario.nome}"
         self.__identificador = md5(chave_id.encode("utf-8")).hexdigest()
@@ -87,7 +85,7 @@ class Imovel:
         return self.__identificador
 
     @property
-    def proprietario(self) -> Proprietario:
+    def proprietario(self):
         return self.__proprietario
 
     @property

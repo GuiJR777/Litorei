@@ -1,8 +1,8 @@
-from aluguel import Aluguel
-from imovel import Imovel
-from usuario import Usuario
-from enumerators import StatusImovel
-from exceptions import (
+from model.aluguel import Aluguel
+from model.imovel import Imovel
+from model.usuario import Usuario
+from model.enumerators import StatusImovel
+from model.exceptions import (
     JaPossuiAluguelException,
     ImovelIndisponivelException,
     NaoPossuiImovelAlugadoException,

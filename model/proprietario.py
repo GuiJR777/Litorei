@@ -1,13 +1,12 @@
 from typing import List
 
-from enumerators import TipoProprietario
-from exceptions import (
+from model.enumerators import TipoProprietario
+from model.exceptions import (
     ImovelNaoEncontradoException,
     ImovelJaCadastradoException,
 )
-from imovel import Imovel
-from usuario import Usuario
-
+from model.imovel import Imovel
+from model.usuario import Usuario
 from utils.decorators import validar_tipo_do_parametro
 
 
@@ -20,7 +19,7 @@ class Proprietario(Usuario):
         senha: str,
         documento: str,
         tipo: TipoProprietario,
-        imovel: Imovel,
+        imovel,
     ) -> None:
         super().__init__(nome, email, telefone, senha, documento)
         self.__imoveis: List[Imovel] = []
