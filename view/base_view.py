@@ -25,7 +25,6 @@ class BaseView(View):
     def sair_sistema(self) -> None:
         self.screen_manager.trocar_de_tela(Telas.AGRADECIMENTO)
 
-
     def tela_de_cadastro_login(self) -> None:
         self.screen_manager.trocar_de_tela(Telas.CADASTRO_LOGIN)
         comando_usuario = self.screen_manager.esperar_comando_usuario()

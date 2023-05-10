@@ -31,5 +31,5 @@ class CadastroLocatario(Screen):
                     "Qual é o seu telefone?", TiposDeRespostas.NUMERICO
                 ),
             }
-        except UsuarioQuerVoltarException():
+        except UsuarioQuerVoltarException:
             return None

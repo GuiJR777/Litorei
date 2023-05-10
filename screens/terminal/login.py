@@ -22,5 +22,5 @@ class Login(Screen):
                     "Digite sua senha", TiposDeRespostas.SENHA
                 ),
             }
-        except UsuarioQuerVoltarException():
+        except UsuarioQuerVoltarException:
             return None

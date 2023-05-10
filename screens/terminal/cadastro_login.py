@@ -2,7 +2,7 @@ from screens.terminal.abstract_screen import Screen
 
 
 class CadastroLogin(Screen):
-    def __init_(self) -> None:
+    def __init__(self) -> None:
         super().__init__()
         self.titulo = "Cadastro e Login"
 
