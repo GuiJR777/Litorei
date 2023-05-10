@@ -1,0 +1,2 @@
+class UsuarioQuerVoltarException(Exception):
+    pass

@@ -1,5 +1,6 @@
 from screens.terminal.abstract_screen import Screen
 from screens.terminal.enumerators import TiposDeRespostas
+from screens.terminal.exceptions import UsuarioQuerVoltarException
 
 
 class CadastroLocatario(Screen):
@@ -12,20 +13,23 @@ class CadastroLocatario(Screen):
         self.show_titulo()
 
     def campos(self) -> None:
-        return {
-            "nome": self.questionar(
-                "Qual é o seu nome?", TiposDeRespostas.TEXTO
-            ),
-            "email": self.questionar(
-                "Qual é o seu email?", TiposDeRespostas.EMAIL
-            ),
-            "senha": self.questionar(
-                "Qual é a sua senha?", TiposDeRespostas.SENHA
-            ),
-            "documento": self.questionar(
-                "Qual é o seu CPF?", TiposDeRespostas.NUMERICO
-            ),
-            "telefone": self.questionar(
-                "Qual é o seu telefone?", TiposDeRespostas.NUMERICO
-            ),
-        }
+        try:
+            return {
+                "nome": self.questionar(
+                    "Qual é o seu nome?", TiposDeRespostas.TEXTO
+                ),
+                "email": self.questionar(
+                    "Qual é o seu email?", TiposDeRespostas.EMAIL
+                ),
+                "senha": self.questionar(
+                    "Qual é a sua senha?", TiposDeRespostas.SENHA
+                ),
+                "documento": self.questionar(
+                    "Qual é o seu CPF?", TiposDeRespostas.NUMERICO
+                ),
+                "telefone": self.questionar(
+                    "Qual é o seu telefone?", TiposDeRespostas.NUMERICO
+                ),
+            }
+        except UsuarioQuerVoltarException():
+            return None

@@ -15,5 +15,6 @@ class CadastroUsuario(Screen):
             {
                 "1": "Estou procurando um imóvel",
                 "2": "Quero anunciar meus imóveis",
+                "3": "Voltar",
             }
         )

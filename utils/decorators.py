@@ -1,10 +1,11 @@
 def validar_tipo_do_parametro(tipo):
-    def decorador(funcao):
-        def wrapper(*args, **kwargs):
-            if all([isinstance(arg, tipo) for arg in args]):
-                return funcao(*args, **kwargs)
-            raise TypeError(f"Os parâmetros devem ser do tipo {tipo.__name__}")
+    def decorator(funcao):
+        def wrapper(self, *args, **kwargs):
+            for arg in args:
+                if not isinstance(arg, tipo):
+                    raise TypeError(f"O tipo do argumento {arg} é inválido")
+            return funcao(self, *args, **kwargs)
 
         return wrapper
 
-    return decorador
+    return decorator

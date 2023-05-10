@@ -6,6 +6,7 @@ from time import sleep
 from getpass4 import getpass
 
 from screens.terminal.enumerators import TiposDeRespostas
+from screens.terminal.exceptions import UsuarioQuerVoltarException
 from screens.terminal.log_colors import ColorPrinter
 
 
@@ -38,9 +39,11 @@ class Screen(ABC):
 
     def show_error(self, content: str) -> None:
         self.__color_printer.print_red(content)
+        input("Pressione enter para continuar...")
 
     def show_success(self, content: str) -> None:
         self.__color_printer.print_green(content)
+        input("Pressione enter para continuar...")
 
     def show_info(self, content: str) -> None:
         self.__color_printer.print_blue(content)
@@ -109,6 +112,12 @@ class Screen(ABC):
 
         except ValueError as error:
             self.show_error(str(error))
+            tentar_novamente = self.questionar(
+                "Tentar novamente?",
+                TiposDeRespostas.SIM_OU_NAO
+                )
+            if tentar_novamente == "n":
+                raise UsuarioQuerVoltarException()
             return self.questionar(questao, tipo_resposta)
 
         return resposta
