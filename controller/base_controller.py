@@ -58,7 +58,6 @@ class BaseController(Controller):
                 self.cadastrar_usuario()
 
     def logar(self) -> None:
-        # TODO: Incluir opção de voltar caso o usuário não queira mais logar
         resposta = self.__view.logar_usuario()
 
         if isinstance(resposta, ComandoUsuario):
@@ -88,3 +87,4 @@ class BaseController(Controller):
                 self.cadastrar_usuario()  # TODO: Remover
             case ComandoUsuario.VOLTAR:
                 self.tela_de_cadastro_login()
+

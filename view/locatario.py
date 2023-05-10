@@ -18,7 +18,6 @@ class LocatarioView(View):
 
     def cadastrado_com_sucesso(self) -> None:
         self.screen_manager.feedback_sucesso("Cadastro realizado com sucesso!")
-        self.screen_manager.trocar_de_tela(Telas.CADASTRO_USUARIO)
 
     def iniciar(self) -> None:
         pass
