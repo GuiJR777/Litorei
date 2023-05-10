@@ -36,3 +36,6 @@ class ScreenManager:
 
     def esperar_comando_usuario(self) -> str:
         return self.__active_screen.campos()
+
+    def feedback_sucesso(self, mensagem: str) -> None:
+        self.__active_screen.show_success(mensagem)

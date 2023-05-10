@@ -1,5 +1,6 @@
 from screens.terminal.abstract_screen import Screen
 from screens.terminal.enumerators import TiposDeRespostas
+from screens.terminal.exceptions import UsuarioQuerVoltarException
 
 
 class Login(Screen):
@@ -12,11 +13,14 @@ class Login(Screen):
         self.show_titulo()
 
     def campos(self) -> None:
-        return {
-            "email": self.questionar(
-                "Digite seu email", TiposDeRespostas.EMAIL
-            ),
-            "senha": self.questionar(
-                "Digite sua senha", TiposDeRespostas.SENHA
-            ),
-        }
+        try:
+            return {
+                "email": self.questionar(
+                    "Digite seu email", TiposDeRespostas.EMAIL
+                ),
+                "senha": self.questionar(
+                    "Digite sua senha", TiposDeRespostas.SENHA
+                ),
+            }
+        except UsuarioQuerVoltarException():
+            return None

@@ -4,8 +4,8 @@ from view.abstract_view import View
 
 
 class BaseView(View):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, screen_manager) -> None:
+        self.screen_manager = screen_manager
 
     def iniciar(self) -> None:
         self.screen_manager.trocar_de_tela(Telas.WELCOME)
@@ -18,14 +18,15 @@ class BaseView(View):
             case "1":
                 return ComandoUsuario.LISTAR_IMOVEIS
             case "2":
-                return self.__tela_de_cadastro_login()
+                return ComandoUsuario.IR_CADASTRO_LOGIN
             case "3":
                 return ComandoUsuario.SAIR
 
     def sair_sistema(self) -> None:
         self.screen_manager.trocar_de_tela(Telas.AGRADECIMENTO)
 
-    def __tela_de_cadastro_login(self) -> None:
+
+    def tela_de_cadastro_login(self) -> None:
         self.screen_manager.trocar_de_tela(Telas.CADASTRO_LOGIN)
         comando_usuario = self.screen_manager.esperar_comando_usuario()
 
@@ -35,12 +36,15 @@ class BaseView(View):
             case "2":
                 return ComandoUsuario.LOGAR_USUARIO
             case "3":
-                self.screen_manager.voltar_para_tela_anterior()
-                self.processo()
+                return ComandoUsuario.VOLTAR
 
     def logar_usuario(self) -> None:
         self.screen_manager.trocar_de_tela(Telas.LOGIN)
         comando_usuario = self.screen_manager.esperar_comando_usuario()
+
+        if not comando_usuario:
+            return ComandoUsuario.VOLTAR
+
         return comando_usuario
 
     def cadastrar_usuario(self) -> None:
@@ -52,3 +56,5 @@ class BaseView(View):
                 return ComandoUsuario.CADASTRAR_LOCATARIO
             case "2":
                 return ComandoUsuario.CADASTRAR_PROPRIETARIO
+            case "3":
+                return ComandoUsuario.VOLTAR
