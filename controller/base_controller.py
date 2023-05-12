@@ -3,18 +3,24 @@ from controller.enumerators import ComandoUsuario
 from controller.imovel import ImovelController
 from controller.locatario import LocatarioController
 from controller.proprietario import ProprietarioController
+from model.proprietario import Proprietario
 from model.usuario import Usuario
 from view.base_view import BaseView
+from model.locatario import Locatario
+
+from para_testes import locatarios  # TODO: Remover
 
 
 class BaseController(Controller):
     def __init__(self, screen_manager) -> None:
         self.__screen_manager = screen_manager
-        self.__usuario_logado = None
+        self.__usuario_logado = None  # TODO: Descomentar
+        # self.__usuario_logado = locatarios[0]  # TODO: Remover
         self.__imovel = ImovelController(self)
         self.__locatario = LocatarioController(self)
         self.__proprietario = ProprietarioController(self)
         self.__view = BaseView(screen_manager)
+        self.__first_iniciation = True
 
     @property
     def usuario_logado(self) -> dict:
@@ -28,9 +34,22 @@ class BaseController(Controller):
     def screen_manager(self):
         return self.__screen_manager
 
+    @property
+    def imovel(self):
+        return self.__imovel
+
     def iniciar(self) -> None:
-        self.__view.iniciar()
-        self.inicio_deslogado()
+        if self.__first_iniciation:
+            self.__view.iniciar()
+            self.__first_iniciation = False
+
+        if self.usuario_logado:
+            if isinstance(self.usuario_logado, Locatario):
+                self.__locatario.iniciar()
+            elif isinstance(self.usuario_logado, Proprietario):
+                pass
+        else:
+            self.inicio_deslogado()
 
     def inicio_deslogado(self) -> None:
         comando_usuario = self.__view.inicio_deslogado()
@@ -40,9 +59,7 @@ class BaseController(Controller):
             case ComandoUsuario.IR_CADASTRO_LOGIN:
                 self.tela_de_cadastro_login()
             case ComandoUsuario.LISTAR_IMOVEIS:
-                print("Listar imóveis")  # TODO: Remover
-                input("Pressione enter para continuar...")  # TODO: Remover
-                self.inicio_deslogado()  # TODO: Remover
+                self.__imovel.listar_imoveis()
 
     def sair(self) -> None:
         self.__view.sair_sistema()
@@ -87,4 +104,3 @@ class BaseController(Controller):
                 self.cadastrar_usuario()  # TODO: Remover
             case ComandoUsuario.VOLTAR:
                 self.tela_de_cadastro_login()
-

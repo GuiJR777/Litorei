@@ -19,14 +19,12 @@ class Proprietario(Usuario):
         senha: str,
         documento: str,
         tipo: TipoProprietario,
-        imovel,
     ) -> None:
         super().__init__(nome, email, telefone, senha, documento)
         self.__imoveis: List[Imovel] = []
         self.__tipo: TipoProprietario = None
 
         self.tipo = tipo
-        self.adicionar_imovel(imovel)
 
     @property
     def tipo(self) -> TipoProprietario:
@@ -41,15 +39,14 @@ class Proprietario(Usuario):
     def tipo(self, tipo: TipoProprietario) -> None:
         self.__tipo = tipo
 
-    @validar_tipo_do_parametro(str)
     def adicionar_imovel(self, imovel_para_adicionar: Imovel) -> None:
         for imovel in self.__imoveis:
             identificador = imovel_para_adicionar.identificador
             if imovel.identificador == identificador:
                 raise ImovelJaCadastradoException(identificador)
 
-        if imovel is not None and isinstance(imovel, Imovel):
-            self.__imoveis.append(imovel)
+        imovel_para_adicionar.proprietario = self
+        self.__imoveis.append(imovel_para_adicionar)
 
     @validar_tipo_do_parametro(str)
     def buscar_imovel(self, identificador: str) -> Imovel:

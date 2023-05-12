@@ -12,7 +12,6 @@ class Imovel:
         endereco: str,
         preco: float,
         informacoes: str,
-        proprietario,
     ) -> None:
         self.__titulo = titulo
         self.__endereco = None
@@ -23,7 +22,7 @@ class Imovel:
         self.__identificador: str = None
 
         self.__validar_parametros_construtor(
-            titulo, endereco, preco, informacoes, proprietario
+            titulo, endereco, preco, informacoes
         )
 
     def __validar_parametros_construtor(
@@ -32,16 +31,13 @@ class Imovel:
         endereco: str,
         preco: float,
         informacoes: str,
-        proprietario,
     ) -> None:
         self.titulo = titulo
         self.endereco = endereco
         self.preco = preco
         self.informacoes = informacoes
 
-        self.__proprietario = proprietario
-
-        chave_id = f"{titulo}{endereco}{preco}{informacoes}{proprietario.nome}"
+        chave_id = f"{titulo}{endereco}{preco}{informacoes}"
         self.__identificador = md5(chave_id.encode("utf-8")).hexdigest()
 
     @property
@@ -81,12 +77,19 @@ class Imovel:
         self.__informacoes = informacoes
 
     @property
-    def identificador(self) -> str:
-        return self.__identificador
-
-    @property
     def proprietario(self):
         return self.__proprietario
+
+    @proprietario.setter
+    def proprietario(self, proprietario) -> None:
+        from model.proprietario import Proprietario
+        if not isinstance(proprietario, Proprietario):
+            raise TypeError("Proprietário inválido")
+        self.__proprietario = proprietario
+
+    @property
+    def identificador(self) -> str:
+        return self.__identificador
 
     @property
     def status(self) -> StatusImovel:

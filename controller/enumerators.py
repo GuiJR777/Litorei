@@ -10,3 +10,5 @@ class ComandoUsuario(enum.Enum):
     CADASTRAR_LOCATARIO = "cadastrar_locatario"
     CADASTRAR_PROPRIETARIO = "cadastrar_proprietario"
     IR_CADASTRO_LOGIN = "ir_cadastro_login"
+    VER_PERFIL_LOCATARIO = "ver_perfil_locatario"
+    VER_CONTRATOS_LOCATARIO = "ver_contratos_locatario"

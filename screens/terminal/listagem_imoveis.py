@@ -2,51 +2,23 @@ from screens.terminal.abstract_screen import Screen
 
 
 class ListagemImoveis(Screen):
-    def __init__(self, view) -> None:
-        super().__init__(view)
-        self.titulo = "Imóveis"
+    def __init__(self) -> None:
+        super().__init__()
+        self.titulo = "Listagem de Imóveis"
+        self.__imoveis_data = None
 
-    def entrada(self) -> None:
-        self.show_titulo()
-        self.__show_options()
-
-    def __show_options(self) -> None:
-        imoveis = self.__get_imoveis()
-
-        for index, imovel in enumerate(imoveis):
-            self.add_opcao(index + 1, (self.__show_imovel, imovel))
-            self.show_opcao(index + 1, imovel)
-
-        self.add_opcao(len(imoveis) + 1, self.voltar_para_tela_anterior)
-        self.show_opcao(len(imoveis) + 1, "Voltar")
-
-        self.get_opcao()
-
-    def get_opcao(self) -> None:
-        opcao = input("Opção: ")
-
-        if not self.opcao_valida(opcao):
-            self.show_error("Opção inválida!")
-            self.clear_terminal(1)
-            self.entrada()
-
-        self.clear_terminal(1)
-        metodo = self.mapa_opcoes[int(opcao)][0]
-        argumento = self.mapa_opcoes[int(opcao)][1]
-        metodo(argumento)
-
-    def __get_imoveis(self) -> None:
-        return [
-            "Lindo apartamento em Copacabana, com vista para o mar. - R$ 350,00.",  # noqa
-            "Casa espaçosa em São Paulo, ideal para famílias. - R$ 500,00.",
-            "Chalé aconchegante em Campos do Jordão, perfeito para um final de semana romântico. - R$ 300,00.",  # noqa
-            "Cobertura luxuosa em Brasília, com piscina e churrasqueira. - R$ 1.200,00.",  # noqa
-            "Sítio tranquilo em Minas Gerais, cercado por natureza. - R$ 400,00.",  # noqa
-        ]
-
-    def __show_imovel(self, imovel: str) -> None:
+    def entrada(self, imoveis_data) -> None:
+        self.__imoveis_data = imoveis_data
         self.clear_terminal()
-        self.show(imovel)
-        input("Pressione enter para voltar...")
-        self.clear_terminal(1)
-        self.entrada()
+        self.show_titulo()
+
+    def campos(self) -> None:
+        opcoes = {}
+
+        for index, imovel in enumerate(self.__imoveis_data):
+            opcoes[str(index + 1)] = f"{imovel['titulo']} - {imovel['preco']}"
+
+        opcoes[str(len(opcoes) + 1)] = "Voltar"
+
+        self.show_info("Selecione um imóvel para ver mais detalhes ou voltar")
+        return self.selecionar(opcoes)

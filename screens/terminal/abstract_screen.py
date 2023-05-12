@@ -113,9 +113,8 @@ class Screen(ABC):
         except ValueError as error:
             self.show_error(str(error))
             tentar_novamente = self.questionar(
-                "Tentar novamente?",
-                TiposDeRespostas.SIM_OU_NAO
-                )
+                "Tentar novamente?", TiposDeRespostas.SIM_OU_NAO
+            )
             if tentar_novamente == "n":
                 raise UsuarioQuerVoltarException()
             return self.questionar(questao, tipo_resposta)

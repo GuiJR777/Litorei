@@ -11,10 +11,12 @@ class TiposDeRespostas(enum.Enum):
 
 
 class Telas(enum.Enum):
-    WELCOME = "welcome"
-    INICIO_DESLOGADO = "inicio_deslogado"
     AGRADECIMENTO = "agradecimento"
-    CADASTRO_LOGIN = "cadastro_login"
-    LOGIN = "login"
-    CADASTRO_USUARIO = "cadastro_usuario"
     CADASTRO_LOCATARIO = "cadastro_locatario"
+    CADASTRO_LOGIN = "cadastro_login"
+    CADASTRO_USUARIO = "cadastro_usuario"
+    LISTAGEM_IMOVEIS = "listagem_imoveis"
+    LOGIN = "login"
+    INICIO_DESLOGADO = "inicio_deslogado"
+    INICIO_LOCATARIO = "inicio_locatario"
+    WELCOME = "welcome"

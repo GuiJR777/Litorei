@@ -7,6 +7,8 @@ from screens.terminal.cadastro_login import CadastroLogin
 from screens.terminal.cadastro_usuario import CadastroUsuario
 from screens.terminal.enumerators import Telas
 from screens.terminal.inicio_deslogado import InicioDeslogado
+from screens.terminal.inicio_locatario import InicioLocatario
+from screens.terminal.listagem_imoveis import ListagemImoveis
 from screens.terminal.login import Login
 from screens.terminal.welcome import Welcome
 
@@ -14,21 +16,23 @@ from screens.terminal.welcome import Welcome
 class ScreenManager:
     def __init__(self) -> None:
         self.__telas: Dict[Telas, Screen] = {
-            Telas.WELCOME: Welcome(),
-            Telas.INICIO_DESLOGADO: InicioDeslogado(),
-            Telas.AGRADECIMENTO: Agradecimento(),
-            Telas.CADASTRO_LOGIN: CadastroLogin(),
-            Telas.LOGIN: Login(),
-            Telas.CADASTRO_USUARIO: CadastroUsuario(),
-            Telas.CADASTRO_LOCATARIO: CadastroLocatario(),
+            Telas.AGRADECIMENTO: Agradecimento,
+            Telas.CADASTRO_LOCATARIO: CadastroLocatario,
+            Telas.CADASTRO_LOGIN: CadastroLogin,
+            Telas.CADASTRO_USUARIO: CadastroUsuario,
+            Telas.INICIO_DESLOGADO: InicioDeslogado,
+            Telas.INICIO_LOCATARIO: InicioLocatario,
+            Telas.LISTAGEM_IMOVEIS: ListagemImoveis,
+            Telas.LOGIN: Login,
+            Telas.WELCOME: Welcome,
         }
         self.__active_screen = None
         self.__last_screens = []
 
-    def trocar_de_tela(self, tela: Telas) -> None:
+    def trocar_de_tela(self, tela: Telas, **kwargs) -> None:
         self.__last_screens.append(self.__active_screen)
-        self.__active_screen = self.__telas[tela]
-        self.__active_screen.entrada()
+        self.__active_screen = self.__telas[tela]()
+        self.__active_screen.entrada(**kwargs)
 
     def voltar_para_tela_anterior(self) -> None:
         self.__active_screen = self.__last_screens.pop()
@@ -39,3 +43,6 @@ class ScreenManager:
 
     def feedback_sucesso(self, mensagem: str) -> None:
         self.__active_screen.show_success(mensagem)
+
+    def feedback_erro(self, mensagem: str) -> None:
+        self.__active_screen.show_error(mensagem)
