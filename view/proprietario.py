@@ -22,8 +22,9 @@ class ProprietarioView(View):
     def erro_cadastro(self, mensagem: str) -> None:
         self.screen_manager.feedback_erro(mensagem)
 
-    def inicar(self, name):
-        self.screen_manager.trocar_de_tela(Telas.INICIO_PROPRIETARIO, name=name)
+    def iniciar(self, name):
+        self.screen_manager.trocar_de_tela(
+            Telas.INICIO_PROPRIETARIO, name=name)
         resposta = self.screen_manager.esperar_comando_usuario()
 
         match resposta:
@@ -35,3 +36,19 @@ class ProprietarioView(View):
                 return ComandoUsuario.CADASTRAR_NOVO_IMOVEL
             case "4":
                 return ComandoUsuario.SAIR
+
+    def mostrar_perfil(self, data):
+        self.screen_manager.trocar_de_tela(
+            Telas.PERFIL_PROPRIETARIO, data=data)
+        resposta = self.screen_manager.esperar_comando_usuario()
+
+        match resposta:
+            case "1":
+                return ComandoUsuario.EDITAR_PERFIL_PROPRIETARIO
+            case "2":
+                return ComandoUsuario.VOLTAR
+
+    def editar_perfil(self, data):
+        self.screen_manager.trocar_de_tela(
+            Telas.EDITAR_PERFIL_PROPRIETARIO, data=data)
+        return self.screen_manager.esperar_comando_usuario()

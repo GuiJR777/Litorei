@@ -51,9 +51,7 @@ class ProprietarioController(Controller):
             case ComandoUsuario.SAIR:
                 self.__base_controller.sair()
             case ComandoUsuario.VER_PERFIL_PROPRIETARIO:
-                print("Ver perfil proprietario")
-                input("Pressione enter para continuar...")
-                self.iniciar()
+                self.__mostrar_perfil()
 
             case ComandoUsuario.VER_IMOVEIS_PROPRIETARIO:
                 print("Ver imoveis proprietarios")
@@ -63,3 +61,46 @@ class ProprietarioController(Controller):
                 print("Cadastrar novo imovel")
                 input("Pressione enter para continuar...")
                 self.iniciar()
+
+    def __mostrar_perfil(self):
+        comando = self.__proprietario_view.mostrar_perfil(
+            self.__get_proprietario_data()
+        )
+
+        match comando:
+            case ComandoUsuario.VOLTAR:
+                self.iniciar()
+            case ComandoUsuario.EDITAR_PERFIL_PROPRIETARIO:
+                self.__editar_perfil()
+
+    def __get_proprietario_data(self):
+        usuario_logado = self.__base_controller.usuario_logado
+
+        return {
+            "nome": usuario_logado.nome,
+            "email": usuario_logado.email,
+            "telefone": usuario_logado.telefone,
+            "documento": usuario_logado.documento
+        }
+
+    def __editar_perfil(self):
+        dados_para_editar = self.__proprietario_view.editar_perfil(
+            self.__get_proprietario_data()
+        )
+
+        email_do_usuario_logado = self.__base_controller.usuario_logado.email
+        novo_usuario_logado = None
+
+        for proprietario in self.__proprietario:
+            if proprietario.email == email_do_usuario_logado:
+                proprietario.nome = dados_para_editar["nome"]
+                proprietario.email = dados_para_editar["email"]
+                proprietario.telefone = dados_para_editar["telefone"]
+                proprietario.documento = dados_para_editar["documento"]
+                novo_usuario_logado = proprietario
+                break
+
+        if novo_usuario_logado:
+            self.__base_controller.usuario_logado = novo_usuario_logado
+            self.__proprietario_view.cadastrado_com_sucesso()
+            self.__mostrar_perfil()

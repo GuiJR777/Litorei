@@ -10,10 +10,12 @@ from screens.terminal.inicio_deslogado import InicioDeslogado
 from screens.terminal.inicio_locatario import InicioLocatario
 from screens.terminal.listagem_imoveis import ListagemImoveis
 from screens.terminal.login import Login
+from screens.terminal.perfil_proprietario import PerfilProprietario
 from screens.terminal.welcome import Welcome
 from screens.terminal.cadastro_proprietario import CadastroProprietario
 from screens.terminal.cadastro_imovel import CadastroImovel
 from screens.terminal.inicio_proprietario import InicioProprietario
+from screens.terminal.editar_perfil_proprietario import EditarPerfilProprietario
 
 
 class ScreenManager:
@@ -31,6 +33,8 @@ class ScreenManager:
             Telas.CADASTRO_PROPRIETARIO: CadastroProprietario,
             Telas.CADASTRO_IMOVEL: CadastroImovel,
             Telas.INICIO_PROPRIETARIO: InicioProprietario,
+            Telas.PERFIL_PROPRIETARIO: PerfilProprietario,
+            Telas.EDITAR_PERFIL_PROPRIETARIO: EditarPerfilProprietario,
         }
         self.__active_screen = None
         self.__last_screens = []
