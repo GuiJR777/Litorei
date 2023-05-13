@@ -16,3 +16,4 @@ class ComandoUsuario(enum.Enum):
     VER_IMOVEIS_PROPRIETARIO = "ver imoveis proprietario"
     CADASTRAR_NOVO_IMOVEL = "cadastrar novo imovel"
     EDITAR_PERFIL_PROPRIETARIO = "editar perfil proprietario"
+    EDITAR_PERFIL_LOCATARIO = "editar perfil locatario"
