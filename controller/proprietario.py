@@ -44,6 +44,22 @@ class ProprietarioController(Controller):
             self.__base_controller.cadastrar_usuario()
 
     def iniciar(self):
-        print("Tela do proprietario")
-        input("Pressione enter para continuar...")
-        self.__base_controller.iniciar()
+        comando = self.__proprietario_view.iniciar(
+            self.__base_controller.usuario_logado.nome
+        )
+        match comando:
+            case ComandoUsuario.SAIR:
+                self.__base_controller.sair()
+            case ComandoUsuario.VER_PERFIL_PROPRIETARIO:
+                print("Ver perfil proprietario")
+                input("Pressione enter para continuar...")
+                self.iniciar()
+
+            case ComandoUsuario.VER_IMOVEIS_PROPRIETARIO:
+                print("Ver imoveis proprietarios")
+                input("Pressione enter para continuar...")
+                self.iniciar()
+            case ComandoUsuario.CADASTRAR_NOVO_IMOVEL:
+                print("Cadastrar novo imovel")
+                input("Pressione enter para continuar...")
+                self.iniciar()

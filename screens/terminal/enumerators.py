@@ -21,4 +21,5 @@ class Telas(enum.Enum):
     INICIO_DESLOGADO = "inicio_deslogado"
     INICIO_LOCATARIO = "inicio_locatario"
     WELCOME = "welcome"
-    CADASTRO_IMOVEL = "cadastro_imovel"
+    CADASTRO_IMOVEL = "cadastro_imovel",
+    INICIO_PROPRIETARIO = "inicio_proprietario"
