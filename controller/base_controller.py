@@ -99,8 +99,6 @@ class BaseController(Controller):
             case ComandoUsuario.CADASTRAR_LOCATARIO:
                 self.__locatario.cadastrar()
             case ComandoUsuario.CADASTRAR_PROPRIETARIO:
-                print("Cadastro de proprietário")  # TODO: Remover
-                input("Pressione enter para continuar...")  # TODO: Remover
-                self.cadastrar_usuario()  # TODO: Remover
+                self.__proprietario.cadastrar()
             case ComandoUsuario.VOLTAR:
                 self.tela_de_cadastro_login()

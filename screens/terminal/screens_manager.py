@@ -11,6 +11,8 @@ from screens.terminal.inicio_locatario import InicioLocatario
 from screens.terminal.listagem_imoveis import ListagemImoveis
 from screens.terminal.login import Login
 from screens.terminal.welcome import Welcome
+from screens.terminal.cadastro_proprietario import CadastroProprietario
+from screens.terminal.cadastro_imovel import CadastroImovel
 
 
 class ScreenManager:
@@ -25,6 +27,8 @@ class ScreenManager:
             Telas.LISTAGEM_IMOVEIS: ListagemImoveis,
             Telas.LOGIN: Login,
             Telas.WELCOME: Welcome,
+            Telas.CADASTRO_PROPRIETARIO: CadastroProprietario,
+            Telas.CADASTRO_IMOVEL: CadastroImovel,
         }
         self.__active_screen = None
         self.__last_screens = []

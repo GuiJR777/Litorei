@@ -8,8 +8,8 @@ from para_testes import locatarios  # TODO: Remover
 
 class LocatarioController(Controller):
     def __init__(self, base_controller) -> None:
-        # self.__locatarios = []
-        self.__locatarios = locatarios
+        # self.__locatarios = []  TODO: descomentar
+        self.__locatarios = locatarios # TODO: Remover
         self.__base_controller = base_controller
         self.__locatario_view = LocatarioView(
             self.__base_controller.screen_manager
@@ -18,9 +18,8 @@ class LocatarioController(Controller):
     def cadastrar(self) -> None:
         dados_locatario = self.__locatario_view.cadastrar()
 
-        if isinstance(dados_locatario, ComandoUsuario):
-            if dados_locatario == ComandoUsuario.VOLTAR:
-                self.__base_controller.cadastrar_usuario()
+        if dados_locatario == ComandoUsuario.VOLTAR:
+            self.__base_controller.cadastrar_usuario()
 
         try:
             novo_locatario = Locatario(**dados_locatario)

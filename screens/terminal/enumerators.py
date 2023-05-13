@@ -13,6 +13,7 @@ class TiposDeRespostas(enum.Enum):
 class Telas(enum.Enum):
     AGRADECIMENTO = "agradecimento"
     CADASTRO_LOCATARIO = "cadastro_locatario"
+    CADASTRO_PROPRIETARIO = "cadastro_proprietario"
     CADASTRO_LOGIN = "cadastro_login"
     CADASTRO_USUARIO = "cadastro_usuario"
     LISTAGEM_IMOVEIS = "listagem_imoveis"
@@ -20,3 +21,4 @@ class Telas(enum.Enum):
     INICIO_DESLOGADO = "inicio_deslogado"
     INICIO_LOCATARIO = "inicio_locatario"
     WELCOME = "welcome"
+    CADASTRO_IMOVEL = "cadastro_imovel"

@@ -1,5 +1,6 @@
 from controller.abstract_controller import Controller
 from controller.enumerators import ComandoUsuario
+from model.imovel import Imovel
 
 from view.imovel import ImovelView
 from para_testes import imoveis  # TODO: Remover
@@ -32,3 +33,18 @@ class ImovelController(Controller):
             print(self.__imoveis[resposta].titulo)  # TODO: Remover
             input("Pressione enter para continuar...")  # TODO: Remover
             self.listar_imoveis()  # TODO: Remover
+
+    def cadastrar_imovel(self):
+        dados_imovel = self.__imovel_view.cadastrar()
+
+        if dados_imovel == ComandoUsuario.VOLTAR:
+            return None
+
+        try:
+            dados_imovel["preco"] = float(dados_imovel["preco"])
+            novo_imovel = Imovel(**dados_imovel)
+            self.__imoveis.append(novo_imovel)
+            return novo_imovel
+
+        except Exception:
+            return None
