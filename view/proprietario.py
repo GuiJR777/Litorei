@@ -52,3 +52,9 @@ class ProprietarioView(View):
         self.screen_manager.trocar_de_tela(
             Telas.EDITAR_PERFIL_PROPRIETARIO, data=data)
         return self.screen_manager.esperar_comando_usuario()
+    
+    def mostrar_imoveis_proprietario(self):
+        self.screen_manager.trocar_de_tela(Telas.MOSTRAR_IMOVEIS_PROPRIETARIO)
+
+    def cadastrar_novo_imovel(self):
+        self.screen_manager.trocar_de_tela(Telas.CADASTRO_IMOVEL)    

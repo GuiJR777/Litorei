@@ -54,13 +54,10 @@ class ProprietarioController(Controller):
                 self.__mostrar_perfil()
 
             case ComandoUsuario.VER_IMOVEIS_PROPRIETARIO:
-                print("Ver imoveis proprietarios")
-                input("Pressione enter para continuar...")
-                self.iniciar()
+                self.__mostrar_imoveis_proprietario()
+
             case ComandoUsuario.CADASTRAR_NOVO_IMOVEL:
-                print("Cadastrar novo imovel")
-                input("Pressione enter para continuar...")
-                self.iniciar()
+                self.__cadastrar_novo_imovel()
 
     def __mostrar_perfil(self):
         comando = self.__proprietario_view.mostrar_perfil(
@@ -104,3 +101,12 @@ class ProprietarioController(Controller):
             self.__base_controller.usuario_logado = novo_usuario_logado
             self.__proprietario_view.cadastrado_com_sucesso()
             self.__mostrar_perfil()
+
+    def __mostrar_imoveis_proprietario(self):
+        self.__proprietario_view.mostrar_imoveis_proprietario() 
+
+    def __cadastrar_novo_imovel(self):
+        novo_imovel = self.__base_controller.imovel.cadastrar_imovel()    
+        if not novo_imovel:
+                raise Exception()
+        #novo_proprietario.adicionar_imovel(novo_imovel)

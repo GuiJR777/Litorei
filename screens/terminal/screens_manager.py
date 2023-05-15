@@ -18,6 +18,8 @@ from screens.terminal.inicio_proprietario import InicioProprietario
 from screens.terminal.editar_perfil_proprietario import EditarPerfilProprietario
 from screens.terminal.perfil_locatario import PerfilLocatario
 from screens.terminal.editar_perfil_locatario import EditarPerfilLocatario
+from screens.terminal.mostrar_imoveis_proprietario import MostrarImoveisProprietario
+
 
 
 class ScreenManager:
@@ -38,7 +40,8 @@ class ScreenManager:
             Telas.PERFIL_PROPRIETARIO: PerfilProprietario,
             Telas.EDITAR_PERFIL_PROPRIETARIO: EditarPerfilProprietario,
             Telas.PERFIL_LOCATARIO: PerfilLocatario,
-            Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario
+            Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario,
+            Telas.MOSTRAR_IMOVEIS_PROPRIETARIO: MostrarImoveisProprietario,
         }
         self.__active_screen = None
         self.__last_screens = []

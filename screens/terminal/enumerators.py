@@ -26,4 +26,5 @@ class Telas(enum.Enum):
     PERFIL_PROPRIETARIO = "perfil_proprietario"
     EDITAR_PERFIL_PROPRIETARIO = "editar_perfil_proprietario"
     PERFIL_LOCATARIO = "perfil_locatario"
-    EDITAR_PERFIL_LOCATARIO = "editar_perfil_locatario"
+    EDITAR_PERFIL_LOCATARIO = "editar_perfil_locatario",
+    MOSTRAR_IMOVEIS_PROPRIETARIO = "mostrar_imoveis_proprietario"
