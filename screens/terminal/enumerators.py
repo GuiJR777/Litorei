@@ -31,3 +31,5 @@ class Telas(enum.Enum):
     MOSTRAR_IMOVEL = "mostrar_imovel"
     VER_CONTRATO_ALUGUEL = "ver_contrato_aluguel"
     EDITAR_IMOVEL = "editar_imovel"
+    DIARIAS = "diarias"
+    RELATORIO_ALUGUEIS = "relatorio_alugueis"

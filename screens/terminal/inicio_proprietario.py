@@ -17,6 +17,7 @@ class InicioProprietario(Screen):
                 "1": "Ver perfil",
                 "2": "Ver seus imóveis",
                 "3": "Cadastrar novo imóvel",
-                "4": "Deslogar",
+                "4": "Visualizar relatório de aluguéis",
+                "5": "Deslogar",
             }
         )

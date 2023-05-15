@@ -52,6 +52,9 @@ class ImovelController(Controller):
 
         match comando:
             case ComandoUsuario.ALUGAR_IMOVEL:
+                if not self.__base_controller.usuario_logado:
+                    self.__base_controller.tela_de_cadastro_login()
+
                 self.__base_controller.locatario.alugar_imovel(imovel)
             case ComandoUsuario.VOLTAR:
                 self.listar_imoveis()

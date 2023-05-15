@@ -101,10 +101,17 @@ class LocatarioController(Controller):
 
     def alugar_imovel(self, imovel) -> None:
         try:
-            self.__base_controller.usuario_logado.alugar_imovel(imovel)
-            if self.__base_controller.usuario_logado.aluguel:
-                self.__locatario_view.aluguel_realizado_com_sucesso()
+            diarias = self.__locatario_view.diarias()
+            if diarias == "0":
                 self.iniciar()
+            else:
+                self.__base_controller.usuario_logado.alugar_imovel(imovel)
+                if self.__base_controller.usuario_logado.aluguel:
+                    self.__base_controller.usuario_logado.aluguel.diarias = (
+                        int(diarias)
+                    )  # noqa
+                    self.__locatario_view.aluguel_realizado_com_sucesso()
+                    self.iniciar()
         except TypeError:
             self.__locatario_view.erro_alugar_imovel("Imóvel invalido!")
             self.iniciar()
@@ -131,6 +138,7 @@ class LocatarioController(Controller):
             "proprietario": aluguel.imovel.proprietario.nome,
             "endereco": aluguel.imovel.endereco,
             "checkin": aluguel.data_locacao,
+            "diaria": aluguel.diarias,
         }
 
         comando = self.__locatario_view.ver_contrato(aluguel_data)

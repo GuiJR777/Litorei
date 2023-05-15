@@ -22,6 +22,7 @@ Aluguel
 Propriedade: {self.__contrato_data["titulo"]}
 Proprietário: {self.__contrato_data["proprietario"]}
 Diaría: {self.__contrato_data["preco"]}
+Numero de diarias: {self.__contrato_data["diarias"]}
 Endereço: {self.__contrato_data["endereco"]}
 Data de check-in: {self.__contrato_data["checkin"]}
 {'-' * 30}

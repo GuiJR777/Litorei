@@ -39,6 +39,8 @@ class ProprietarioView(View):
             case "3":
                 return ComandoUsuario.CADASTRAR_NOVO_IMOVEL
             case "4":
+                return ComandoUsuario.VISUALIZAR_RELATORIO_ALUGUEIS
+            case "5":
                 return ComandoUsuario.DESLOGAR
 
     def mostrar_perfil(self, data):
@@ -97,3 +99,11 @@ class ProprietarioView(View):
             return ComandoUsuario.VOLTAR
 
         return resposta
+
+    def visualizar_relatorio_alugueis(self, relatorio_data) -> None:
+        self.screen_manager.trocar_de_tela(
+            Telas.RELATORIO_ALUGUEIS, relatorio_data=relatorio_data
+        )
+        self.screen_manager.esperar_comando_usuario()
+
+        return ComandoUsuario.VOLTAR

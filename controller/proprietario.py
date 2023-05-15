@@ -7,15 +7,15 @@ from view.proprietario import ProprietarioView
 
 class ProprietarioController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__proprietario = []
+        self.__proprietarios = []
         self.__base_controller = base_controller
         self.__proprietario_view = ProprietarioView(
             self.__base_controller.screen_manager
         )
 
     @property
-    def proprietario(self):
-        return self.__proprietario
+    def proprietarios(self):
+        return self.__proprietarios
 
     def cadastrar(self) -> None:
         dados_proprietario = self.__proprietario_view.cadastrar()
@@ -30,7 +30,7 @@ class ProprietarioController(Controller):
                 dados_proprietario["tipo"] = TipoProprietario.PESSOA_JURIDICA
 
             novo_proprietario = Proprietario(**dados_proprietario)
-            self.__proprietario.append(novo_proprietario)
+            self.__proprietarios.append(novo_proprietario)
 
             novo_imovel = self.__base_controller.imovel.cadastrar_imovel()
 
@@ -64,6 +64,9 @@ class ProprietarioController(Controller):
             case ComandoUsuario.CADASTRAR_NOVO_IMOVEL:
                 self.__cadastrar_novo_imovel()
 
+            case ComandoUsuario.VISUALIZAR_RELATORIO_ALUGUEIS:
+                self.__visualizar_relatorio_aluguel()
+
     def __mostrar_perfil(self):
         comando = self.__proprietario_view.mostrar_perfil(
             self.__get_proprietario_data()
@@ -93,7 +96,7 @@ class ProprietarioController(Controller):
         email_do_usuario_logado = self.__base_controller.usuario_logado.email
         novo_usuario_logado = None
 
-        for proprietario in self.__proprietario:
+        for proprietario in self.__proprietarios:
             if proprietario.email == email_do_usuario_logado:
                 proprietario.nome = dados_para_editar["nome"]
                 proprietario.email = dados_para_editar["email"]
@@ -187,3 +190,25 @@ class ProprietarioController(Controller):
                 "Erro ao cadastrar! Tente de novo."
             )
             self.__cadastrar_novo_imovel()
+
+    def __visualizar_relatorio_aluguel(self):
+        data = {}
+        imoveis = self.__base_controller.usuario_logado.imoveis
+
+        for imovel in imoveis:
+            data[imovel.identificador] = {
+                "titulo": imovel.titulo,
+                "preco": imovel.preco,
+                "alugueis": [],
+            }
+
+            for aluguel in imovel.historico_aluguel:
+                data[imovel.identificador]["alugueis"].append(
+                    {
+                        "locatario": aluguel.locatario.nome,
+                        "data_inicio": aluguel.data_inicio,
+                        "diarias": aluguel.diarias,
+                    }
+                )
+        self.__proprietario_view.visualizar_relatorio_alugueis(data)
+        self.iniciar()

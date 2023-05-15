@@ -26,6 +26,8 @@ from screens.terminal.mostrar_imoveis_proprietario import (
 from screens.terminal.mostrar_imovel import MostrarImovel
 from screens.terminal.contrato_aluguel import ContratoAluguel
 from screens.terminal.editar_imovel import EditarImovel
+from screens.terminal.diarias import Diarias
+from screens.terminal.relatorio_alugueis import RelatorioAlugueis
 
 
 class ScreenManager:
@@ -51,6 +53,8 @@ class ScreenManager:
             Telas.MOSTRAR_IMOVEL: MostrarImovel,
             Telas.VER_CONTRATO_ALUGUEL: ContratoAluguel,
             Telas.EDITAR_IMOVEL: EditarImovel,
+            Telas.DIARIAS: Diarias,
+            Telas.RELATORIO_ALUGUEIS: RelatorioAlugueis,
         }
         self.__active_screen = None
 

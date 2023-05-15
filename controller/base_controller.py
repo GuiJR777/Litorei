@@ -102,6 +102,7 @@ class BaseController(Controller):
                     self.tela_de_cadastro_login()
 
         self.__view.erro_login("Usuário não encontrado!")
+        self.tela_de_cadastro_login()
 
     def cadastrar_usuario(self) -> None:
         resposta = self.__view.cadastrar_usuario()

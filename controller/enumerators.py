@@ -22,3 +22,4 @@ class ComandoUsuario(enum.Enum):
     EDITAR_IMOVEL = "editar imovel"
     EXCLUIR_IMOVEL = "excluir imovel"
     DESLOGAR = "deslogar"
+    VISUALIZAR_RELATORIO_ALUGUEIS = "visualizar relatorio alugueis"

@@ -20,6 +20,7 @@ class Imovel:
         self.__proprietario = None
         self.__status: StatusImovel = StatusImovel.DISPONIVEL
         self.__identificador: str = None
+        self.__historico_aluguel = []
 
         self.__validar_parametros_construtor(
             titulo, endereco, preco, informacoes
@@ -100,3 +101,10 @@ class Imovel:
     @validar_tipo_do_parametro(StatusImovel)
     def status(self, status: StatusImovel) -> None:
         self.__status = status
+
+    @property
+    def historico_aluguel(self) -> list:
+        return self.__historico_aluguel
+
+    def adicionar_ao_historico(self, aluguel):
+        self.__historico_aluguel.append(aluguel)
