@@ -36,16 +36,15 @@ class ImovelController(Controller):
             self.__base_controller.iniciar()
 
         else:
-            self.__mostrar_imovel(self.__imoveis[resposta].identificador)
+            self.__mostrar_imovel(self.__imoveis[resposta])
 
-    def __mostrar_imovel(self, imovel_id) -> None:
-        imovel = self.__buscar_imovel(imovel_id)
-
+    def __mostrar_imovel(self, imovel) -> None:
         imovel_data = {
             "titulo": imovel.titulo,
             "informacoes": imovel.informacoes,
             "preco": imovel.preco,
             "endereco": imovel.endereco,
+            "status": imovel.status.value,
         }
 
         comando = self.__imovel_view.mostrar_imovel(imovel_data)
@@ -58,11 +57,6 @@ class ImovelController(Controller):
                 self.__base_controller.locatario.alugar_imovel(imovel)
             case ComandoUsuario.VOLTAR:
                 self.listar_imoveis()
-
-    def __buscar_imovel(self, imovel_id) -> None:
-        for imovel in self.__imoveis:
-            if imovel.identificador == imovel_id:
-                return imovel
 
     def cadastrar_imovel(self):
         dados_imovel = self.__imovel_view.cadastrar()

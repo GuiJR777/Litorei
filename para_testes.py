@@ -13,16 +13,16 @@ from model.proprietario import Proprietario
 locatarios = [
     Locatario(
         "João da Silva",
-        "joao@email.com",
+        "joao@",
         "5548987654321",
-        "senha123",
+        "123",
         "09876543210",
     ),
     Locatario(
         "Maria da Silva",
-        "maria@email.com",
+        "maria@",
         "5548987654321",
-        "senha123",
+        "123",
         "09876543210",
     ),
 ]
@@ -30,17 +30,17 @@ locatarios = [
 proprietarios = [
     Proprietario(
         "Zé Ricão",
-        "ze@email.com",
+        "ze@",
         "5548987654321",
-        "senha123",
+        "123",
         "09876543210",
         TipoProprietario.PESSOA_FISICA,
     ),
     Proprietario(
         "Imobiliária Zé Ricão",
-        "contato@zericão.com",
+        "imob@",
         "5548987654321",
-        "senha123",
+        "123",
         "09876543210",
         TipoProprietario.PESSOA_JURIDICA,
     ),
@@ -66,5 +66,4 @@ imoveis = [
 proprietarios[0].adicionar_imovel(imoveis[0])
 proprietarios[1].adicionar_imovel(imoveis[1])
 proprietarios[1].adicionar_imovel(imoveis[2])
-imoveis[3].status = StatusImovel.ALUGADO
 proprietarios[1].adicionar_imovel(imoveis[3])

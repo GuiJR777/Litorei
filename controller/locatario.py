@@ -102,7 +102,7 @@ class LocatarioController(Controller):
     def alugar_imovel(self, imovel) -> None:
         try:
             diarias = self.__locatario_view.diarias()
-            if diarias == "0":
+            if diarias == ComandoUsuario.VOLTAR:
                 self.iniciar()
             else:
                 self.__base_controller.usuario_logado.alugar_imovel(imovel)
@@ -138,7 +138,7 @@ class LocatarioController(Controller):
             "proprietario": aluguel.imovel.proprietario.nome,
             "endereco": aluguel.imovel.endereco,
             "checkin": aluguel.data_locacao,
-            "diaria": aluguel.diarias,
+            "diarias": aluguel.diarias,
         }
 
         comando = self.__locatario_view.ver_contrato(aluguel_data)

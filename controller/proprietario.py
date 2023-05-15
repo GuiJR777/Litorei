@@ -169,6 +169,7 @@ class ProprietarioController(Controller):
             "informacoes": imovel.informacoes,
             "preco": imovel.preco,
             "endereco": imovel.endereco,
+            "status": imovel.status.value,
         }
 
     def __excluir_imovel(self, imovel_id):
@@ -206,7 +207,7 @@ class ProprietarioController(Controller):
                 data[imovel.identificador]["alugueis"].append(
                     {
                         "locatario": aluguel.locatario.nome,
-                        "data_inicio": aluguel.data_inicio,
+                        "data_inicio": aluguel.data_locacao,
                         "diarias": aluguel.diarias,
                     }
                 )

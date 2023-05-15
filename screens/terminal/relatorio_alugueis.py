@@ -13,39 +13,39 @@ class RelatorioAlugueis(Screen):
         self.show_titulo()
 
     def campos(self) -> None:
-        for imovel in self.__relatorio_data:
+        for imovel_id, imovel_data in self.__relatorio_data.items():
             self.show_info(
                 f"""
 {'-' * 30}
-IMOVEL            | {imovel['identificador']}
-TITULO            | {imovel['titulo']}
-PREÇO             | {imovel['preco']}
+IMOVEL            | {imovel_id}
+TITULO            | {imovel_data['titulo']}
+PREÇO             | {imovel_data['preco']}
 
                 """
             )
-            for aluguel in imovel["alugueis"]:
+            for aluguel in imovel_data["alugueis"]:
                 self.show_info(
                     f"""
-DATA DA RESERVA   | {aluguel['data_reserva']}
-NUMERO DE DIAS    | {aluguel['numero_de_dias']}
+DATA DA RESERVA   | {aluguel['data_inicio']}
+NUMERO DE DIAS    | {aluguel['diarias']}
 NOME DO LOCATARIO | {aluguel['locatario']}
 
-TOTAL DO IMOVEL   | {float(imovel['preco']) * float(aluguel['numero_de_dias'])}
+TOTAL DO IMOVEL   | R$ {float(imovel_data['preco']) * float(aluguel['diarias'])}
 {'-' * 30}
                     """
                 )
         valor_total = 0
 
-        for imovel in self.__relatorio_data:
+        for imovel in self.__relatorio_data.values():
             for aluguel in imovel["alugueis"]:
                 valor_total += float(imovel["preco"]) * float(
-                    aluguel["numero_de_dias"]
+                    aluguel["diarias"]
                 )
 
         self.show_info(
             f"""
 
-TOTAL            | {valor_total}
+TOTAL NESSE ANO  | R$ {valor_total}
 
 {'-' * 30}
             """

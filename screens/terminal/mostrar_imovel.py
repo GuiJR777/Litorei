@@ -19,6 +19,7 @@ class MostrarImovel(Screen):
             f"""
 {'-' * 30}
 {self.__imovel_data["titulo"].capitalize()}
+status: {self.__imovel_data["status"].capitalize()}
 
 Diaria de R$ {self.__imovel_data["preco"]}
 
