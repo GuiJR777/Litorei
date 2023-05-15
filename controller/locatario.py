@@ -17,6 +17,10 @@ class LocatarioController(Controller):
             self.__base_controller.screen_manager
         )
 
+    @property
+    def locatarios(self):
+        return self.__locatarios
+
     def cadastrar(self) -> None:
         dados_locatario = self.__locatario_view.cadastrar()
 

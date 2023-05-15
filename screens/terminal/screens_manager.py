@@ -53,16 +53,10 @@ class ScreenManager:
             Telas.EDITAR_IMOVEL: EditarImovel,
         }
         self.__active_screen = None
-        self.__last_screens = []
 
     def trocar_de_tela(self, tela: Telas, **kwargs) -> None:
-        self.__last_screens.append(self.__active_screen)
         self.__active_screen = self.__telas[tela]()
         self.__active_screen.entrada(**kwargs)
-
-    def voltar_para_tela_anterior(self) -> None:
-        self.__active_screen = self.__last_screens.pop()
-        self.__active_screen.entrada()
 
     def esperar_comando_usuario(self) -> str:
         return self.__active_screen.campos()

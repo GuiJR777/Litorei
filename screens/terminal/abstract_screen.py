@@ -125,16 +125,16 @@ class Screen(ABC):
         for opcao, descricao in opcoes.items():
             self.show_opcao(opcao, descricao)
 
-        opcao_selecionada = input("Opção: ")
+        while True:
+            opcao_selecionada = input("Opção: ")
 
-        if opcao_selecionada not in opcoes.keys():
-            self.show_error("Opção inválida!")
+            if not opcao_selecionada or opcao_selecionada not in opcoes.keys():
+                self.show_error("Opção inválida!")
+                continue
+
             self.clear_terminal(1)
-            self.entrada()
 
-        self.clear_terminal(1)
-
-        return opcao_selecionada
+            return opcao_selecionada
 
     def sair(self) -> None:
         self.clear_terminal(1)

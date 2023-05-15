@@ -13,6 +13,10 @@ class ProprietarioController(Controller):
             self.__base_controller.screen_manager
         )
 
+    @property
+    def proprietario(self):
+        return self.__proprietario
+
     def cadastrar(self) -> None:
         dados_proprietario = self.__proprietario_view.cadastrar()
 

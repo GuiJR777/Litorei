@@ -78,16 +78,15 @@ class BaseController(Controller):
     def logar(self) -> None:
         resposta = self.__view.logar_usuario()
 
-        if isinstance(resposta, ComandoUsuario):
-            match resposta:
-                case ComandoUsuario.VOLTAR:
-                    self.tela_de_cadastro_login()
+        if resposta == ComandoUsuario.VOLTAR:
+            self.tela_de_cadastro_login()
 
         for locatario in self.__locatario.locatarios:
             if locatario.email == resposta["email"]:
                 if locatario.senha == resposta["senha"]:
                     self.__usuario_logado = locatario
                     self.__locatario.iniciar()
+                    return None
                 else:
                     self.__view.erro_login("Senha incorreta!")
                     self.tela_de_cadastro_login()
@@ -97,6 +96,7 @@ class BaseController(Controller):
                 if proprietario.senha == resposta["senha"]:
                     self.__usuario_logado = proprietario
                     self.__proprietario.iniciar()
+                    return None
                 else:
                     self.__view.erro_login("Senha incorreta!")
                     self.tela_de_cadastro_login()
