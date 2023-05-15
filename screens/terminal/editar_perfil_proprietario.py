@@ -35,8 +35,7 @@ class EditarPerfilProprietario(Screen):
                 tipo_de_resposta = TiposDeRespostas.NUMERICO
 
             new_data[campo] = self.questionar(
-                f"Qual é o novo valor de {nome_campo}?",
-                tipo_de_resposta
+                f"Qual é o novo valor de {nome_campo}?", tipo_de_resposta
             )
 
         return new_data

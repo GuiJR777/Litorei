@@ -15,11 +15,14 @@ from screens.terminal.welcome import Welcome
 from screens.terminal.cadastro_proprietario import CadastroProprietario
 from screens.terminal.cadastro_imovel import CadastroImovel
 from screens.terminal.inicio_proprietario import InicioProprietario
-from screens.terminal.editar_perfil_proprietario import EditarPerfilProprietario
+from screens.terminal.editar_perfil_proprietario import (
+    EditarPerfilProprietario,
+)
 from screens.terminal.perfil_locatario import PerfilLocatario
 from screens.terminal.editar_perfil_locatario import EditarPerfilLocatario
-from screens.terminal.mostrar_imoveis_proprietario import MostrarImoveisProprietario
-
+from screens.terminal.mostrar_imoveis_proprietario import (
+    MostrarImoveisProprietario,
+)
 
 
 class ScreenManager:

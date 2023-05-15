@@ -24,7 +24,8 @@ class ProprietarioView(View):
 
     def iniciar(self, name):
         self.screen_manager.trocar_de_tela(
-            Telas.INICIO_PROPRIETARIO, name=name)
+            Telas.INICIO_PROPRIETARIO, name=name
+        )
         resposta = self.screen_manager.esperar_comando_usuario()
 
         match resposta:
@@ -39,7 +40,8 @@ class ProprietarioView(View):
 
     def mostrar_perfil(self, data):
         self.screen_manager.trocar_de_tela(
-            Telas.PERFIL_PROPRIETARIO, data=data)
+            Telas.PERFIL_PROPRIETARIO, data=data
+        )
         resposta = self.screen_manager.esperar_comando_usuario()
 
         match resposta:
@@ -50,11 +52,12 @@ class ProprietarioView(View):
 
     def editar_perfil(self, data):
         self.screen_manager.trocar_de_tela(
-            Telas.EDITAR_PERFIL_PROPRIETARIO, data=data)
+            Telas.EDITAR_PERFIL_PROPRIETARIO, data=data
+        )
         return self.screen_manager.esperar_comando_usuario()
-    
+
     def mostrar_imoveis_proprietario(self):
         self.screen_manager.trocar_de_tela(Telas.MOSTRAR_IMOVEIS_PROPRIETARIO)
 
     def cadastrar_novo_imovel(self):
-        self.screen_manager.trocar_de_tela(Telas.CADASTRO_IMOVEL)    
+        self.screen_manager.trocar_de_tela(Telas.CADASTRO_IMOVEL)

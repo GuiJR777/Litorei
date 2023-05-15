@@ -4,11 +4,9 @@ from view.locatario import LocatarioView
 from model.locatario import Locatario
 
 
-
-
 class LocatarioController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__locatario = []  
+        self.__locatario = []
         self.__base_controller = base_controller
         self.__locatario_view = LocatarioView(
             self.__base_controller.screen_manager
@@ -59,7 +57,7 @@ class LocatarioController(Controller):
             case ComandoUsuario.VOLTAR:
                 self.iniciar()
             case ComandoUsuario.EDITAR_PERFIL_LOCATARIO:
-                self.__editar_perfil()     
+                self.__editar_perfil()
 
     def __get_locatario_data(self):
         usuario_logado = self.__base_controller.usuario_logado
@@ -68,7 +66,7 @@ class LocatarioController(Controller):
             "nome": usuario_logado.nome,
             "email": usuario_logado.email,
             "telefone": usuario_logado.telefone,
-            "documento": usuario_logado.documento
+            "documento": usuario_logado.documento,
         }
 
     def __editar_perfil(self):
@@ -91,4 +89,4 @@ class LocatarioController(Controller):
         if novo_usuario_logado:
             self.__base_controller.usuario_logado = novo_usuario_logado
             self.__locatario_view.cadastrado_com_sucesso()
-            self.__mostrar_perfil()              
+            self.__mostrar_perfil()

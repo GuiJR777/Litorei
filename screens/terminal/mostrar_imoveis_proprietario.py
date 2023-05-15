@@ -12,4 +12,4 @@ class MostrarImoveisProprietario(Screen):
 
     def campos(self):
         pass
-        #listar imoveis do proprietario    
+        # listar imoveis do proprietario

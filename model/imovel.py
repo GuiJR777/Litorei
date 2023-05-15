@@ -83,6 +83,7 @@ class Imovel:
     @proprietario.setter
     def proprietario(self, proprietario) -> None:
         from model.proprietario import Proprietario
+
         if not isinstance(proprietario, Proprietario):
             raise TypeError("Proprietário inválido")
         self.__proprietario = proprietario

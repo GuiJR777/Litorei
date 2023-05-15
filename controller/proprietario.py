@@ -77,7 +77,7 @@ class ProprietarioController(Controller):
             "nome": usuario_logado.nome,
             "email": usuario_logado.email,
             "telefone": usuario_logado.telefone,
-            "documento": usuario_logado.documento
+            "documento": usuario_logado.documento,
         }
 
     def __editar_perfil(self):
@@ -103,10 +103,10 @@ class ProprietarioController(Controller):
             self.__mostrar_perfil()
 
     def __mostrar_imoveis_proprietario(self):
-        self.__proprietario_view.mostrar_imoveis_proprietario() 
+        self.__proprietario_view.mostrar_imoveis_proprietario()
 
     def __cadastrar_novo_imovel(self):
-        novo_imovel = self.__base_controller.imovel.cadastrar_imovel()    
+        novo_imovel = self.__base_controller.imovel.cadastrar_imovel()
         if not novo_imovel:
-                raise Exception()
-        #novo_proprietario.adicionar_imovel(novo_imovel)
+            raise Exception()
+        # novo_proprietario.adicionar_imovel(novo_imovel)

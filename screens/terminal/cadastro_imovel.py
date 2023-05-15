@@ -16,17 +16,20 @@ class CadastroImovel(Screen):
         try:
             return {
                 "titulo": self.questionar(
-                    "De um titulo para anunciar seu imovel", TiposDeRespostas.TEXTO
+                    "De um titulo para anunciar seu imovel",
+                    TiposDeRespostas.TEXTO,
                 ),
                 "endereco": self.questionar(
                     "Qual é o endereco do seu imovel?", TiposDeRespostas.TEXTO
                 ),
                 "preco": self.questionar(
-                    "Qual é o preco da diaria do seu imovel?", TiposDeRespostas.NUMERICO
+                    "Qual é o preco da diaria do seu imovel?",
+                    TiposDeRespostas.NUMERICO,
                 ),
                 "informacoes": self.questionar(
-                    "De informacoes sobre seu imovel... ", TiposDeRespostas.TEXTO
-                )
+                    "De informacoes sobre seu imovel... ",
+                    TiposDeRespostas.TEXTO,
+                ),
             }
         except UsuarioQuerVoltarException:
             return None

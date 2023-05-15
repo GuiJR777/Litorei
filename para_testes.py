@@ -1,8 +1,8 @@
-'''
+"""
 ESTE ARQUIVO É APENAS PARA TESTES
 
 Depois deve ser apagado e retirado dos imports (ver ToDo's nos arquivos)
-'''
+"""
 
 from model.enumerators import StatusImovel, TipoProprietario
 from model.imovel import Imovel
@@ -60,9 +60,7 @@ imoveis = [
         "proximo a beira-mar",
     ),
     Imovel("Casa na praia", "Praia, nº 123", 350.00, "proximo ao mar"),
-    Imovel(
-        "Apartamento na praia", "Praia, nº 123", 350.00, "proximo ao mar"
-    ),
+    Imovel("Apartamento na praia", "Praia, nº 123", 350.00, "proximo ao mar"),
 ]
 
 proprietarios[0].adicionar_imovel(imoveis[0])

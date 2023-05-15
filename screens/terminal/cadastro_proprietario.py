@@ -29,7 +29,7 @@ class CadastroProprietario(Screen):
                 ),
             }
             e_PJ = self.questionar(
-                    "Você é pessoa juridica?", TiposDeRespostas.SIM_OU_NAO
+                "Você é pessoa juridica?", TiposDeRespostas.SIM_OU_NAO
             )
 
             if e_PJ == "s":
