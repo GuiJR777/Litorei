@@ -17,6 +17,6 @@ class InicioProprietario(Screen):
                 "1": "Ver perfil",
                 "2": "Ver seus imóveis",
                 "3": "Cadastrar novo imóvel",
-                "4": "Sair",
+                "4": "Deslogar",
             }
         )

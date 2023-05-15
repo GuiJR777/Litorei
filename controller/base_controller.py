@@ -8,14 +8,11 @@ from model.usuario import Usuario
 from view.base_view import BaseView
 from model.locatario import Locatario
 
-from para_testes import locatarios  # TODO: Remover
-
 
 class BaseController(Controller):
     def __init__(self, screen_manager) -> None:
         self.__screen_manager = screen_manager
-        self.__usuario_logado = None  # TODO: Descomentar
-        # self.__usuario_logado = locatarios[0]  # TODO: Remover
+        self.__usuario_logado = None
         self.__imovel = ImovelController(self)
         self.__locatario = LocatarioController(self)
         self.__proprietario = ProprietarioController(self)
@@ -35,8 +32,12 @@ class BaseController(Controller):
         return self.__screen_manager
 
     @property
-    def imovel(self):
+    def imovel(self) -> ImovelController:
         return self.__imovel
+
+    @property
+    def locatario(self) -> LocatarioController:
+        return self.__locatario
 
     def iniciar(self) -> None:
         if self.__first_iniciation:
@@ -47,7 +48,7 @@ class BaseController(Controller):
             if isinstance(self.usuario_logado, Locatario):
                 self.__locatario.iniciar()
             elif isinstance(self.usuario_logado, Proprietario):
-                pass
+                self.__proprietario.iniciar()
         else:
             self.inicio_deslogado()
 
@@ -82,15 +83,25 @@ class BaseController(Controller):
                 case ComandoUsuario.VOLTAR:
                     self.tela_de_cadastro_login()
 
-        if not (
-            resposta["email"] == "john.due@email.com"
-            and resposta["senha"] == "123456"
-        ):
-            print("Usuário ou senha incorretos!")  # TODO: Remover
-            input("Pressione enter para continuar...")  # TODO: Remover
-            self.logar()  # TODO: Remover
-        self.__usuario_logado = resposta  # TODO: Remover
-        print("Logado com sucesso!")  # TODO: Remover
+        for locatario in self.__locatario.locatarios:
+            if locatario.email == resposta["email"]:
+                if locatario.senha == resposta["senha"]:
+                    self.__usuario_logado = locatario
+                    self.__locatario.iniciar()
+                else:
+                    self.__view.erro_login("Senha incorreta!")
+                    self.tela_de_cadastro_login()
+
+        for proprietario in self.__proprietario.proprietarios:
+            if proprietario.email == resposta["email"]:
+                if proprietario.senha == resposta["senha"]:
+                    self.__usuario_logado = proprietario
+                    self.__proprietario.iniciar()
+                else:
+                    self.__view.erro_login("Senha incorreta!")
+                    self.tela_de_cadastro_login()
+
+        self.__view.erro_login("Usuário não encontrado!")
 
     def cadastrar_usuario(self) -> None:
         resposta = self.__view.cadastrar_usuario()

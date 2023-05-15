@@ -1,12 +1,17 @@
 from controller.abstract_controller import Controller
 from controller.enumerators import ComandoUsuario
+from model.exceptions import (
+    ImovelIndisponivelException,
+    JaPossuiAluguelException,
+    NaoPossuiImovelAlugadoException,
+)
 from view.locatario import LocatarioView
 from model.locatario import Locatario
 
 
 class LocatarioController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__locatario = []
+        self.__locatarios = []
         self.__base_controller = base_controller
         self.__locatario_view = LocatarioView(
             self.__base_controller.screen_manager
@@ -20,7 +25,7 @@ class LocatarioController(Controller):
 
         try:
             novo_locatario = Locatario(**dados_locatario)
-            self.__locatario.append(novo_locatario)
+            self.__locatarios.append(novo_locatario)
             self.__locatario_view.cadastrado_com_sucesso()
             self.__base_controller.usuario_logado = novo_locatario
             self.iniciar()
@@ -36,17 +41,16 @@ class LocatarioController(Controller):
         )
 
         match comando:
-            case ComandoUsuario.SAIR:
-                self.__base_controller.sair()
+            case ComandoUsuario.DESLOGAR:
+                self.__base_controller.usuario_logado = None
+                self.__base_controller.inicio_deslogado()
             case ComandoUsuario.LISTAR_IMOVEIS:
                 self.__base_controller.imovel.listar_imoveis()
 
             case ComandoUsuario.VER_PERFIL_LOCATARIO:
                 self.__mostrar_perfil()
             case ComandoUsuario.VER_CONTRATOS_LOCATARIO:
-                print("Ver contratos locatário")
-                input("Pressione enter para continuar...")
-                self.iniciar()
+                self.__ver_contrato()
 
     def __mostrar_perfil(self):
         comando = self.__locatario_view.mostrar_perfil(
@@ -90,3 +94,56 @@ class LocatarioController(Controller):
             self.__base_controller.usuario_logado = novo_usuario_logado
             self.__locatario_view.cadastrado_com_sucesso()
             self.__mostrar_perfil()
+
+    def alugar_imovel(self, imovel) -> None:
+        try:
+            self.__base_controller.usuario_logado.alugar_imovel(imovel)
+            if self.__base_controller.usuario_logado.aluguel:
+                self.__locatario_view.aluguel_realizado_com_sucesso()
+                self.iniciar()
+        except TypeError:
+            self.__locatario_view.erro_alugar_imovel("Imóvel invalido!")
+            self.iniciar()
+        except JaPossuiAluguelException:
+            self.__locatario_view.erro_alugar_imovel(
+                "Você já possui um imóvel alugado!"
+            )
+            self.iniciar()
+        except ImovelIndisponivelException:
+            self.__locatario_view.erro_alugar_imovel(
+                "Imóvel indisponível para aluguel!"
+            )
+            self.iniciar()
+
+    def __ver_contrato(self):
+        aluguel = self.__base_controller.usuario_logado.aluguel
+        if not aluguel:
+            self.__locatario_view.erro_ver_contrato()
+            self.iniciar()
+
+        aluguel_data = {
+            "titulo": aluguel.imovel.titulo,
+            "preco": aluguel.imovel.preco,
+            "proprietario": aluguel.imovel.proprietario.nome,
+            "endereco": aluguel.imovel.endereco,
+            "checkin": aluguel.data_locacao,
+        }
+
+        comando = self.__locatario_view.ver_contrato(aluguel_data)
+
+        match comando:
+            case ComandoUsuario.DEVOLVER_IMOVEL:
+                self.__devolver_imovel()
+            case ComandoUsuario.VOLTAR:
+                self.iniciar()
+
+        self.iniciar()
+
+    def __devolver_imovel(self):
+        try:
+            self.__base_controller.usuario_logado.devolver_imovel()
+            self.__locatario_view.devolver_imovel_com_sucesso()
+            self.iniciar()
+        except NaoPossuiImovelAlugadoException:
+            self.__locatario_view.erro_devolver_imovel()
+            self.iniciar()

@@ -32,6 +32,7 @@ class Locatario(Usuario):
 
         imovel.status = StatusImovel.ALUGADO
         aluguel = Aluguel(self, imovel)
+        aluguel.registrar_locacao()
 
         self.__aluguel = aluguel
 

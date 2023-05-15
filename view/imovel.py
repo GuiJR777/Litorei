@@ -17,6 +17,21 @@ class ImovelView(View):
             return ComandoUsuario.VOLTAR
         return int(resposta) - 1
 
+    def erro_listar_imoveis(self) -> None:
+        self.screen_manager.feedback_erro("Nenhum imóvel cadastrado")
+
+    def mostrar_imovel(self, imovel_data: dict) -> None:
+        self.screen_manager.trocar_de_tela(
+            Telas.MOSTRAR_IMOVEL, imovel_data=imovel_data
+        )
+        resposta = self.screen_manager.esperar_comando_usuario()
+
+        match resposta:
+            case "1":
+                return ComandoUsuario.ALUGAR_IMOVEL
+            case "2":
+                return ComandoUsuario.VOLTAR
+
     def cadastrar(self):
         self.screen_manager.trocar_de_tela(Telas.CADASTRO_IMOVEL)
         resposta = self.screen_manager.esperar_comando_usuario()

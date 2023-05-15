@@ -22,6 +22,9 @@ class ProprietarioView(View):
     def erro_cadastro(self, mensagem: str) -> None:
         self.screen_manager.feedback_erro(mensagem)
 
+    def excluido_com_sucesso(self) -> None:
+        self.screen_manager.feedback_sucesso("Imóvel excluído com sucesso!")
+
     def iniciar(self, name):
         self.screen_manager.trocar_de_tela(
             Telas.INICIO_PROPRIETARIO, name=name
@@ -36,7 +39,7 @@ class ProprietarioView(View):
             case "3":
                 return ComandoUsuario.CADASTRAR_NOVO_IMOVEL
             case "4":
-                return ComandoUsuario.SAIR
+                return ComandoUsuario.DESLOGAR
 
     def mostrar_perfil(self, data):
         self.screen_manager.trocar_de_tela(
@@ -56,8 +59,41 @@ class ProprietarioView(View):
         )
         return self.screen_manager.esperar_comando_usuario()
 
-    def mostrar_imoveis_proprietario(self):
-        self.screen_manager.trocar_de_tela(Telas.MOSTRAR_IMOVEIS_PROPRIETARIO)
+    def mostrar_imoveis_proprietario(self, imoveis_data: list[dict]) -> None:
+        self.screen_manager.trocar_de_tela(
+            Telas.MOSTRAR_IMOVEIS_PROPRIETARIO,
+            imoveis_data=imoveis_data,
+        )
+        resposta = self.screen_manager.esperar_comando_usuario()
+
+        if int(resposta) == len(imoveis_data) + 1:
+            return ComandoUsuario.VOLTAR
+        return int(resposta) - 1
 
     def cadastrar_novo_imovel(self):
         self.screen_manager.trocar_de_tela(Telas.CADASTRO_IMOVEL)
+
+    def mostrar_detalhes_imovel(self, imovel_data: dict) -> None:
+        self.screen_manager.trocar_de_tela(
+            Telas.MOSTRAR_IMOVEL, imovel_data=imovel_data, eh_locatario=False
+        )
+        resposta = self.screen_manager.esperar_comando_usuario()
+
+        match resposta:
+            case "1":
+                return ComandoUsuario.EDITAR_IMOVEL
+            case "2":
+                return ComandoUsuario.EXCLUIR_IMOVEL
+            case "3":
+                return ComandoUsuario.VOLTAR
+
+    def editar_imovel(self, imovel_data: dict) -> None:
+        self.screen_manager.trocar_de_tela(
+            Telas.EDITAR_IMOVEL, imovel_data=imovel_data
+        )
+        resposta = self.screen_manager.esperar_comando_usuario()
+
+        if not resposta:
+            return ComandoUsuario.VOLTAR
+
+        return resposta

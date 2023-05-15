@@ -57,3 +57,6 @@ class BaseView(View):
                 return ComandoUsuario.CADASTRAR_PROPRIETARIO
             case "3":
                 return ComandoUsuario.VOLTAR
+
+    def erro_login(self, mensagem: str) -> None:
+        self.screen_manager.feedback_erro(mensagem)

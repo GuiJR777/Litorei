@@ -17,6 +17,6 @@ class InicioLocatario(Screen):
                 "1": "Ver imóveis",
                 "2": "Ver perfil",
                 "3": "Ver contratos",
-                "4": "Sair",
+                "4": "Deslogar",
             }
         )

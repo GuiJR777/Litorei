@@ -17,3 +17,8 @@ class ComandoUsuario(enum.Enum):
     CADASTRAR_NOVO_IMOVEL = "cadastrar novo imovel"
     EDITAR_PERFIL_PROPRIETARIO = "editar perfil proprietario"
     EDITAR_PERFIL_LOCATARIO = "editar perfil locatario"
+    ALUGAR_IMOVEL = "alugar imovel"
+    DEVOLVER_IMOVEL = "devolver imovel"
+    EDITAR_IMOVEL = "editar imovel"
+    EXCLUIR_IMOVEL = "excluir imovel"
+    DESLOGAR = "deslogar"

@@ -1,3 +1,4 @@
+from datetime import datetime
 from model.imovel import Imovel
 
 
@@ -29,6 +30,12 @@ class Aluguel:
     def data_locacao(self) -> str:
         return self.__data_locacao
 
+    def registrar_locacao(self) -> None:
+        self.__data_locacao = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
     @property
     def data_devolucao(self) -> str:
         return self.__data_devolucao
+
+    def registrar_devolucao(self) -> None:
+        self.__data_devolucao = datetime.now().strftime("%d/%m/%Y %H:%M:%S")

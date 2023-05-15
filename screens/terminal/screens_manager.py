@@ -23,6 +23,9 @@ from screens.terminal.editar_perfil_locatario import EditarPerfilLocatario
 from screens.terminal.mostrar_imoveis_proprietario import (
     MostrarImoveisProprietario,
 )
+from screens.terminal.mostrar_imovel import MostrarImovel
+from screens.terminal.contrato_aluguel import ContratoAluguel
+from screens.terminal.editar_imovel import EditarImovel
 
 
 class ScreenManager:
@@ -45,6 +48,9 @@ class ScreenManager:
             Telas.PERFIL_LOCATARIO: PerfilLocatario,
             Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario,
             Telas.MOSTRAR_IMOVEIS_PROPRIETARIO: MostrarImoveisProprietario,
+            Telas.MOSTRAR_IMOVEL: MostrarImovel,
+            Telas.VER_CONTRATO_ALUGUEL: ContratoAluguel,
+            Telas.EDITAR_IMOVEL: EditarImovel,
         }
         self.__active_screen = None
         self.__last_screens = []

@@ -1,8 +1,8 @@
 from controller.abstract_controller import Controller
 from controller.enumerators import ComandoUsuario
-from view.proprietario import ProprietarioView
-from model.proprietario import Proprietario
 from model.enumerators import TipoProprietario
+from model.proprietario import Proprietario
+from view.proprietario import ProprietarioView
 
 
 class ProprietarioController(Controller):
@@ -48,8 +48,9 @@ class ProprietarioController(Controller):
             self.__base_controller.usuario_logado.nome
         )
         match comando:
-            case ComandoUsuario.SAIR:
-                self.__base_controller.sair()
+            case ComandoUsuario.DESLOGAR:
+                self.__base_controller.usuario_logado = None
+                self.__base_controller.inicio_deslogado()
             case ComandoUsuario.VER_PERFIL_PROPRIETARIO:
                 self.__mostrar_perfil()
 
@@ -103,10 +104,82 @@ class ProprietarioController(Controller):
             self.__mostrar_perfil()
 
     def __mostrar_imoveis_proprietario(self):
-        self.__proprietario_view.mostrar_imoveis_proprietario()
+        imoveis_para_exibir = []
+        imoveis = self.__base_controller.usuario_logado.imoveis
+
+        for imovel in imoveis:
+            imoveis_para_exibir.append(
+                {
+                    "id": imovel.identificador,
+                    "titulo": imovel.titulo,
+                    "preco": imovel.preco,
+                }
+            )
+
+        resposta = self.__proprietario_view.mostrar_imoveis_proprietario(
+            imoveis_para_exibir
+        )
+
+        if resposta == ComandoUsuario.VOLTAR:
+            self.__base_controller.iniciar()
+
+        else:
+            self.__mostrar_imovel(imoveis[resposta])
+
+    def __mostrar_imovel(self, imovel):
+        comando = self.__proprietario_view.mostrar_detalhes_imovel(
+            self.__get_imovel_data(imovel)
+        )
+
+        match comando:
+            case ComandoUsuario.VOLTAR:
+                self.__mostrar_imoveis_proprietario()
+            case ComandoUsuario.EDITAR_IMOVEL:
+                self.__editar_imovel(imovel)
+            case ComandoUsuario.EXCLUIR_IMOVEL:
+                self.__excluir_imovel(imovel.identificador)
+
+    def __editar_imovel(self, imovel):
+        comando = self.__proprietario_view.editar_imovel(
+            self.__get_imovel_data(imovel)
+        )
+
+        if comando == ComandoUsuario.VOLTAR:
+            self.__mostrar_imovel(imovel)
+
+        imovel.titulo = comando["titulo"]
+        imovel.informacoes = comando["informacoes"]
+        imovel.preco = float(comando["preco"])
+        imovel.endereco = comando["endereco"]
+
+        self.__proprietario_view.cadastrado_com_sucesso()
+
+        self.__mostrar_imovel(imovel)
+
+    def __get_imovel_data(self, imovel):
+        return {
+            "titulo": imovel.titulo,
+            "informacoes": imovel.informacoes,
+            "preco": imovel.preco,
+            "endereco": imovel.endereco,
+        }
+
+    def __excluir_imovel(self, imovel_id):
+        self.__base_controller.usuario_logado.remover_imovel(imovel_id)
+        self.__proprietario_view.excluido_com_sucesso()
+        self.__mostrar_imoveis_proprietario()
 
     def __cadastrar_novo_imovel(self):
-        novo_imovel = self.__base_controller.imovel.cadastrar_imovel()
-        if not novo_imovel:
-            raise Exception()
-        # novo_proprietario.adicionar_imovel(novo_imovel)
+        try:
+            novo_imovel = self.__base_controller.imovel.cadastrar_imovel()
+            if not novo_imovel:
+                raise Exception()
+            self.__base_controller.usuario_logado.adicionar_imovel(novo_imovel)
+            self.__proprietario_view.cadastrado_com_sucesso()
+            self.__mostrar_imoveis_proprietario()
+
+        except Exception:
+            self.__proprietario_view.erro_cadastro(
+                "Erro ao cadastrar! Tente de novo."
+            )
+            self.__cadastrar_novo_imovel()
