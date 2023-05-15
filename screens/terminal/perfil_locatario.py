@@ -15,11 +15,12 @@ class PerfilLocatario(Screen):
     def campos(self) -> str:
         self.show_info(
             f"""
-{'=' * 30}
-Nome: {self.__data['nome']}
-Email: {self.__data['email']}
-Telefone: {self.__data["telefone"]}
-Documento: {self.__data["documento"]}
+{'-' * 30}
+| Nome      | {self.__data['nome']} |
+| Email     | {self.__data['email']} |
+| Telefone  | {self.__data["telefone"]} |
+| Documento | {self.__data["documento"]} |
+{'-' * 30}
             """
         )
 
