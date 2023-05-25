@@ -13,7 +13,6 @@ from screens.terminal.log_colors import ColorPrinter
 class Screen(ABC):
     def __init__(self) -> None:
         self.titulo = ""
-        self.ultima_tela: Screen = None
         self.__color_printer = ColorPrinter()
 
     @abstractmethod
@@ -135,9 +134,3 @@ class Screen(ABC):
             self.clear_terminal(1)
 
             return opcao_selecionada
-
-    def sair(self) -> None:
-        self.clear_terminal(1)
-        self.digitar_na_tela("Até logo!")
-        self.clear_terminal(2)
-        exit(0)
