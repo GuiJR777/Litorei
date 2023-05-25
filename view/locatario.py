@@ -1,5 +1,5 @@
 from controller.enumerators import ComandoUsuario
-from screens.terminal.enumerators import Telas
+from screens.enumerators import Telas
 from view.abstract_view import View
 
 

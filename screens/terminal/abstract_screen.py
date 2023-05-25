@@ -5,7 +5,7 @@ from time import sleep
 
 from getpass4 import getpass
 
-from screens.terminal.enumerators import TiposDeRespostas
+from screens.enumerators import TiposDeRespostas
 from screens.terminal.exceptions import UsuarioQuerVoltarException
 from screens.terminal.log_colors import ColorPrinter
 

@@ -1,36 +1,37 @@
 from typing import Dict
 
+from screens.abstract_screen_manager import ScreenManager
 from screens.terminal.abstract_screen import Screen
 from screens.terminal.agradecimento import Agradecimento
+from screens.terminal.cadastro_imovel import CadastroImovel
 from screens.terminal.cadastro_locatario import CadastroLocatario
 from screens.terminal.cadastro_login import CadastroLogin
-from screens.terminal.cadastro_usuario import CadastroUsuario
-from screens.terminal.enumerators import Telas
-from screens.terminal.inicio_deslogado import InicioDeslogado
-from screens.terminal.inicio_locatario import InicioLocatario
-from screens.terminal.listagem_imoveis import ListagemImoveis
-from screens.terminal.login import Login
-from screens.terminal.perfil_proprietario import PerfilProprietario
-from screens.terminal.welcome import Welcome
 from screens.terminal.cadastro_proprietario import CadastroProprietario
-from screens.terminal.cadastro_imovel import CadastroImovel
-from screens.terminal.inicio_proprietario import InicioProprietario
+from screens.terminal.cadastro_usuario import CadastroUsuario
+from screens.terminal.contrato_aluguel import ContratoAluguel
+from screens.terminal.diarias import Diarias
+from screens.terminal.editar_imovel import EditarImovel
+from screens.terminal.editar_perfil_locatario import EditarPerfilLocatario
 from screens.terminal.editar_perfil_proprietario import (
     EditarPerfilProprietario,
 )
-from screens.terminal.perfil_locatario import PerfilLocatario
-from screens.terminal.editar_perfil_locatario import EditarPerfilLocatario
+from screens.enumerators import Telas
+from screens.terminal.inicio_deslogado import InicioDeslogado
+from screens.terminal.inicio_locatario import InicioLocatario
+from screens.terminal.inicio_proprietario import InicioProprietario
+from screens.terminal.listagem_imoveis import ListagemImoveis
+from screens.terminal.login import Login
 from screens.terminal.mostrar_imoveis_proprietario import (
     MostrarImoveisProprietario,
 )
 from screens.terminal.mostrar_imovel import MostrarImovel
-from screens.terminal.contrato_aluguel import ContratoAluguel
-from screens.terminal.editar_imovel import EditarImovel
-from screens.terminal.diarias import Diarias
+from screens.terminal.perfil_locatario import PerfilLocatario
+from screens.terminal.perfil_proprietario import PerfilProprietario
 from screens.terminal.relatorio_alugueis import RelatorioAlugueis
+from screens.terminal.welcome import Welcome
 
 
-class ScreenManager:
+class TerminalScreenManager(ScreenManager):
     def __init__(self) -> None:
         self.__telas: Dict[Telas, Screen] = {
             Telas.AGRADECIMENTO: Agradecimento,
