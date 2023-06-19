@@ -7,6 +7,7 @@ from screens.enumerators import Telas
 from screens.graphic.abstract_pages import Page
 from screens.graphic.inicio_deslogado import InicioDeslogado
 from screens.graphic.welcome import Welcome
+from screens.graphic.cadastro_login import CadastroLogin
 
 
 class GUIScreenManager(ScreenManager):
@@ -16,7 +17,7 @@ class GUIScreenManager(ScreenManager):
             # Telas.AGRADECIMENTO: Agradecimento,
             # Telas.CADASTRO_IMOVEL: CadastroImovel,
             # Telas.CADASTRO_LOCATARIO: CadastroLocatario,
-            # Telas.CADASTRO_LOGIN: CadastroLogin,
+            Telas.CADASTRO_LOGIN: CadastroLogin,
             # Telas.CADASTRO_PROPRIETARIO: CadastroProprietario,
             # Telas.CADASTRO_USUARIO: CadastroUsuario,
             # Telas.DIARIAS: Diarias,

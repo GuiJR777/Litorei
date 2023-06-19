@@ -1,3 +1,4 @@
+# https://flet.dev/docs/
 from flet import (
     Column,
     ElevatedButton,
@@ -8,7 +9,6 @@ from flet import (
     Row,
     Text,
     TextThemeStyle,
-    colors,
 )
 
 from screens.graphic.abstract_pages import Page

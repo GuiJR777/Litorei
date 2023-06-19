@@ -9,8 +9,7 @@ from screens.terminal.screen_manager import TerminalScreenManager
 
 def modo_grafico(page: ft.Page) -> None:
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.window_width = 1920
-    page.window_height = 1080
+    page.window_full_screen = True
     page.window_center()
 
     screen_manager = GUIScreenManager(page)

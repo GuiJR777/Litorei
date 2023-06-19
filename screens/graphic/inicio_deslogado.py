@@ -48,6 +48,8 @@ class InicioDeslogado(Page):
 
                 ]
             ),
+            # Fim do menu da parte superior
+
             # Corpo da página
             Column(
                 [
