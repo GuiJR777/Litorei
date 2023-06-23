@@ -5,12 +5,13 @@ from controller.locatario import LocatarioController
 from controller.proprietario import ProprietarioController
 from model.proprietario import Proprietario
 from model.usuario import Usuario
+from screens.abstract_screen_manager import ScreenManager
 from view.base_view import BaseView
 from model.locatario import Locatario
 
 
 class BaseController(Controller):
-    def __init__(self, screen_manager) -> None:
+    def __init__(self, screen_manager: ScreenManager) -> None:
         self.__screen_manager = screen_manager
         self.__usuario_logado = None
         self.__imovel = ImovelController(self)
@@ -28,7 +29,7 @@ class BaseController(Controller):
         self.__usuario_logado = usuario
 
     @property
-    def screen_manager(self):
+    def screen_manager(self) -> ScreenManager:
         return self.__screen_manager
 
     @property

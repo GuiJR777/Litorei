@@ -1,5 +1,5 @@
 from screens.terminal.abstract_screen import Screen
-from screens.terminal.enumerators import TiposDeRespostas
+from screens.enumerators import TiposDeRespostas
 from screens.terminal.exceptions import UsuarioQuerVoltarException
 
 

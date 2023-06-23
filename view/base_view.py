@@ -1,14 +1,16 @@
 from controller.enumerators import ComandoUsuario
-from screens.terminal.enumerators import Telas
+from screens.abstract_screen_manager import ScreenManager
+from screens.enumerators import Telas
 from view.abstract_view import View
 
 
 class BaseView(View):
-    def __init__(self, screen_manager) -> None:
+    def __init__(self, screen_manager: ScreenManager) -> None:
         self.screen_manager = screen_manager
 
     def iniciar(self) -> None:
         self.screen_manager.trocar_de_tela(Telas.WELCOME)
+        self.screen_manager.esperar_comando_usuario()
 
     def inicio_deslogado(self) -> ComandoUsuario:
         self.screen_manager.trocar_de_tela(Telas.INICIO_DESLOGADO)
