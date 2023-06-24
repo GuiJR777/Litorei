@@ -6,9 +6,9 @@ class InicioLocatario(Screen):
         super().__init__()
         self.titulo = "Bem vindo {name}!"
 
-    def entrada(self, name) -> None:
+    def entrada(self, data) -> None:
         self.clear_terminal()
-        self.titulo = self.titulo.format(name=name)
+        self.titulo = self.titulo.format(name=data["name"])
         self.show_titulo()
 
     def campos(self) -> str:

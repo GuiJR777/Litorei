@@ -1,10 +1,8 @@
 # https://flet.dev/docs/
 from flet import (
     AppBar,
-    colors,
     Column,
     ElevatedButton,
-    icons,
     IconButton,
     Image,
     ImageFit,
@@ -14,6 +12,8 @@ from flet import (
     Text,
     TextButton,
     TextField,
+    colors,
+    icons,
 )
 
 from screens.graphic.abstract_pages import Page
@@ -53,7 +53,7 @@ class CadastroLogin(Page):
                     fit=ImageFit.CONTAIN,
                     repeat=ImageRepeat.NO_REPEAT,
                 ),
-                bgcolor=colors.TEAL_ACCENT_700,
+                #
             ),
             # Fim do menu da parte superior
             Row(

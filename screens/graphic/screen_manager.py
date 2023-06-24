@@ -8,6 +8,7 @@ from screens.graphic.abstract_pages import Page
 from screens.graphic.cadastro_locatario import CadastroLocatario
 from screens.graphic.cadastro_usuario import CadastroUsuario
 from screens.graphic.inicio_deslogado import InicioDeslogado
+from screens.graphic.inicio_locatario import InicioLocatario
 from screens.graphic.welcome import Welcome
 from screens.graphic.cadastro_login import CadastroLogin
 
@@ -30,7 +31,7 @@ class GUIScreenManager(ScreenManager):
             # Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario,
             # Telas.EDITAR_PERFIL_PROPRIETARIO: EditarPerfilProprietario,
             Telas.INICIO_DESLOGADO: InicioDeslogado,
-            # Telas.INICIO_LOCATARIO: InicioLocatario,
+            Telas.INICIO_LOCATARIO: InicioLocatario,
             # Telas.INICIO_PROPRIETARIO: InicioProprietario,
             # Telas.LISTAGEM_IMOVEIS: ListagemImoveis,
             # Telas.MOSTRAR_IMOVEL: MostrarImovel,
@@ -55,6 +56,8 @@ class GUIScreenManager(ScreenManager):
 
         self.__page.views.clear()
         self.__active_page = self.__telas[tela](tela.value)
+        if kwargs != {}:
+            self.__active_page.data = kwargs.get("data")
         self.__page.views.append(self.__active_page)
         self.__page.go(tela.value)
 
@@ -70,7 +73,7 @@ class GUIScreenManager(ScreenManager):
             return self.__active_page.payload
 
     def feedback_sucesso(self, mensagem: str) -> None:
-        banner = self.__active_page.start_success_banner("Concluido", mensagem)
+        banner = self.__active_page.start_success_banner(mensagem)
         self.__page.banner = banner
         banner.open = True
         self.__page.banner.actions[0].on_click = self.__close_banner

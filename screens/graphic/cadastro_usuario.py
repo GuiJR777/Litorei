@@ -2,9 +2,7 @@
 from flet import (
     AppBar,
     ButtonStyle,
-    colors,
     Column,
-    icons,
     IconButton,
     Image,
     ImageFit,
@@ -13,6 +11,8 @@ from flet import (
     OutlinedButton,
     RoundedRectangleBorder,
     Row,
+    colors,
+    icons,
 )
 
 from screens.graphic.abstract_pages import Page
@@ -42,7 +42,7 @@ class CadastroUsuario(Page):
                     fit=ImageFit.CONTAIN,
                     repeat=ImageRepeat.NO_REPEAT,
                 ),
-                bgcolor=colors.TEAL_ACCENT_700,
+                #
             ),  # Fim do menu da parte superior
             Row(
                 [

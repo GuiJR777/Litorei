@@ -6,7 +6,6 @@ from flet import (
     Image,
     ImageFit,
     ImageRepeat,
-    icons,
     MainAxisAlignment,
     Margin,
     OutlinedButton,
@@ -16,7 +15,7 @@ from flet import (
     TextAlign,
     TextButton,
     TextThemeStyle,
-    colors,
+    icons,
 )
 
 from screens.graphic.abstract_pages import Page
@@ -44,7 +43,7 @@ class InicioDeslogado(Page):
                     fit=ImageFit.CONTAIN,
                     repeat=ImageRepeat.NO_REPEAT,
                 ),
-                bgcolor=colors.TEAL_ACCENT_700,
+                #
                 actions=[
                     Container(
                         content=Row(

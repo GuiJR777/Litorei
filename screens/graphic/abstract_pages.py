@@ -9,6 +9,7 @@ class Page(ABC, View):
     def __init__(self, route: str) -> None:
         super().__init__(route)
         self.__payload = {}
+        self.__data = {}
 
     @property
     def payload(self) -> dict:
@@ -18,6 +19,14 @@ class Page(ABC, View):
     @validar_tipo_do_parametro(dict)
     def payload(self, payload: dict) -> None:
         self.__payload = payload
+
+    @property
+    def data(self) -> dict:
+        return self.__data
+
+    @data.setter
+    def data(self, data: dict) -> None:
+        self.__data = data
 
     @abstractmethod
     def exibir_pagina(self, *args, **kwargs) -> None:
@@ -29,9 +38,9 @@ class Page(ABC, View):
 
     def start_alert_banner(self, message: str) -> None:
         return Banner(
-            bgcolor=colors.AMBER_100,
+            bgcolor=colors.RED_400,
             leading=Icon(
-                icons.WARNING_AMBER_ROUNDED, color=colors.AMBER, size=40
+                icons.WARNING_AMBER_ROUNDED, color=colors.WHITE, size=40
             ),
             content=Text(
                 message,
@@ -43,8 +52,8 @@ class Page(ABC, View):
 
     def start_success_banner(self, message: str) -> None:
         return Banner(
-            bgcolor=colors.LIGHT_GREEN_ACCENT_200,
-            leading=Icon(icons.DONE_OUTLINE, color=colors.GREEN, size=40),
+            bgcolor=colors.GREEN_ACCENT_700,
+            leading=Icon(icons.DONE_OUTLINE, color=colors.WHITE, size=40),
             content=Text(
                 message,
             ),

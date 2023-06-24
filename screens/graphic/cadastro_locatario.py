@@ -18,10 +18,8 @@
 # https://flet.dev/docs/
 from flet import (
     AppBar,
-    colors,
     Column,
     ElevatedButton,
-    icons,
     IconButton,
     Image,
     ImageFit,
@@ -32,6 +30,8 @@ from flet import (
     TextButton,
     TextField,
     TextThemeStyle,
+    colors,
+    icons,
 )
 
 from screens.graphic.abstract_pages import Page
@@ -55,13 +55,13 @@ class CadastroLocatario(Page):
             hint_text="senha",
             password=True,
             can_reveal_password=True,
-            )
+        )
         self.confirma_senha = TextField(
             label="Confirme sua senha",
             hint_text="senha",
             password=True,
             can_reveal_password=True,
-            )
+        )
         self.documento = TextField(label="CPF", hint_text="CPF")
         self.telefone = TextField(label="Telefone", hint_text="Telefone")
 
@@ -77,7 +77,7 @@ class CadastroLocatario(Page):
                     fit=ImageFit.CONTAIN,
                     repeat=ImageRepeat.NO_REPEAT,
                 ),
-                bgcolor=colors.TEAL_ACCENT_700,
+                #
             ),
             # Fim do menu da parte superior
             Row(
@@ -86,7 +86,7 @@ class CadastroLocatario(Page):
                         [
                             Text(
                                 "Cadastro de Locatário",
-                                style=TextThemeStyle.TITLE_LARGE
+                                style=TextThemeStyle.TITLE_LARGE,
                             ),
                             self.nome,
                             self.documento,
@@ -95,7 +95,8 @@ class CadastroLocatario(Page):
                             self.senha,
                             self.confirma_senha,
                             ElevatedButton(
-                                "Cadastrar", on_click=self.__submit_form  # noqa
+                                "Cadastrar",
+                                on_click=self.__submit_form,  # noqa
                             ),  # EndButton
                         ],
                         alignment=MainAxisAlignment.CENTER,
@@ -120,7 +121,7 @@ class CadastroLocatario(Page):
                 "confirmar_senha": self.confirma_senha.value,
                 "documento": self.__remove_non_digits(self.documento.value),
                 "telefone": self.__remove_non_digits(self.telefone.value),
-            }
+            },
         )
 
     def __voltar(self, event) -> None:

@@ -23,7 +23,9 @@ class LocatarioView(View):
         self.screen_manager.feedback_erro(mensagem)
 
     def iniciar(self, name) -> None:
-        self.screen_manager.trocar_de_tela(Telas.INICIO_LOCATARIO, name=name)
+        self.screen_manager.trocar_de_tela(
+            Telas.INICIO_LOCATARIO, data={"name": name}
+        )
         resposta = self.screen_manager.esperar_comando_usuario()
 
         match resposta:
