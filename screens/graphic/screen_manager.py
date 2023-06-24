@@ -5,6 +5,8 @@ from flet import Page as FletPage
 from screens.abstract_screen_manager import ScreenManager
 from screens.enumerators import Telas
 from screens.graphic.abstract_pages import Page
+from screens.graphic.cadastro_locatario import CadastroLocatario
+from screens.graphic.cadastro_usuario import CadastroUsuario
 from screens.graphic.inicio_deslogado import InicioDeslogado
 from screens.graphic.welcome import Welcome
 from screens.graphic.cadastro_login import CadastroLogin
@@ -19,10 +21,10 @@ class GUIScreenManager(ScreenManager):
         self.__telas: Dict[Telas, Page] = {
             # Telas.AGRADECIMENTO: Agradecimento,
             # Telas.CADASTRO_IMOVEL: CadastroImovel,
-            # Telas.CADASTRO_LOCATARIO: CadastroLocatario,
+            Telas.CADASTRO_LOCATARIO: CadastroLocatario,
             Telas.CADASTRO_LOGIN: CadastroLogin,
             # Telas.CADASTRO_PROPRIETARIO: CadastroProprietario,
-            # Telas.CADASTRO_USUARIO: CadastroUsuario,
+            Telas.CADASTRO_USUARIO: CadastroUsuario,
             # Telas.DIARIAS: Diarias,
             # Telas.EDITAR_IMOVEL: EditarImovel,
             # Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario,
@@ -31,7 +33,6 @@ class GUIScreenManager(ScreenManager):
             # Telas.INICIO_LOCATARIO: InicioLocatario,
             # Telas.INICIO_PROPRIETARIO: InicioProprietario,
             # Telas.LISTAGEM_IMOVEIS: ListagemImoveis,
-            # Telas.LOGIN: Login,
             # Telas.MOSTRAR_IMOVEL: MostrarImovel,
             # Telas.MOSTRAR_IMOVEIS_PROPRIETARIO: MostrarImoveisProprietario,
             # Telas.PERFIL_LOCATARIO: PerfilLocatario,

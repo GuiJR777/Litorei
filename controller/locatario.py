@@ -27,6 +27,13 @@ class LocatarioController(Controller):
         if dados_locatario == ComandoUsuario.VOLTAR:
             self.__base_controller.cadastrar_usuario()
 
+        e_valido = self.__validar_cadastro(dados_locatario)
+
+        if e_valido != "OK":
+            self.__locatario_view.erro_cadastro(e_valido)
+            self.cadastrar()
+            return
+
         try:
             novo_locatario = Locatario(**dados_locatario)
             self.__locatarios.append(novo_locatario)
@@ -55,6 +62,34 @@ class LocatarioController(Controller):
                 self.__mostrar_perfil()
             case ComandoUsuario.VER_CONTRATOS_LOCATARIO:
                 self.__ver_contrato()
+
+    def __validar_cadastro(self, dados_locatario) -> str:
+        if "@" not in dados_locatario["email"]:
+            return "Email inválido!"
+
+        if dados_locatario["senha"] != dados_locatario["confirmar_senha"]:
+            return "Senhas não conferem!"
+
+        if dados_locatario["documento"] == "":
+            return "CPF inválido!"
+
+        if not dados_locatario["documento"].isnumeric():
+            return "CPF inválido!"
+
+        if len(dados_locatario["documento"]) != 11:
+            return "CPF inválido!"
+
+        if dados_locatario["telefone"] == "":
+            return "Telefone inválido!"
+
+        if not dados_locatario["telefone"].isnumeric():
+            return "Telefone inválido!"
+
+        if dados_locatario["nome"] == "":
+            return "Nome inválido!"
+
+        del dados_locatario["confirmar_senha"]
+        return "OK"
 
     def __mostrar_perfil(self):
         comando = self.__locatario_view.mostrar_perfil(

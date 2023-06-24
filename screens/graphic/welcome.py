@@ -34,7 +34,6 @@ class Welcome(Page):
                         ],
                         alignment=MainAxisAlignment.CENTER,
                     ),  # EndRow
-
                     Row(
                         [
                             Image(
@@ -46,7 +45,6 @@ class Welcome(Page):
                         ],
                         alignment=MainAxisAlignment.CENTER,
                     ),  # EndRow
-
                     Row(
                         [
                             ElevatedButton(

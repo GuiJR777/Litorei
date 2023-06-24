@@ -19,7 +19,9 @@ from flet import (
 from screens.graphic.abstract_pages import Page
 from utils.constants import ABSOLUTE_IMAGES_PATH
 
-LOGO_LETTERS_IMAGE_PATH = ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
+LOGO_LETTERS_IMAGE_PATH = (
+    ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
+)
 
 
 class CadastroLogin(Page):
@@ -29,21 +31,22 @@ class CadastroLogin(Page):
     def exibir_pagina(self) -> None:
         # Form fields
         self.email_field = TextField(
-            label="Email",
-            hint_text="seu.nome@email.com"
+            label="Email", hint_text="seu.nome@email.com"
         )
 
         self.senha_field = TextField(
             label="Senha",
-            hint_text="password",
+            hint_text="senha",
             password=True,
-            can_reveal_password=True
+            can_reveal_password=True,
         )
 
         self.controls = [
             # Menu da parte superior
             AppBar(
-                leading=IconButton(icons.ARROW_BACK_IOS, on_click=self.__voltar),  # noqa
+                leading=IconButton(
+                    icons.ARROW_BACK_IOS, on_click=self.__voltar
+                ),  # noqa
                 title=Image(
                     src=LOGO_LETTERS_IMAGE_PATH,
                     height=30,
@@ -66,17 +69,17 @@ class CadastroLogin(Page):
                             self.email_field,
                             self.senha_field,
                             ElevatedButton(
-                                        "Entrar", on_click=self.__logar  # noqa
-                                    ),  # EndButton
+                                "Entrar", on_click=self.__logar  # noqa
+                            ),  # EndButton
                             Row(
                                 [
                                     Text("Não possui cadastro ainda?"),
                                     TextButton(
                                         "Crie um aqui!",
                                         on_click=self.__cadastrar,
-                                        ),
+                                    ),
                                 ]
-                             ),
+                            ),
                         ],
                         alignment=MainAxisAlignment.CENTER,
                         width=480,
@@ -84,7 +87,7 @@ class CadastroLogin(Page):
                     )  # EndColumn
                 ],
                 alignment=MainAxisAlignment.CENTER,
-            )
+            ),
         ]
 
     def preencher_payload(self, event, content: dict) -> None:
@@ -100,7 +103,7 @@ class CadastroLogin(Page):
                 "comando": "2",
                 "email": self.email_field.value,
                 "senha": self.senha_field.value,
-            }
+            },
         )
 
     def __voltar(self, event) -> None:
