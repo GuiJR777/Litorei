@@ -10,6 +10,9 @@ from screens.graphic.welcome import Welcome
 from screens.graphic.cadastro_login import CadastroLogin
 
 
+TELAS_PARA_NAO_IMPLEMENTAR = [Telas.LOGIN]
+
+
 class GUIScreenManager(ScreenManager):
     def __init__(self, page) -> None:
         self.__page: FletPage = page
@@ -40,6 +43,10 @@ class GUIScreenManager(ScreenManager):
         self.__active_page = None
 
     def trocar_de_tela(self, tela: Telas, **kwargs) -> None:
+        if tela in TELAS_PARA_NAO_IMPLEMENTAR:
+            del self.__active_page.payload["comando"]
+            return
+
         if self.__active_page:
             if tela.value == self.__active_page.route:
                 self.__active_page.payload = {}
@@ -55,7 +62,7 @@ class GUIScreenManager(ScreenManager):
         self.__page.update()
 
         while not self.__active_page.payload:
-            pass
+            self.__page.update()
         else:
             if "comando" in self.__active_page.payload:
                 return self.__active_page.payload["comando"]
