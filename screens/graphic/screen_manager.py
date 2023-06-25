@@ -7,8 +7,10 @@ from screens.enumerators import Telas
 from screens.graphic.abstract_pages import Page
 from screens.graphic.cadastro_locatario import CadastroLocatario
 from screens.graphic.cadastro_usuario import CadastroUsuario
+from screens.graphic.editar_perfil_locatario import EditarPerfilLocatario
 from screens.graphic.inicio_deslogado import InicioDeslogado
 from screens.graphic.inicio_locatario import InicioLocatario
+from screens.graphic.perfil_locatario import PerfilLocatario
 from screens.graphic.welcome import Welcome
 from screens.graphic.cadastro_login import CadastroLogin
 
@@ -28,7 +30,7 @@ class GUIScreenManager(ScreenManager):
             Telas.CADASTRO_USUARIO: CadastroUsuario,
             # Telas.DIARIAS: Diarias,
             # Telas.EDITAR_IMOVEL: EditarImovel,
-            # Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario,
+            Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario,
             # Telas.EDITAR_PERFIL_PROPRIETARIO: EditarPerfilProprietario,
             Telas.INICIO_DESLOGADO: InicioDeslogado,
             Telas.INICIO_LOCATARIO: InicioLocatario,
@@ -36,7 +38,7 @@ class GUIScreenManager(ScreenManager):
             # Telas.LISTAGEM_IMOVEIS: ListagemImoveis,
             # Telas.MOSTRAR_IMOVEL: MostrarImovel,
             # Telas.MOSTRAR_IMOVEIS_PROPRIETARIO: MostrarImoveisProprietario,
-            # Telas.PERFIL_LOCATARIO: PerfilLocatario,
+            Telas.PERFIL_LOCATARIO: PerfilLocatario,
             # Telas.PERFIL_PROPRIETARIO: PerfilProprietario,
             # Telas.RELATORIO_ALUGUEIS: RelatorioAlugueis,
             # Telas.VER_CONTRATO_ALUGUEL: ContratoAluguel,

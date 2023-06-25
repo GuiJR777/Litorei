@@ -10,7 +10,6 @@ from flet import (
     MainAxisAlignment,
     Row,
     Text,
-    TextField,
     TextThemeStyle,
     icons,
 )
@@ -23,28 +22,15 @@ LOGO_LETTERS_IMAGE_PATH = (
 )
 
 
-class CadastroLocatario(Page):
+class PerfilLocatario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
-        # Form fields
-        self.nome = TextField(label="Nome", hint_text="Seu nome")
-        self.email = TextField(label="Email", hint_text="seu.nome@email.com")
-        self.senha = TextField(
-            label="Senha",
-            hint_text="senha",
-            password=True,
-            can_reveal_password=True,
-        )
-        self.confirma_senha = TextField(
-            label="Confirme sua senha",
-            hint_text="senha",
-            password=True,
-            can_reveal_password=True,
-        )
-        self.documento = TextField(label="CPF", hint_text="CPF")
-        self.telefone = TextField(label="Telefone", hint_text="Telefone")
+        self.nome = Text(f"Nome: {self.data.get('nome')}")
+        self.email = Text(f"Email: {self.data.get('email')}")
+        self.documento = Text(f"CPF: {self.data.get('documento')}")
+        self.telefone = Text(f"Telefone: {self.data.get('telefone')}")
 
         self.controls = [
             # Menu da parte superior
@@ -66,18 +52,17 @@ class CadastroLocatario(Page):
                     Column(
                         [
                             Text(
-                                "Cadastro de Locatário",
+                                "Seu perfil",
                                 style=TextThemeStyle.TITLE_LARGE,
                             ),
                             self.nome,
                             self.documento,
                             self.telefone,
                             self.email,
-                            self.senha,
-                            self.confirma_senha,
                             ElevatedButton(
-                                "Cadastrar",
-                                on_click=self.__submit_form,  # noqa
+                                "Editar",
+                                icon="edit",
+                                on_click=self.__edit_register,  # noqa
                             ),  # EndButton
                         ],
                         alignment=MainAxisAlignment.CENTER,
@@ -92,22 +77,8 @@ class CadastroLocatario(Page):
     def preencher_payload(self, event, content: dict) -> None:
         self.payload = content
 
-    def __submit_form(self, event) -> None:
-        self.preencher_payload(
-            event,
-            {
-                "nome": self.nome.value,
-                "email": self.email.value,
-                "senha": self.senha.value,
-                "confirmar_senha": self.confirma_senha.value,
-                "documento": self.__remove_non_digits(self.documento.value),
-                "telefone": self.__remove_non_digits(self.telefone.value),
-            },
-        )
+    def __edit_register(self, event) -> None:
+        self.preencher_payload(event, {"comando": "1"})
 
     def __voltar(self, event) -> None:
-        self.preencher_payload(event, {"comando": None})
-
-    @staticmethod
-    def __remove_non_digits(string: str) -> str:
-        return "".join([char for char in string if char.isdigit()])
+        self.preencher_payload(event, {"comando": "2"})
