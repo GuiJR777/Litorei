@@ -22,14 +22,14 @@ LOGO_LETTERS_IMAGE_PATH = (
 )
 
 
-class PerfilLocatario(Page):
+class PerfilProprietario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
         self.nome = Text(f"Nome: {self.data.get('nome')}")
         self.email = Text(f"Email: {self.data.get('email')}")
-        self.documento = Text(f"CPF: {self.data.get('documento')}")
+        self.documento = Text(f"Documento: {self.data.get('documento')}")
         self.telefone = Text(f"Telefone: {self.data.get('telefone')}")
 
         self.controls = [

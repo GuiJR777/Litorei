@@ -53,7 +53,7 @@ class Page(ABC, View):
     def start_success_banner(self, message: str) -> None:
         return Banner(
             bgcolor=colors.GREEN_ACCENT_700,
-            leading=Icon(icons.DONE_OUTLINE, color=colors.WHITE, size=40),
+            leading=Icon(icons.CHECK, color=colors.WHITE, size=40),
             content=Text(
                 message,
             ),

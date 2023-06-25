@@ -2,6 +2,8 @@
 from flet import (
     AppBar,
     Column,
+    Dropdown,
+    dropdown,
     ElevatedButton,
     IconButton,
     Image,
@@ -24,7 +26,7 @@ LOGO_LETTERS_IMAGE_PATH = (
 )
 
 
-class CadastroLocatario(Page):
+class CadastroProprietario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
@@ -35,7 +37,7 @@ class CadastroLocatario(Page):
             label="Email",
             hint_text="seu.nome@email.com",
             keyboard_type=KeyboardType.EMAIL
-        )
+            )
         self.senha = TextField(
             label="Senha",
             hint_text="senha",
@@ -49,9 +51,17 @@ class CadastroLocatario(Page):
             can_reveal_password=True,
         )
         self.documento = TextField(
-            label="CPF",
-            hint_text="CPF",
+            label="Documento",
+            hint_text="CPF ou CNPJ",
             keyboard_type=KeyboardType.NUMBER
+        )
+        self.tipo_documento = Dropdown(
+            label="Tipo de documento",
+            hint_text="Qual documento você cadastrou acima?",
+            options=[
+                dropdown.Option("CPF"),
+                dropdown.Option("CNPJ"),
+            ],
         )
         self.telefone = TextField(
             label="Telefone",
@@ -79,11 +89,12 @@ class CadastroLocatario(Page):
                     Column(
                         [
                             Text(
-                                "Cadastro de Locatário",
+                                "Cadastro de Proprietário",
                                 style=TextThemeStyle.TITLE_LARGE,
                             ),
                             self.nome,
                             self.documento,
+                            self.tipo_documento,
                             self.telefone,
                             self.email,
                             self.senha,
@@ -114,6 +125,7 @@ class CadastroLocatario(Page):
                 "senha": self.senha.value,
                 "confirmar_senha": self.confirma_senha.value,
                 "documento": self.__remove_non_digits(self.documento.value),
+                "tipo": "pj" if self.tipo_documento.value == "CNPJ" else "pf",
                 "telefone": self.__remove_non_digits(self.telefone.value),
             },
         )

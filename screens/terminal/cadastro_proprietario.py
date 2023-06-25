@@ -24,6 +24,9 @@ class CadastroProprietario(Screen):
                 "senha": self.questionar(
                     "Qual é a sua senha?", TiposDeRespostas.SENHA
                 ),
+                "confirmar_senha": self.questionar(
+                    "Digite sua senha novamente.", TiposDeRespostas.SENHA
+                ),
                 "telefone": self.questionar(
                     "Qual é o seu telefone?", TiposDeRespostas.NUMERICO
                 ),

@@ -1,8 +1,10 @@
 from flet import (
     AppBar,
     ButtonStyle,
+    colors,
     Column,
     Container,
+    FloatingActionButton,
     Image,
     ImageFit,
     ImageRepeat,
@@ -26,11 +28,11 @@ from utils.constants import ABSOLUTE_IMAGES_PATH
 LOGO_LETTERS_IMAGE_PATH = (
     ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
 )
-LISTA_IMOVEIS_IMAGE = ABSOLUTE_IMAGES_PATH + "/lista_imoveis.png"
-CONTRATOS_IMAGE = ABSOLUTE_IMAGES_PATH + "/contratos.png"
+LISTA_IMOVEIS_IMAGE = ABSOLUTE_IMAGES_PATH + "/seus_imoveis.png"
+RELATORIO_IMAGE = ABSOLUTE_IMAGES_PATH + "/relatorios.png"
 
 
-class InicioLocatario(Page):
+class InicioProprietario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
@@ -62,8 +64,8 @@ class InicioLocatario(Page):
                                         ),
                                         PopupMenuItem(
                                             content=TextButton(
-                                                "Contratos",
-                                                on_click=self.__acessar_contratos,  # noqa
+                                                "Meus imóveis",
+                                                on_click=self.__visualizar_imoveis,  # noqa
                                             )
                                         ),
                                         PopupMenuItem(
@@ -95,7 +97,7 @@ class InicioLocatario(Page):
                             Row(
                                 [
                                     OutlinedButton(
-                                        text="Lista de imóveis",
+                                        text="Ver seus imóveis",
                                         width=360,
                                         height=360,
                                         content=Image(
@@ -103,7 +105,7 @@ class InicioLocatario(Page):
                                             fit=ImageFit.CONTAIN,
                                             repeat=ImageRepeat.NO_REPEAT,
                                         ),
-                                        on_click=self.__listagem_imoveis,
+                                        on_click=self.__visualizar_imoveis,
                                         style=ButtonStyle(
                                             shape=RoundedRectangleBorder(
                                                 radius=8
@@ -111,15 +113,15 @@ class InicioLocatario(Page):
                                         ),
                                     ),  # EndButton
                                     OutlinedButton(
-                                        text="Quero anunciar meus imóveis",
+                                        text="Visualizar relatório de aluguéis",  # noqa
                                         width=360,
                                         height=360,
                                         content=Image(
-                                            src=CONTRATOS_IMAGE,
+                                            src=RELATORIO_IMAGE,
                                             fit=ImageFit.CONTAIN,
                                             repeat=ImageRepeat.NO_REPEAT,
                                         ),
-                                        on_click=self.__acessar_contratos,
+                                        on_click=self.__acessar_relatorio,
                                         style=ButtonStyle(
                                             shape=RoundedRectangleBorder(
                                                 radius=8
@@ -136,31 +138,49 @@ class InicioLocatario(Page):
                 ],
                 alignment=MainAxisAlignment.CENTER,
             ),  # EndRow
+            Row(
+                [
+                    FloatingActionButton(
+                        icon=icons.ADD_HOME,
+                        on_click=self.__criar_novo_imovel,
+                        height=120,
+                        width=120
+                    ),
+                    Row(height=48)
+                ],
+                alignment=MainAxisAlignment.END,
+            )
         ]
 
     def preencher_payload(self, event, content: dict) -> None:
         self.payload = content
 
-    def __listagem_imoveis(self, event) -> None:
+    def __acessar_perfil(self, event) -> None:
         self.preencher_payload(
             event,
             {"comando": "1"},
         )
 
-    def __acessar_perfil(self, event) -> None:
+    def __visualizar_imoveis(self, event) -> None:
         self.preencher_payload(
             event,
             {"comando": "2"},
         )
 
-    def __acessar_contratos(self, event) -> None:
+    def __criar_novo_imovel(self, event) -> None:
         self.preencher_payload(
             event,
-            {"comando": "3"},
+            {"comando": "3"}
+        )
+
+    def __acessar_relatorio(self, event) -> None:
+        self.preencher_payload(
+            event,
+            {"comando": "4"},
         )
 
     def __deslogar(self, event) -> None:
         self.preencher_payload(
             event,
-            {"comando": "4"},
+            {"comando": "5"},
         )

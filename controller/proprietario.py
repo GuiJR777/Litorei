@@ -23,6 +23,13 @@ class ProprietarioController(Controller):
         if dados_proprietario == ComandoUsuario.VOLTAR:
             self.__base_controller.cadastrar_usuario()
 
+        e_valido = self.__validar_cadastro(dados_proprietario)
+
+        if e_valido != "OK":
+            self.__proprietario_view.erro_cadastro(e_valido)
+            self.cadastrar()
+            return
+
         try:
             if dados_proprietario["tipo"] == "pf":
                 dados_proprietario["tipo"] = TipoProprietario.PESSOA_FISICA
@@ -66,6 +73,35 @@ class ProprietarioController(Controller):
 
             case ComandoUsuario.VISUALIZAR_RELATORIO_ALUGUEIS:
                 self.__visualizar_relatorio_aluguel()
+
+    def __validar_cadastro(self, dados_locatario) -> str:
+        if "@" not in dados_locatario["email"]:
+            return "Email inválido!"
+
+        if dados_locatario.get("senha") and dados_locatario.get("confirmar_senha"):  # noqa
+            if dados_locatario["senha"] != dados_locatario["confirmar_senha"]:
+                return "Senhas não conferem!"
+            del dados_locatario["confirmar_senha"]
+
+        if dados_locatario["documento"] == "":
+            return "CPF inválido!"
+
+        if not dados_locatario["documento"].isnumeric():
+            return "CPF inválido!"
+
+        if len(dados_locatario["documento"]) != 11:
+            return "CPF inválido!"
+
+        if dados_locatario["telefone"] == "":
+            return "Telefone inválido!"
+
+        if not dados_locatario["telefone"].isnumeric():
+            return "Telefone inválido!"
+
+        if dados_locatario["nome"] == "":
+            return "Nome inválido!"
+
+        return "OK"
 
     def __mostrar_perfil(self):
         comando = self.__proprietario_view.mostrar_perfil(

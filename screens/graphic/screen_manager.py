@@ -5,12 +5,17 @@ from flet import Page as FletPage
 from screens.abstract_screen_manager import ScreenManager
 from screens.enumerators import Telas
 from screens.graphic.abstract_pages import Page
+from screens.graphic.cadastro_imovel import CadastroImovel
 from screens.graphic.cadastro_locatario import CadastroLocatario
+from screens.graphic.cadastro_proprietario import CadastroProprietario
 from screens.graphic.cadastro_usuario import CadastroUsuario
 from screens.graphic.editar_perfil_locatario import EditarPerfilLocatario
+from screens.graphic.editar_perfil_proprietario import EditarPerfilProprietario
 from screens.graphic.inicio_deslogado import InicioDeslogado
 from screens.graphic.inicio_locatario import InicioLocatario
+from screens.graphic.inicio_proprietario import InicioProprietario
 from screens.graphic.perfil_locatario import PerfilLocatario
+from screens.graphic.perfil_proprietario import PerfilProprietario
 from screens.graphic.welcome import Welcome
 from screens.graphic.cadastro_login import CadastroLogin
 
@@ -23,23 +28,23 @@ class GUIScreenManager(ScreenManager):
         self.__page: FletPage = page
         self.__telas: Dict[Telas, Page] = {
             # Telas.AGRADECIMENTO: Agradecimento,
-            # Telas.CADASTRO_IMOVEL: CadastroImovel,
+            Telas.CADASTRO_IMOVEL: CadastroImovel,
             Telas.CADASTRO_LOCATARIO: CadastroLocatario,
             Telas.CADASTRO_LOGIN: CadastroLogin,
-            # Telas.CADASTRO_PROPRIETARIO: CadastroProprietario,
+            Telas.CADASTRO_PROPRIETARIO: CadastroProprietario,
             Telas.CADASTRO_USUARIO: CadastroUsuario,
             # Telas.DIARIAS: Diarias,
             # Telas.EDITAR_IMOVEL: EditarImovel,
             Telas.EDITAR_PERFIL_LOCATARIO: EditarPerfilLocatario,
-            # Telas.EDITAR_PERFIL_PROPRIETARIO: EditarPerfilProprietario,
+            Telas.EDITAR_PERFIL_PROPRIETARIO: EditarPerfilProprietario,
             Telas.INICIO_DESLOGADO: InicioDeslogado,
             Telas.INICIO_LOCATARIO: InicioLocatario,
-            # Telas.INICIO_PROPRIETARIO: InicioProprietario,
+            Telas.INICIO_PROPRIETARIO: InicioProprietario,
             # Telas.LISTAGEM_IMOVEIS: ListagemImoveis,
             # Telas.MOSTRAR_IMOVEL: MostrarImovel,
             # Telas.MOSTRAR_IMOVEIS_PROPRIETARIO: MostrarImoveisProprietario,
             Telas.PERFIL_LOCATARIO: PerfilLocatario,
-            # Telas.PERFIL_PROPRIETARIO: PerfilProprietario,
+            Telas.PERFIL_PROPRIETARIO: PerfilProprietario,
             # Telas.RELATORIO_ALUGUEIS: RelatorioAlugueis,
             # Telas.VER_CONTRATO_ALUGUEL: ContratoAluguel,
             Telas.WELCOME: Welcome,
