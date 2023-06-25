@@ -7,11 +7,13 @@ from model.exceptions import (
 )
 from view.locatario import LocatarioView
 from model.locatario import Locatario
+from daos.locatario_dao import LocatarioDAO
 
 
 class LocatarioController(Controller):
     def __init__(self, base_controller) -> None:
         self.__locatarios = []
+        self.__locatarios = LocatarioDAO()
         self.__base_controller = base_controller
         self.__locatario_view = LocatarioView(
             self.__base_controller.screen_manager
@@ -29,7 +31,8 @@ class LocatarioController(Controller):
 
         try:
             novo_locatario = Locatario(**dados_locatario)
-            self.__locatarios.append(novo_locatario)
+            # self.__locatarios.append(novo_locatario)
+            self.__locatarios.add(novo_locatario)
             self.__locatario_view.cadastrado_com_sucesso()
             self.__base_controller.usuario_logado = novo_locatario
             self.iniciar()

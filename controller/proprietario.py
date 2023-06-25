@@ -3,11 +3,13 @@ from controller.enumerators import ComandoUsuario
 from model.enumerators import TipoProprietario
 from model.proprietario import Proprietario
 from view.proprietario import ProprietarioView
+from daos.proprietario_dao import ProprietarioDAO
 
 
 class ProprietarioController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__proprietarios = []
+        # self.__proprietarios = []
+        self.__proprietarios = ProprietarioDAO()
         self.__base_controller = base_controller
         self.__proprietario_view = ProprietarioView(
             self.__base_controller.screen_manager
@@ -30,7 +32,8 @@ class ProprietarioController(Controller):
                 dados_proprietario["tipo"] = TipoProprietario.PESSOA_JURIDICA
 
             novo_proprietario = Proprietario(**dados_proprietario)
-            self.__proprietarios.append(novo_proprietario)
+            # self.__proprietarios.append(novo_proprietario)
+            self.__proprietarios.add(novo_proprietario)
 
             novo_imovel = self.__base_controller.imovel.cadastrar_imovel()
 

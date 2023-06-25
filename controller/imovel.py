@@ -2,24 +2,26 @@ from controller.abstract_controller import Controller
 from controller.enumerators import ComandoUsuario
 from model.enumerators import StatusImovel
 from model.imovel import Imovel
+from daos.imovel_dao import ImovelDAO
 
 from view.imovel import ImovelView
 
 
 class ImovelController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__imoveis = []
+        self.__imoveis_lista = []
+        self.__imoveis = ImovelDAO()
         self.__base_controller = base_controller
         self.__imovel_view = ImovelView(self.__base_controller.screen_manager)
 
     def listar_imoveis(self):
         imoveis_data = []
 
-        if len(self.__imoveis) == 0:
+        if len(self.__imoveis_lista) == 0:
             self.__imovel_view.erro_listar_imoveis()
             self.__base_controller.iniciar()
 
-        for imovel in self.__imoveis:
+        for imovel in self.__imoveis_lista:
             if imovel.status != StatusImovel.DISPONIVEL:
                 continue
 
@@ -36,7 +38,7 @@ class ImovelController(Controller):
             self.__base_controller.iniciar()
 
         else:
-            self.__mostrar_imovel(self.__imoveis[resposta])
+            self.__mostrar_imovel(self.__imoveis_lista[resposta])
 
     def __mostrar_imovel(self, imovel) -> None:
         imovel_data = {
@@ -67,7 +69,8 @@ class ImovelController(Controller):
         try:
             dados_imovel["preco"] = float(dados_imovel["preco"])
             novo_imovel = Imovel(**dados_imovel)
-            self.__imoveis.append(novo_imovel)
+            self.__imoveis.add(novo_imovel)
+            # self.__imoveis.append(novo_imovel)
             return novo_imovel
 
         except Exception:

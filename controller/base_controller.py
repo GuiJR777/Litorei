@@ -8,6 +8,8 @@ from model.usuario import Usuario
 from screens.abstract_screen_manager import ScreenManager
 from view.base_view import BaseView
 from model.locatario import Locatario
+from daos.locatario_dao import LocatarioDAO
+from daos.proprietario_dao import ProprietarioDAO
 
 
 class BaseController(Controller):
@@ -82,7 +84,8 @@ class BaseController(Controller):
         if resposta == ComandoUsuario.VOLTAR:
             self.tela_de_cadastro_login()
 
-        for locatario in self.__locatario.locatarios:
+        locatarios = LocatarioDAO().get_all()
+        for locatario in locatarios:
             if locatario.email == resposta["email"]:
                 if locatario.senha == resposta["senha"]:
                     self.__usuario_logado = locatario
@@ -92,7 +95,8 @@ class BaseController(Controller):
                     self.__view.erro_login("Senha incorreta!")
                     self.tela_de_cadastro_login()
 
-        for proprietario in self.__proprietario.proprietarios:
+        proprietarios = ProprietarioDAO().get_all()
+        for proprietario in proprietarios:
             if proprietario.email == resposta["email"]:
                 if proprietario.senha == resposta["senha"]:
                     self.__usuario_logado = proprietario
