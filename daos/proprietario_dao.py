@@ -16,3 +16,7 @@ class ProprietarioDAO(DAO):
     def remove(self, key: str):
         if isinstance(key, str):
             return super().remove(key)
+        
+    def update(self, proprietario: Proprietario):
+        if proprietario is not None and isinstance(proprietario, Proprietario):
+            super().update(proprietario)

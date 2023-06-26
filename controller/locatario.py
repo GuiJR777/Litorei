@@ -12,7 +12,7 @@ from daos.locatario_dao import LocatarioDAO
 
 class LocatarioController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__locatarios = []
+        #self.__locatarios = []
         self.__locatarios = LocatarioDAO()
         self.__base_controller = base_controller
         self.__locatario_view = LocatarioView(
@@ -91,10 +91,12 @@ class LocatarioController(Controller):
         locatarios = self.__locatarios.get_all()
         for locatario in locatarios:
             if locatario.email == email_do_usuario_logado:
+                self.__locatarios.remove(locatario.documento)
                 locatario.nome = dados_para_editar["nome"]
                 locatario.email = dados_para_editar["email"]
                 locatario.telefone = dados_para_editar["telefone"]
                 locatario.documento = dados_para_editar["documento"]
+                self.__locatarios.add(locatario)
                 novo_usuario_logado = locatario
                 break
 

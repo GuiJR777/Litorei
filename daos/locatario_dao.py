@@ -16,3 +16,7 @@ class LocatarioDAO(DAO):
     def remove(self, key: str):
         if isinstance(key, str):
             return super().remove(key)
+
+    def update(self, locatario: Locatario):
+        if locatario is not None and isinstance(locatario, Locatario):
+            super().update(locatario)    

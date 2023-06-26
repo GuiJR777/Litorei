@@ -6,6 +6,7 @@ from view.proprietario import ProprietarioView
 from daos.proprietario_dao import ProprietarioDAO
 
 
+
 class ProprietarioController(Controller):
     def __init__(self, base_controller) -> None:
         # self.__proprietarios = []
@@ -102,10 +103,12 @@ class ProprietarioController(Controller):
         proprietarios = self.__proprietarios.get_all()
         for proprietario in proprietarios:
             if proprietario.email == email_do_usuario_logado:
+                self.__proprietarios.remove(proprietario.documento)
                 proprietario.nome = dados_para_editar["nome"]
                 proprietario.email = dados_para_editar["email"]
                 proprietario.telefone = dados_para_editar["telefone"]
                 proprietario.documento = dados_para_editar["documento"]
+                self.__proprietarios.add(proprietario)
                 novo_usuario_logado = proprietario
                 break
 
@@ -158,6 +161,7 @@ class ProprietarioController(Controller):
         if comando == ComandoUsuario.VOLTAR:
             self.__mostrar_imovel(imovel)
 
+        
         imovel.titulo = comando["titulo"]
         imovel.informacoes = comando["informacoes"]
         imovel.preco = float(comando["preco"])
