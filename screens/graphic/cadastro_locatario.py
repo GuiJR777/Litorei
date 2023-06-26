@@ -34,7 +34,7 @@ class CadastroLocatario(Page):
         self.email = TextField(
             label="Email",
             hint_text="seu.nome@email.com",
-            keyboard_type=KeyboardType.EMAIL
+            keyboard_type=KeyboardType.EMAIL,
         )
         self.senha = TextField(
             label="Senha",
@@ -49,14 +49,12 @@ class CadastroLocatario(Page):
             can_reveal_password=True,
         )
         self.documento = TextField(
-            label="CPF",
-            hint_text="CPF",
-            keyboard_type=KeyboardType.NUMBER
+            label="CPF", hint_text="CPF", keyboard_type=KeyboardType.NUMBER
         )
         self.telefone = TextField(
             label="Telefone",
             hint_text="Telefone",
-            keyboard_type=KeyboardType.PHONE
+            keyboard_type=KeyboardType.PHONE,
         )
 
         self.controls = [

@@ -36,8 +36,8 @@ class CadastroProprietario(Page):
         self.email = TextField(
             label="Email",
             hint_text="seu.nome@email.com",
-            keyboard_type=KeyboardType.EMAIL
-            )
+            keyboard_type=KeyboardType.EMAIL,
+        )
         self.senha = TextField(
             label="Senha",
             hint_text="senha",
@@ -53,7 +53,7 @@ class CadastroProprietario(Page):
         self.documento = TextField(
             label="Documento",
             hint_text="CPF ou CNPJ",
-            keyboard_type=KeyboardType.NUMBER
+            keyboard_type=KeyboardType.NUMBER,
         )
         self.tipo_documento = Dropdown(
             label="Tipo de documento",
@@ -66,7 +66,7 @@ class CadastroProprietario(Page):
         self.telefone = TextField(
             label="Telefone",
             hint_text="Telefone",
-            keyboard_type=KeyboardType.PHONE
+            keyboard_type=KeyboardType.PHONE,
         )
 
         self.controls = [

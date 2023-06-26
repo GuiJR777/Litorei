@@ -67,7 +67,9 @@ class LocatarioController(Controller):
         if "@" not in dados_locatario["email"]:
             return "Email inválido!"
 
-        if dados_locatario.get("senha") and dados_locatario.get("confirmar_senha"):  # noqa
+        if dados_locatario.get("senha") and dados_locatario.get(
+            "confirmar_senha"
+        ):  # noqa
             if dados_locatario["senha"] != dados_locatario["confirmar_senha"]:
                 return "Senhas não conferem!"
             del dados_locatario["confirmar_senha"]
@@ -145,7 +147,7 @@ class LocatarioController(Controller):
 
     def alugar_imovel(self, imovel) -> None:
         try:
-            diarias = self.__locatario_view.diarias()
+            diarias = self.__locatario_view.diarias(imovel.preco)
             if diarias == ComandoUsuario.VOLTAR:
                 self.iniciar()
             else:

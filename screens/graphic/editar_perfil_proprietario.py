@@ -37,17 +37,17 @@ class EditarPerfilProprietario(Page):
         self.email = TextField(
             label="Email",
             hint_text="seu.nome@email.com",
-            value=self.data.get("email")
+            value=self.data.get("email"),
         )
         self.documento = TextField(
             label="Documento",
             hint_text="Documento",
-            value=self.data.get("documento")
+            value=self.data.get("documento"),
         )
         self.telefone = TextField(
             label="Telefone",
             hint_text="Telefone",
-            value=self.data.get("telefone")
+            value=self.data.get("telefone"),
         )
 
         self.controls = [

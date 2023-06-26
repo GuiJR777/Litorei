@@ -1,7 +1,6 @@
 from flet import (
     AppBar,
     ButtonStyle,
-    colors,
     Column,
     Container,
     FloatingActionButton,
@@ -23,6 +22,7 @@ from flet import (
 )
 
 from screens.graphic.abstract_pages import Page
+from screens.graphic.tipo_usuario import TipoUsuario
 from utils.constants import ABSOLUTE_IMAGES_PATH
 
 LOGO_LETTERS_IMAGE_PATH = (
@@ -37,6 +37,7 @@ class InicioProprietario(Page):
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
+        self.usuario_logado = TipoUsuario.PROPRIETARIO
         self.padding = Padding(16, 48, 16, 48)
 
         self.controls = [
@@ -144,12 +145,12 @@ class InicioProprietario(Page):
                         icon=icons.ADD_HOME,
                         on_click=self.__criar_novo_imovel,
                         height=120,
-                        width=120
+                        width=120,
                     ),
-                    Row(height=48)
+                    Row(height=48),
                 ],
                 alignment=MainAxisAlignment.END,
-            )
+            ),
         ]
 
     def preencher_payload(self, event, content: dict) -> None:
@@ -168,10 +169,7 @@ class InicioProprietario(Page):
         )
 
     def __criar_novo_imovel(self, event) -> None:
-        self.preencher_payload(
-            event,
-            {"comando": "3"}
-        )
+        self.preencher_payload(event, {"comando": "3"})
 
     def __acessar_relatorio(self, event) -> None:
         self.preencher_payload(

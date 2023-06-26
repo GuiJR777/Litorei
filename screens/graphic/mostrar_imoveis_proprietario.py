@@ -2,51 +2,42 @@
 from flet import (
     AppBar,
     Column,
-    ElevatedButton,
     IconButton,
     Image,
     ImageFit,
     ImageRepeat,
     MainAxisAlignment,
+    ResponsiveRow,
     Row,
     Text,
-    TextField,
     TextThemeStyle,
     icons,
 )
 
 from screens.graphic.abstract_pages import Page
 from utils.constants import ABSOLUTE_IMAGES_PATH
+from screens.graphic.imovel_card import ImovelCard
+
 
 LOGO_LETTERS_IMAGE_PATH = (
     ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
 )
 
 
-class EditarPerfilLocatario(Page):
+class MostrarImoveisProprietario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
-        # Form fields
-        self.nome = TextField(
-            label="Nome",
-            hint_text="Seu nome",
-            value=self.data.get("nome"),
-        )
-        self.email = TextField(
-            label="Email",
-            hint_text="seu.nome@email.com",
-            value=self.data.get("email"),
-        )
-        self.documento = TextField(
-            label="CPF", hint_text="CPF", value=self.data.get("documento")
-        )
-        self.telefone = TextField(
-            label="Telefone",
-            hint_text="Telefone",
-            value=self.data.get("telefone"),
-        )
+        cards = ResponsiveRow(alignment=MainAxisAlignment.CENTER)
+
+        for index in range(len(self.data["imoveis"])):
+            card = self.data["imoveis"][index]
+            cards.controls.append(
+                ImovelCard(
+                    card["id"], card["titulo"], card["preco"], index
+                ).exibir(self.__selecionar_imovel)
+            )
 
         self.controls = [
             # Menu da parte superior
@@ -60,7 +51,6 @@ class EditarPerfilLocatario(Page):
                     fit=ImageFit.CONTAIN,
                     repeat=ImageRepeat.NO_REPEAT,
                 ),
-                #
             ),
             # Fim do menu da parte superior
             Row(
@@ -68,23 +58,18 @@ class EditarPerfilLocatario(Page):
                     Column(
                         [
                             Text(
-                                "Editar perfil",
+                                "Seus imóveis",
                                 style=TextThemeStyle.TITLE_LARGE,
-                            ),
-                            self.nome,
-                            self.documento,
-                            self.telefone,
-                            self.email,
-                            ElevatedButton(
-                                "Salvar",
-                                on_click=self.__submit_form,  # noqa
-                            ),  # EndButton
+                            )
                         ],
                         alignment=MainAxisAlignment.CENTER,
-                        width=480,
-                        height=800,
+                        height=120,
                     )  # EndColumn
                 ],
+                alignment=MainAxisAlignment.CENTER,
+            ),
+            Column(
+                [cards],
                 alignment=MainAxisAlignment.CENTER,
             ),
         ]
@@ -92,19 +77,14 @@ class EditarPerfilLocatario(Page):
     def preencher_payload(self, event, content: dict) -> None:
         self.payload = content
 
-    def __submit_form(self, event) -> None:
+    def __voltar(self, event) -> None:
         self.preencher_payload(
-            event,
-            {
-                "nome": self.nome.value,
-                "email": self.email.value,
-                "documento": self.__remove_non_digits(self.documento.value),
-                "telefone": self.__remove_non_digits(self.telefone.value),
-            },
+            event, {"comando": len(self.data["imoveis"]) + 1}
         )
 
-    def __voltar(self, event) -> None:
-        self.preencher_payload(event, {"comando": None})
+    def __selecionar_imovel(self, event) -> None:
+        index = self.__remove_non_digits(event.control.tooltip)
+        self.preencher_payload(event, {"comando": index})
 
     @staticmethod
     def __remove_non_digits(string: str) -> str:

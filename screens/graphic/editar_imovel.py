@@ -2,14 +2,18 @@
 from flet import (
     AppBar,
     Column,
+    Dropdown,
+    dropdown,
     ElevatedButton,
     IconButton,
     Image,
     ImageFit,
     ImageRepeat,
+    KeyboardType,
     MainAxisAlignment,
     Row,
     Text,
+    TextAlign,
     TextField,
     TextThemeStyle,
     icons,
@@ -23,29 +27,45 @@ LOGO_LETTERS_IMAGE_PATH = (
 )
 
 
-class EditarPerfilLocatario(Page):
+class EditarImovel(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
         # Form fields
-        self.nome = TextField(
-            label="Nome",
-            hint_text="Seu nome",
-            value=self.data.get("nome"),
+        imovel_data = self.data["data"]
+        self.titulo = TextField(
+            label="Título",
+            hint_text="De um título para o seu imóvel",
+            value=imovel_data["titulo"],
         )
-        self.email = TextField(
-            label="Email",
-            hint_text="seu.nome@email.com",
-            value=self.data.get("email"),
+        self.endereco = TextField(
+            label="Endereço",
+            hint_text="Digite seu endereço completo",
+            keyboard_type=KeyboardType.STREET_ADDRESS,
+            multiline=True,
+            value=imovel_data["endereco"],
         )
-        self.documento = TextField(
-            label="CPF", hint_text="CPF", value=self.data.get("documento")
+        self.preco = Row(
+            [
+                Text("R$"),
+                TextField(
+                    label="Preço",
+                    hint_text="Qual o preço da diaria sem centavos?",
+                    width=100,
+                    value=int(imovel_data["preco"]),
+                    suffix_text=",00",
+                    keyboard_type=KeyboardType.NUMBER,
+                    text_align=TextAlign.RIGHT,
+                ),
+                Text("por dia."),
+            ]
         )
-        self.telefone = TextField(
-            label="Telefone",
-            hint_text="Telefone",
-            value=self.data.get("telefone"),
+        self.info = TextField(
+            label="Detalhes",
+            hint_text="Dê mais detalhes sobre seu imóvel",
+            multiline=True,
+            value=imovel_data["informacoes"],
         )
 
         self.controls = [
@@ -68,13 +88,13 @@ class EditarPerfilLocatario(Page):
                     Column(
                         [
                             Text(
-                                "Editar perfil",
+                                "Cadastro de Imóvel",
                                 style=TextThemeStyle.TITLE_LARGE,
                             ),
-                            self.nome,
-                            self.documento,
-                            self.telefone,
-                            self.email,
+                            self.titulo,
+                            self.preco,
+                            self.endereco,
+                            self.info,
                             ElevatedButton(
                                 "Salvar",
                                 on_click=self.__submit_form,  # noqa
@@ -93,13 +113,15 @@ class EditarPerfilLocatario(Page):
         self.payload = content
 
     def __submit_form(self, event) -> None:
+        preco = str(int(self.preco.controls[1].value)).replace(",", ".")
+
         self.preencher_payload(
             event,
             {
-                "nome": self.nome.value,
-                "email": self.email.value,
-                "documento": self.__remove_non_digits(self.documento.value),
-                "telefone": self.__remove_non_digits(self.telefone.value),
+                "titulo": self.titulo.value,
+                "endereco": self.endereco.value,
+                "preco": self.__remove_non_digits(preco),
+                "informacoes": self.info.value,
             },
         )
 

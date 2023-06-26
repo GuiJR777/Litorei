@@ -64,7 +64,7 @@ class ProprietarioView(View):
     def mostrar_imoveis_proprietario(self, imoveis_data: list[dict]) -> None:
         self.screen_manager.trocar_de_tela(
             Telas.MOSTRAR_IMOVEIS_PROPRIETARIO,
-            imoveis_data=imoveis_data,
+            data={"imoveis": imoveis_data},
         )
         resposta = self.screen_manager.esperar_comando_usuario()
 
@@ -77,7 +77,9 @@ class ProprietarioView(View):
 
     def mostrar_detalhes_imovel(self, imovel_data: dict) -> None:
         self.screen_manager.trocar_de_tela(
-            Telas.MOSTRAR_IMOVEL, imovel_data=imovel_data, eh_locatario=False
+            Telas.MOSTRAR_IMOVEL,
+            data={"data": imovel_data},
+            eh_locatario=False,
         )
         resposta = self.screen_manager.esperar_comando_usuario()
 
@@ -91,7 +93,7 @@ class ProprietarioView(View):
 
     def editar_imovel(self, imovel_data: dict) -> None:
         self.screen_manager.trocar_de_tela(
-            Telas.EDITAR_IMOVEL, imovel_data=imovel_data
+            Telas.EDITAR_IMOVEL, data={"data": imovel_data}
         )
         resposta = self.screen_manager.esperar_comando_usuario()
 

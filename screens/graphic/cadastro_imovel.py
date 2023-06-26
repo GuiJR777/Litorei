@@ -13,6 +13,7 @@ from flet import (
     MainAxisAlignment,
     Row,
     Text,
+    TextAlign,
     TextField,
     TextThemeStyle,
     icons,
@@ -33,22 +34,20 @@ class CadastroImovel(Page):
     def exibir_pagina(self) -> None:
         # Form fields
         self.titulo = TextField(
-            label="Título",
-            hint_text="De um título para o seu imóvel"
+            label="Título", hint_text="De um título para o seu imóvel"
         )
         self.endereco = TextField(
             label="Endereço",
             hint_text="Digite o nome da rua e número do imóvel",
-            keyboard_type=KeyboardType.STREET_ADDRESS
+            keyboard_type=KeyboardType.STREET_ADDRESS,
         )
         self.bairro = TextField(
-            label="Bairro",
-            hint_text="Em que bairro fica o imóvel?"
+            label="Bairro", hint_text="Em que bairro fica o imóvel?"
         )
         self.cep = TextField(
             label="CEP",
             hint_text="Qual o cep do imóvel?",
-            keyboard_type=KeyboardType.NUMBER
+            keyboard_type=KeyboardType.NUMBER,
         )
         self.cidade = Dropdown(
             label="Cidade",
@@ -68,22 +67,21 @@ class CadastroImovel(Page):
                     width=100,
                     value="0",
                     suffix_text=",00",
-                    keyboard_type=KeyboardType.NUMBER
+                    keyboard_type=KeyboardType.NUMBER,
+                    text_align=TextAlign.RIGHT,
                 ),
-                Text("por dia.")
+                Text("por dia."),
             ]
         )
         self.info = TextField(
             label="Detalhes",
             hint_text="Dê mais detalhes sobre seu imóvel",
             multiline=True,
-            value="""
-Quantos quartos?
+            value="""Quantos quartos?
 Garagem?
 Piscina?
 Perto do que?
-Algum diferencial?
-            """
+Algum diferencial?""",
         )
 
         self.controls = [
@@ -134,9 +132,7 @@ Algum diferencial?
         self.payload = content
 
     def __submit_form(self, event) -> None:
-        endereco_completo = (
-            f"{self.endereco.value}, {self.bairro.value}, {self.cidade.value} - {self.cep.value} - SC, Brasil"  # noqa
-        )
+        endereco_completo = f"{self.endereco.value}, {self.bairro.value}, {self.cidade.value} - {self.cep.value} - SC, Brasil"  # noqa
         preco = self.preco.controls[1].value.replace(",", ".")
 
         self.preencher_payload(

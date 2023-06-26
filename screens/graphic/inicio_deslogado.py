@@ -19,6 +19,7 @@ from flet import (
 )
 
 from screens.graphic.abstract_pages import Page
+from screens.graphic.tipo_usuario import TipoUsuario
 from utils.constants import ABSOLUTE_IMAGES_PATH
 
 LOGO_LETTERS_IMAGE_PATH = (
@@ -32,6 +33,7 @@ class InicioDeslogado(Page):
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
+        self.usuario_logado = TipoUsuario.DESLOGADO
         self.padding = Padding(16, 48, 16, 48)
 
         self.controls = [

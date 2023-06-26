@@ -1,6 +1,6 @@
 from controller.abstract_controller import Controller
 from controller.enumerators import ComandoUsuario
-from model.enumerators import TipoProprietario
+from model.enumerators import StatusImovel, TipoProprietario
 from model.proprietario import Proprietario
 from view.proprietario import ProprietarioView
 
@@ -78,19 +78,23 @@ class ProprietarioController(Controller):
         if "@" not in dados_locatario["email"]:
             return "Email inválido!"
 
-        if dados_locatario.get("senha") and dados_locatario.get("confirmar_senha"):  # noqa
+        if dados_locatario.get("senha") and dados_locatario.get(
+            "confirmar_senha"
+        ):  # noqa
             if dados_locatario["senha"] != dados_locatario["confirmar_senha"]:
                 return "Senhas não conferem!"
+
+        if "confirmar_senha" in dados_locatario:
             del dados_locatario["confirmar_senha"]
 
         if dados_locatario["documento"] == "":
-            return "CPF inválido!"
+            return "Documento inválido!"
 
         if not dados_locatario["documento"].isnumeric():
-            return "CPF inválido!"
+            return "Documento inválido!"
 
-        if len(dados_locatario["documento"]) != 11:
-            return "CPF inválido!"
+        if len(dados_locatario["documento"]) < 11:
+            return "Documento inválido!"
 
         if dados_locatario["telefone"] == "":
             return "Telefone inválido!"
@@ -129,22 +133,22 @@ class ProprietarioController(Controller):
             self.__get_proprietario_data()
         )
 
-        email_do_usuario_logado = self.__base_controller.usuario_logado.email
-        novo_usuario_logado = None
+        e_valido = self.__validar_cadastro(dados_para_editar)
 
-        for proprietario in self.__proprietarios:
-            if proprietario.email == email_do_usuario_logado:
-                proprietario.nome = dados_para_editar["nome"]
-                proprietario.email = dados_para_editar["email"]
-                proprietario.telefone = dados_para_editar["telefone"]
-                proprietario.documento = dados_para_editar["documento"]
-                novo_usuario_logado = proprietario
-                break
-
-        if novo_usuario_logado:
-            self.__base_controller.usuario_logado = novo_usuario_logado
-            self.__proprietario_view.cadastrado_com_sucesso()
+        if e_valido != "OK":
+            self.__proprietario_view.erro_cadastro(e_valido)
             self.__mostrar_perfil()
+            return
+
+        usuario_logado = self.__base_controller.usuario_logado
+
+        usuario_logado.nome = dados_para_editar["nome"]
+        usuario_logado.email = dados_para_editar["email"]
+        usuario_logado.telefone = dados_para_editar["telefone"]
+        usuario_logado.documento = dados_para_editar["documento"]
+
+        self.__proprietario_view.cadastrado_com_sucesso()
+        self.__mostrar_perfil()
 
     def __mostrar_imoveis_proprietario(self):
         imoveis_para_exibir = []
@@ -180,7 +184,7 @@ class ProprietarioController(Controller):
             case ComandoUsuario.EDITAR_IMOVEL:
                 self.__editar_imovel(imovel)
             case ComandoUsuario.EXCLUIR_IMOVEL:
-                self.__excluir_imovel(imovel.identificador)
+                self.__excluir_imovel(imovel)
 
     def __editar_imovel(self, imovel):
         comando = self.__proprietario_view.editar_imovel(
@@ -206,14 +210,22 @@ class ProprietarioController(Controller):
             "preco": imovel.preco,
             "endereco": imovel.endereco,
             "status": imovel.status.value,
+            "proprietario": imovel.proprietario.nome,
         }
 
-    def __excluir_imovel(self, imovel_id):
-        self.__base_controller.usuario_logado.remover_imovel(imovel_id)
+    def __excluir_imovel(self, imovel) -> None:
+        if imovel.status == StatusImovel.ALUGADO:
+            self.__proprietario_view.erro_cadastro(
+                "Erro ao excluir! Imóvel alugado."
+            )
+            return
+        self.__base_controller.usuario_logado.remover_imovel(
+            imovel.identificador
+        )
         self.__proprietario_view.excluido_com_sucesso()
         self.__mostrar_imoveis_proprietario()
 
-    def __cadastrar_novo_imovel(self):
+    def __cadastrar_novo_imovel(self) -> None:
         try:
             novo_imovel = self.__base_controller.imovel.cadastrar_imovel()
             if not novo_imovel:
