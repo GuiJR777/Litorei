@@ -104,7 +104,7 @@ class ProprietarioView(View):
 
     def visualizar_relatorio_alugueis(self, relatorio_data) -> None:
         self.screen_manager.trocar_de_tela(
-            Telas.RELATORIO_ALUGUEIS, relatorio_data=relatorio_data
+            Telas.RELATORIO_ALUGUEIS, data=relatorio_data
         )
         self.screen_manager.esperar_comando_usuario()
 

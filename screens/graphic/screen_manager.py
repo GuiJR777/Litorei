@@ -9,6 +9,7 @@ from screens.graphic.cadastro_imovel import CadastroImovel
 from screens.graphic.cadastro_locatario import CadastroLocatario
 from screens.graphic.cadastro_proprietario import CadastroProprietario
 from screens.graphic.cadastro_usuario import CadastroUsuario
+from screens.graphic.contrato_aluguel import ContratoAluguel
 from screens.graphic.diarias import Diarias
 from screens.graphic.editar_imovel import EditarImovel
 from screens.graphic.editar_perfil_locatario import EditarPerfilLocatario
@@ -23,6 +24,7 @@ from screens.graphic.mostrar_imoveis_proprietario import (
 from screens.graphic.mostrar_imovel import MostrarImovel
 from screens.graphic.perfil_locatario import PerfilLocatario
 from screens.graphic.perfil_proprietario import PerfilProprietario
+from screens.graphic.relatorio_alugueis import RelatorioAlugueis
 from screens.graphic.tipo_usuario import TipoUsuario
 from screens.graphic.welcome import Welcome
 from screens.graphic.cadastro_login import CadastroLogin
@@ -52,8 +54,8 @@ class GUIScreenManager(ScreenManager):
             Telas.MOSTRAR_IMOVEIS_PROPRIETARIO: MostrarImoveisProprietario,
             Telas.PERFIL_LOCATARIO: PerfilLocatario,
             Telas.PERFIL_PROPRIETARIO: PerfilProprietario,
-            # Telas.RELATORIO_ALUGUEIS: RelatorioAlugueis,
-            # Telas.VER_CONTRATO_ALUGUEL: ContratoAluguel,
+            Telas.RELATORIO_ALUGUEIS: RelatorioAlugueis,
+            Telas.VER_CONTRATO_ALUGUEL: ContratoAluguel,
             Telas.WELCOME: Welcome,
         }
         self.__active_page = None

@@ -48,7 +48,6 @@ class MostrarImovel(Page):
                 botoes.controls = [
                     ElevatedButton(
                         "Alugar",
-                        icon=icons.EDIT,
                         on_click=self.__primeiro_comando,
                         bgcolor="green",
                     ),

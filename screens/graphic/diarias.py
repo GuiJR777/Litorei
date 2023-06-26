@@ -83,15 +83,12 @@ class Diarias(Page):
                             ),
                             Row(
                                 [
-                                    Text(
-                                        "Valor total: R$ "
-                                    ),
+                                    Text("Valor total: R$ "),
                                     self.valor_total,
                                 ]
                             ),
                             ElevatedButton(
                                 "Confirmar Aluguel",
-                                icon="edit",
                                 on_click=self.__confirmar_aluguel,  # noqa
                                 bgcolor="green",
                             ),  # EndButton
@@ -114,8 +111,12 @@ class Diarias(Page):
         if self.numero_diarias.value < 0:
             self.numero_diarias.value = 0
 
+        self.valor_total.value = self.data["preco"] * self.numero_diarias.value
+
     def __add_diarias_value(self, event) -> None:
         self.numero_diarias.value += 1
+
+        self.valor_total.value = self.data["preco"] * self.numero_diarias.value
 
     def __confirmar_aluguel(self, event) -> None:
         comando = str(self.numero_diarias.value)
