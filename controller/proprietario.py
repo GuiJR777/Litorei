@@ -198,7 +198,7 @@ class ProprietarioController(Controller):
 
     def __visualizar_relatorio_aluguel(self):
         data = {}
-        imoveis = self.__base_controller.usuario_logado.imoveis
+        imoveis = list(self.__base_controller.usuario_logado.imoveis.get_all())
 
         for imovel in imoveis:
             data[imovel.identificador] = {
