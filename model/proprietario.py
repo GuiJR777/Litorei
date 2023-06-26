@@ -46,8 +46,10 @@ class Proprietario(Usuario):
         imoveis = self.__imoveis.get_all()
         for imovel in imoveis:
             if imovel.identificador == imovel_para_adicionar.identificador:
-                raise ImovelJaCadastradoException(imovel_para_adicionar.identificador)
-        
+                raise ImovelJaCadastradoException(
+                    imovel_para_adicionar.identificador
+                )
+
         imovel_para_adicionar.proprietario = self
         self.__imoveis.add(imovel_para_adicionar)
 
@@ -62,6 +64,6 @@ class Proprietario(Usuario):
     @validar_tipo_do_parametro(str)
     def remover_imovel(self, identificador: str) -> None:
         imovel = self.buscar_imovel(identificador)
-        
+
         if imovel:
             self.__imoveis.remove(identificador)

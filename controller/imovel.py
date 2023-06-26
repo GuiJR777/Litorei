@@ -14,6 +14,10 @@ class ImovelController(Controller):
         self.__base_controller = base_controller
         self.__imovel_view = ImovelView(self.__base_controller.screen_manager)
 
+    @property
+    def imoveis(self):
+        return self.__imoveis
+
     def listar_imoveis(self):
         imoveis = list(self.__imoveis.get_all())
         imoveis_data = []
@@ -21,7 +25,6 @@ class ImovelController(Controller):
         if len(imoveis) == 0:
             self.__imovel_view.erro_listar_imoveis()
             self.__base_controller.iniciar()
-
 
         for imovel in imoveis:
             if imovel.status != StatusImovel.DISPONIVEL:
