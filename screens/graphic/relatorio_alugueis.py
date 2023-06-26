@@ -10,6 +10,7 @@ from flet import (
     ResponsiveRow,
     Row,
     Text,
+    TextField,
     TextThemeStyle,
     icons,
 )
@@ -27,10 +28,10 @@ LOGO_LETTERS_IMAGE_PATH = (
 class RelatorioAlugueis(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
-        self.__valor_total = 0
 
     def exibir_pagina(self) -> None:
         cards = ResponsiveRow(alignment=MainAxisAlignment.CENTER)
+        valor_total = 0
 
         for imovel_id, imovel_data in self.data.items():
             card = ImovelRelatorioCard(
@@ -39,12 +40,21 @@ class RelatorioAlugueis(Page):
                 imovel_data["preco"],
                 imovel_data["alugueis"],
             )
-            self.__valor_total += card.ganho_total
+            valor_total += card.ganho_total
             cards.controls.append(card.exibir())
 
-        ganhos_totais = Text(
-            f"Ganhos totais: R$ {self.__valor_total}",
-            style=TextThemeStyle.TITLE_LARGE,
+        ganhos_totais = Row(
+            [
+                Text(
+                    "Ganhos totais: R$ ",
+                    style=TextThemeStyle.TITLE_LARGE,
+                ),
+                TextField(
+                    label="Ganhos totais",
+                    read_only=True,
+                    value=valor_total,
+                )
+            ]
         )
 
         self.controls = [
