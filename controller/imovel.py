@@ -45,6 +45,7 @@ class ImovelController(Controller):
             "preco": imovel.preco,
             "endereco": imovel.endereco,
             "status": imovel.status.value,
+            "proprietario": imovel.proprietario.nome,
         }
 
         comando = self.__imovel_view.mostrar_imovel(imovel_data)

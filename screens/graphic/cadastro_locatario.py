@@ -7,12 +7,12 @@ from flet import (
     Image,
     ImageFit,
     ImageRepeat,
+    KeyboardType,
     MainAxisAlignment,
     Row,
     Text,
-    TextButton,
     TextField,
-    colors,
+    TextThemeStyle,
     icons,
 )
 
@@ -24,21 +24,37 @@ LOGO_LETTERS_IMAGE_PATH = (
 )
 
 
-class CadastroLogin(Page):
+class CadastroLocatario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
         # Form fields
-        self.email_field = TextField(
-            label="Email", hint_text="seu.nome@email.com"
+        self.nome = TextField(label="Nome", hint_text="Seu nome")
+        self.email = TextField(
+            label="Email",
+            hint_text="seu.nome@email.com",
+            keyboard_type=KeyboardType.EMAIL,
         )
-
-        self.senha_field = TextField(
+        self.senha = TextField(
             label="Senha",
             hint_text="senha",
             password=True,
             can_reveal_password=True,
+        )
+        self.confirma_senha = TextField(
+            label="Confirme sua senha",
+            hint_text="senha",
+            password=True,
+            can_reveal_password=True,
+        )
+        self.documento = TextField(
+            label="CPF", hint_text="CPF", keyboard_type=KeyboardType.NUMBER
+        )
+        self.telefone = TextField(
+            label="Telefone",
+            hint_text="Telefone",
+            keyboard_type=KeyboardType.PHONE,
         )
 
         self.controls = [
@@ -60,26 +76,20 @@ class CadastroLogin(Page):
                 [
                     Column(
                         [
-                            Image(
-                                src=LOGO_LETTERS_IMAGE_PATH,
-                                height=80,
-                                fit=ImageFit.CONTAIN,
-                                repeat=ImageRepeat.NO_REPEAT,
+                            Text(
+                                "Cadastro de Locatário",
+                                style=TextThemeStyle.TITLE_LARGE,
                             ),
-                            self.email_field,
-                            self.senha_field,
+                            self.nome,
+                            self.documento,
+                            self.telefone,
+                            self.email,
+                            self.senha,
+                            self.confirma_senha,
                             ElevatedButton(
-                                "Entrar", on_click=self.__logar  # noqa
+                                "Cadastrar",
+                                on_click=self.__submit_form,  # noqa
                             ),  # EndButton
-                            Row(
-                                [
-                                    Text("Não possui cadastro ainda?"),
-                                    TextButton(
-                                        "Crie um aqui!",
-                                        on_click=self.__cadastrar,
-                                    ),
-                                ]
-                            ),
                         ],
                         alignment=MainAxisAlignment.CENTER,
                         width=480,
@@ -93,18 +103,22 @@ class CadastroLogin(Page):
     def preencher_payload(self, event, content: dict) -> None:
         self.payload = content
 
-    def __cadastrar(self, event) -> None:
-        self.preencher_payload(event, {"comando": "1"})
-
-    def __logar(self, event) -> None:
+    def __submit_form(self, event) -> None:
         self.preencher_payload(
             event,
             {
-                "comando": "2",
-                "email": self.email_field.value,
-                "senha": self.senha_field.value,
+                "nome": self.nome.value,
+                "email": self.email.value,
+                "senha": self.senha.value,
+                "confirmar_senha": self.confirma_senha.value,
+                "documento": self.__remove_non_digits(self.documento.value),
+                "telefone": self.__remove_non_digits(self.telefone.value),
             },
         )
 
     def __voltar(self, event) -> None:
-        self.preencher_payload(event, {"comando": "3"})
+        self.preencher_payload(event, {"comando": None})
+
+    @staticmethod
+    def __remove_non_digits(string: str) -> str:
+        return "".join([char for char in string if char.isdigit()])

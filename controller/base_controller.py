@@ -82,6 +82,10 @@ class BaseController(Controller):
         if resposta == ComandoUsuario.VOLTAR:
             self.tela_de_cadastro_login()
 
+        if "@" not in resposta["email"]:
+            self.__view.erro_login("Email inválido!")
+            self.tela_de_cadastro_login()
+
         for locatario in self.__locatario.locatarios:
             if locatario.email == resposta["email"]:
                 if locatario.senha == resposta["senha"]:

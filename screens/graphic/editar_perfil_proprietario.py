@@ -10,9 +10,8 @@ from flet import (
     MainAxisAlignment,
     Row,
     Text,
-    TextButton,
     TextField,
-    colors,
+    TextThemeStyle,
     icons,
 )
 
@@ -24,21 +23,31 @@ LOGO_LETTERS_IMAGE_PATH = (
 )
 
 
-class CadastroLogin(Page):
+class EditarPerfilProprietario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
         # Form fields
-        self.email_field = TextField(
-            label="Email", hint_text="seu.nome@email.com"
+        self.nome = TextField(
+            label="Nome",
+            hint_text="Seu nome",
+            value=self.data.get("nome"),
         )
-
-        self.senha_field = TextField(
-            label="Senha",
-            hint_text="senha",
-            password=True,
-            can_reveal_password=True,
+        self.email = TextField(
+            label="Email",
+            hint_text="seu.nome@email.com",
+            value=self.data.get("email"),
+        )
+        self.documento = TextField(
+            label="Documento",
+            hint_text="Documento",
+            value=self.data.get("documento"),
+        )
+        self.telefone = TextField(
+            label="Telefone",
+            hint_text="Telefone",
+            value=self.data.get("telefone"),
         )
 
         self.controls = [
@@ -60,26 +69,18 @@ class CadastroLogin(Page):
                 [
                     Column(
                         [
-                            Image(
-                                src=LOGO_LETTERS_IMAGE_PATH,
-                                height=80,
-                                fit=ImageFit.CONTAIN,
-                                repeat=ImageRepeat.NO_REPEAT,
+                            Text(
+                                "Editar perfil",
+                                style=TextThemeStyle.TITLE_LARGE,
                             ),
-                            self.email_field,
-                            self.senha_field,
+                            self.nome,
+                            self.documento,
+                            self.telefone,
+                            self.email,
                             ElevatedButton(
-                                "Entrar", on_click=self.__logar  # noqa
+                                "Salvar",
+                                on_click=self.__submit_form,  # noqa
                             ),  # EndButton
-                            Row(
-                                [
-                                    Text("Não possui cadastro ainda?"),
-                                    TextButton(
-                                        "Crie um aqui!",
-                                        on_click=self.__cadastrar,
-                                    ),
-                                ]
-                            ),
                         ],
                         alignment=MainAxisAlignment.CENTER,
                         width=480,
@@ -93,18 +94,20 @@ class CadastroLogin(Page):
     def preencher_payload(self, event, content: dict) -> None:
         self.payload = content
 
-    def __cadastrar(self, event) -> None:
-        self.preencher_payload(event, {"comando": "1"})
-
-    def __logar(self, event) -> None:
+    def __submit_form(self, event) -> None:
         self.preencher_payload(
             event,
             {
-                "comando": "2",
-                "email": self.email_field.value,
-                "senha": self.senha_field.value,
+                "nome": self.nome.value,
+                "email": self.email.value,
+                "documento": self.__remove_non_digits(self.documento.value),
+                "telefone": self.__remove_non_digits(self.telefone.value),
             },
         )
 
     def __voltar(self, event) -> None:
-        self.preencher_payload(event, {"comando": "3"})
+        self.preencher_payload(event, {"comando": None})
+
+    @staticmethod
+    def __remove_non_digits(string: str) -> str:
+        return "".join([char for char in string if char.isdigit()])
