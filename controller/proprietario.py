@@ -6,7 +6,6 @@ from view.proprietario import ProprietarioView
 from daos.proprietario_dao import ProprietarioDAO
 
 
-
 class ProprietarioController(Controller):
     def __init__(self, base_controller) -> None:
         self.__proprietarios = ProprietarioDAO()
@@ -56,9 +55,14 @@ class ProprietarioController(Controller):
         )
 
         for imovel in self.__base_controller.imovel.imoveis.get_all():
-            if imovel.proprietario.email == self.__base_controller.usuario_logado.email:  # noqa
+            if (
+                imovel.proprietario.email
+                == self.__base_controller.usuario_logado.email
+            ):  # noqa
                 try:
-                    self.__base_controller.usuario_logado.adicionar_imovel(imovel) # noqa
+                    self.__base_controller.usuario_logado.adicionar_imovel(
+                        imovel
+                    )  # noqa
                 except Exception:
                     pass
 

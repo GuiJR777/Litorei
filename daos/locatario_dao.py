@@ -1,13 +1,18 @@
 from daos.dao import DAO
 from model.locatario import Locatario
 
+
 class LocatarioDAO(DAO):
     def __init__(self):
-        super().__init__('locatario.pkl')
-    
+        super().__init__("locatario.pkl")
+
     def add(self, locatario: Locatario):
-        if (isinstance(locatario, Locatario)) and (locatario is not None) and isinstance(locatario.documento, str):
-            super().add(locatario.documento,locatario)
+        if (
+            (isinstance(locatario, Locatario))
+            and (locatario is not None)
+            and isinstance(locatario.documento, str)
+        ):
+            super().add(locatario.documento, locatario)
 
     def get(self, key: str):
         if isinstance(key, str):
@@ -19,4 +24,4 @@ class LocatarioDAO(DAO):
 
     def update(self, locatario: Locatario):
         if locatario is not None and isinstance(locatario, Locatario):
-            super().update(locatario)    
+            super().update(locatario)

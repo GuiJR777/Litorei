@@ -1,11 +1,30 @@
-from flet import (AppBar, Column, Container, ElevatedButton, Image, ImageFit, ImageRepeat,
-                  icons, MainAxisAlignment, Margin, OutlinedButton, Padding, Row, Text,
-                  TextAlign, TextButton, TextThemeStyle, colors)
+from flet import (
+    AppBar,
+    Column,
+    Container,
+    ElevatedButton,
+    Image,
+    ImageFit,
+    ImageRepeat,
+    icons,
+    MainAxisAlignment,
+    Margin,
+    OutlinedButton,
+    Padding,
+    Row,
+    Text,
+    TextAlign,
+    TextButton,
+    TextThemeStyle,
+    colors,
+)
 
 from screens.graphic.abstract_pages import Page
 from utils.constants import ABSOLUTE_IMAGES_PATH
 
-LOGO_LETTERS_IMAGE_PATH = ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
+LOGO_LETTERS_IMAGE_PATH = (
+    ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
+)
 PAGE_IMAGE = ABSOLUTE_IMAGES_PATH + "/praia-1.jpg"
 
 
@@ -38,18 +57,16 @@ class InicioDeslogado(Page):
                                     "Entrar",
                                     icon=icons.PERSON_2_OUTLINED,
                                     on_click=self.__cadastro_login,
-                                )
+                                ),
                             ],
                             spacing=48,
                             alignment=MainAxisAlignment.START,
                         ),
-                        margin=Margin(48, 0, 48, 0)
+                        margin=Margin(48, 0, 48, 0),
                     )
-
-                ]
+                ],
             ),
             # Fim do menu da parte superior
-
             # Corpo da página
             Column(
                 [
@@ -90,8 +107,8 @@ Deixe que a gente cuida disso para você!
                                                         on_click=self.__listagem_imoveis,
                                                     ),
                                                 ],
-                                        alignment=MainAxisAlignment.START,
-                                    ),
+                                                alignment=MainAxisAlignment.START,
+                                            ),
                                         ],
                                         spacing=16,
                                     ),
@@ -124,13 +141,12 @@ Nós trabalhamos para você!
                                             ),
                                         ],
                                         spacing=16,
-                                    )
-
+                                    ),
                                 ],  # EndColumnContent
                                 expand=2,
                                 height=800,
                                 alignment=MainAxisAlignment.SPACE_EVENLY,
-                            )
+                            ),
                         ],
                         spacing=48,
                         alignment=MainAxisAlignment.CENTER,

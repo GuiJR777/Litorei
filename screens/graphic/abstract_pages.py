@@ -30,7 +30,9 @@ class Page(ABC, View):
     def start_alert_banner(self, message: str) -> None:
         return Banner(
             bgcolor=colors.AMBER_100,
-            leading=Icon(icons.WARNING_AMBER_ROUNDED, color=colors.AMBER, size=40),
+            leading=Icon(
+                icons.WARNING_AMBER_ROUNDED, color=colors.AMBER, size=40
+            ),
             content=Text(
                 message,
             ),

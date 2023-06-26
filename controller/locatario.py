@@ -12,7 +12,7 @@ from daos.locatario_dao import LocatarioDAO
 
 class LocatarioController(Controller):
     def __init__(self, base_controller) -> None:
-        #self.__locatarios = []
+        # self.__locatarios = []
         self.__locatarios = LocatarioDAO()
         self.__base_controller = base_controller
         self.__locatario_view = LocatarioView(

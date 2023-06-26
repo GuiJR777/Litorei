@@ -20,7 +20,9 @@ from flet import (
 from screens.graphic.abstract_pages import Page
 from utils.constants import ABSOLUTE_IMAGES_PATH
 
-LOGO_LETTERS_IMAGE_PATH = ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
+LOGO_LETTERS_IMAGE_PATH = (
+    ABSOLUTE_IMAGES_PATH + "/logo-removedbg-only-letters.png"
+)
 
 
 class CadastroLogin(Page):
@@ -50,13 +52,11 @@ class CadastroLogin(Page):
                             spacing=48,
                             alignment=MainAxisAlignment.START,
                         ),
-                        margin=Margin(48, 0, 48, 0)
+                        margin=Margin(48, 0, 48, 0),
                     )
-
-                ]
+                ],
             ),
             # Fim do menu da parte superior
-
             Column(
                 [
                     Image(
@@ -70,12 +70,12 @@ class CadastroLogin(Page):
                         label="Senha",
                         hint_text="password",
                         password=True,
-                        can_reveal_password=True
-                        ),  # noqa
+                        can_reveal_password=True,
+                    ),  # noqa
                     Text("Não possui cadastro? Crie um aqui!"),
                 ],
                 alignment=MainAxisAlignment.CENTER,
-            )
+            ),
         ]
 
     def preencher_payload(self, event) -> None:

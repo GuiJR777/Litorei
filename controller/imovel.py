@@ -9,7 +9,7 @@ from view.imovel import ImovelView
 
 class ImovelController(Controller):
     def __init__(self, base_controller) -> None:
-        #self.__imoveis_lista = []
+        # self.__imoveis_lista = []
         self.__imoveis = ImovelDAO()
         self.__base_controller = base_controller
         self.__imovel_view = ImovelView(self.__base_controller.screen_manager)

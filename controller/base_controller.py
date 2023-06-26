@@ -99,7 +99,6 @@ class BaseController(Controller):
         for proprietario in proprietarios:
             if proprietario.email == resposta["email"]:
                 if proprietario.senha == resposta["senha"]:
-                    
                     self.__usuario_logado = proprietario
                     self.__proprietario.iniciar()
                     return None

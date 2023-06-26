@@ -1,13 +1,18 @@
 from daos.dao import DAO
 from model.proprietario import Proprietario
 
+
 class ProprietarioDAO(DAO):
     def __init__(self):
-        super().__init__('proprietario.pkl')
-    
+        super().__init__("proprietario.pkl")
+
     def add(self, proprietario: Proprietario):
-        if (isinstance(proprietario, Proprietario)) and (proprietario is not None) and isinstance(proprietario.documento, str):
-            super().add(proprietario.documento,proprietario)
+        if (
+            (isinstance(proprietario, Proprietario))
+            and (proprietario is not None)
+            and isinstance(proprietario.documento, str)
+        ):
+            super().add(proprietario.documento, proprietario)
 
     def get(self, key: str):
         if isinstance(key, str):
@@ -16,7 +21,7 @@ class ProprietarioDAO(DAO):
     def remove(self, key: str):
         if isinstance(key, str):
             return super().remove(key)
-        
+
     def update(self, proprietario: Proprietario):
         if proprietario is not None and isinstance(proprietario, Proprietario):
             super().update(proprietario)
