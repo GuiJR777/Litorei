@@ -253,7 +253,7 @@ class ProprietarioController(Controller):
             self.__proprietario_view.erro_cadastro(
                 "Erro ao cadastrar! Tente de novo."
             )
-            self.__cadastrar_novo_imovel()
+            self.iniciar()
 
     def __visualizar_relatorio_aluguel(self):
         data = {}
