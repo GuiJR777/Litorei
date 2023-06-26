@@ -29,7 +29,7 @@ def modo_terminal() -> None:
 def get_running_mode() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--modo", choices=["grafico", "terminal"], default="grafico"
+        "--modo", choices=["grafico", "terminal"], default="terminal"
     )
     args = parser.parse_args()
     return args.modo

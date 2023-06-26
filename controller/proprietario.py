@@ -3,11 +3,12 @@ from controller.enumerators import ComandoUsuario
 from model.enumerators import StatusImovel, TipoProprietario
 from model.proprietario import Proprietario
 from view.proprietario import ProprietarioView
+from daos.proprietario_dao import ProprietarioDAO
 
 
 class ProprietarioController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__proprietarios = []
+        self.__proprietarios = ProprietarioDAO()
         self.__base_controller = base_controller
         self.__proprietario_view = ProprietarioView(
             self.__base_controller.screen_manager
@@ -37,7 +38,8 @@ class ProprietarioController(Controller):
                 dados_proprietario["tipo"] = TipoProprietario.PESSOA_JURIDICA
 
             novo_proprietario = Proprietario(**dados_proprietario)
-            self.__proprietarios.append(novo_proprietario)
+            # self.__proprietarios.append(novo_proprietario)
+            self.__proprietarios.add(novo_proprietario)
 
             novo_imovel = self.__base_controller.imovel.cadastrar_imovel()
 
@@ -58,6 +60,19 @@ class ProprietarioController(Controller):
         comando = self.__proprietario_view.iniciar(
             self.__base_controller.usuario_logado.nome
         )
+
+        for imovel in self.__base_controller.imovel.imoveis.get_all():
+            if (
+                imovel.proprietario.email
+                == self.__base_controller.usuario_logado.email
+            ):  # noqa
+                try:
+                    self.__base_controller.usuario_logado.adicionar_imovel(
+                        imovel
+                    )  # noqa
+                except Exception:
+                    pass
+
         match comando:
             case ComandoUsuario.DESLOGAR:
                 self.__base_controller.usuario_logado = None
@@ -152,7 +167,7 @@ class ProprietarioController(Controller):
 
     def __mostrar_imoveis_proprietario(self):
         imoveis_para_exibir = []
-        imoveis = self.__base_controller.usuario_logado.imoveis
+        imoveis = list(self.__base_controller.usuario_logado.imoveis.get_all())
 
         for imovel in imoveis:
             imoveis_para_exibir.append(
@@ -242,7 +257,7 @@ class ProprietarioController(Controller):
 
     def __visualizar_relatorio_aluguel(self):
         data = {}
-        imoveis = self.__base_controller.usuario_logado.imoveis
+        imoveis = list(self.__base_controller.usuario_logado.imoveis.get_all())
 
         for imovel in imoveis:
             data[imovel.identificador] = {

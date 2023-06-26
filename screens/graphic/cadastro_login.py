@@ -53,7 +53,6 @@ class CadastroLogin(Page):
                     fit=ImageFit.CONTAIN,
                     repeat=ImageRepeat.NO_REPEAT,
                 ),
-                #
             ),
             # Fim do menu da parte superior
             Row(
