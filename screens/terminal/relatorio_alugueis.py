@@ -7,8 +7,8 @@ class RelatorioAlugueis(Screen):
         self.titulo = "Relatório de aluguéis"
         self.__relatorio_data = None
 
-    def entrada(self, relatorio_data) -> None:
-        self.__relatorio_data = relatorio_data
+    def entrada(self, data) -> None:
+        self.__relatorio_data = data
         self.clear_terminal()
         self.show_titulo()
 

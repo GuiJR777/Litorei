@@ -84,6 +84,10 @@ class BaseController(Controller):
         if resposta == ComandoUsuario.VOLTAR:
             self.tela_de_cadastro_login()
 
+        if "@" not in resposta["email"]:
+            self.__view.erro_login("Email inválido!")
+            self.tela_de_cadastro_login()
+
         locatarios = LocatarioDAO().get_all()
         for locatario in locatarios:
             if locatario.email == resposta["email"]:

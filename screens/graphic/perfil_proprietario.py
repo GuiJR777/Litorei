@@ -10,9 +10,7 @@ from flet import (
     MainAxisAlignment,
     Row,
     Text,
-    TextButton,
-    TextField,
-    colors,
+    TextThemeStyle,
     icons,
 )
 
@@ -24,29 +22,22 @@ LOGO_LETTERS_IMAGE_PATH = (
 )
 
 
-class CadastroLogin(Page):
+class PerfilProprietario(Page):
     def __init__(self, route) -> None:
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
-        # Form fields
-        self.email_field = TextField(
-            label="Email", hint_text="seu.nome@email.com"
-        )
-
-        self.senha_field = TextField(
-            label="Senha",
-            hint_text="senha",
-            password=True,
-            can_reveal_password=True,
-        )
+        self.nome = Text(f"Nome: {self.data.get('nome')}")
+        self.email = Text(f"Email: {self.data.get('email')}")
+        self.documento = Text(f"Documento: {self.data.get('documento')}")
+        self.telefone = Text(f"Telefone: {self.data.get('telefone')}")
 
         self.controls = [
             # Menu da parte superior
             AppBar(
                 leading=IconButton(
                     icons.ARROW_BACK_IOS, on_click=self.__voltar
-                ),  # noqa
+                ),
                 title=Image(
                     src=LOGO_LETTERS_IMAGE_PATH,
                     height=30,
@@ -59,26 +50,19 @@ class CadastroLogin(Page):
                 [
                     Column(
                         [
-                            Image(
-                                src=LOGO_LETTERS_IMAGE_PATH,
-                                height=80,
-                                fit=ImageFit.CONTAIN,
-                                repeat=ImageRepeat.NO_REPEAT,
+                            Text(
+                                "Seu perfil",
+                                style=TextThemeStyle.TITLE_LARGE,
                             ),
-                            self.email_field,
-                            self.senha_field,
+                            self.nome,
+                            self.documento,
+                            self.telefone,
+                            self.email,
                             ElevatedButton(
-                                "Entrar", on_click=self.__logar  # noqa
+                                "Editar",
+                                icon="edit",
+                                on_click=self.__edit_register,  # noqa
                             ),  # EndButton
-                            Row(
-                                [
-                                    Text("Não possui cadastro ainda?"),
-                                    TextButton(
-                                        "Crie um aqui!",
-                                        on_click=self.__cadastrar,
-                                    ),
-                                ]
-                            ),
                         ],
                         alignment=MainAxisAlignment.CENTER,
                         width=480,
@@ -92,18 +76,8 @@ class CadastroLogin(Page):
     def preencher_payload(self, event, content: dict) -> None:
         self.payload = content
 
-    def __cadastrar(self, event) -> None:
+    def __edit_register(self, event) -> None:
         self.preencher_payload(event, {"comando": "1"})
 
-    def __logar(self, event) -> None:
-        self.preencher_payload(
-            event,
-            {
-                "comando": "2",
-                "email": self.email_field.value,
-                "senha": self.senha_field.value,
-            },
-        )
-
     def __voltar(self, event) -> None:
-        self.preencher_payload(event, {"comando": "3"})
+        self.preencher_payload(event, {"comando": "2"})

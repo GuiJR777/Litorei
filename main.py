@@ -8,9 +8,14 @@ from screens.terminal.screen_manager import TerminalScreenManager
 
 
 def modo_grafico(page: ft.Page) -> None:
-    page.theme_mode = ft.ThemeMode.LIGHT
+    page.theme_mode = ft.ThemeMode.SYSTEM
     page.window_full_screen = True
     page.window_center()
+    page.fonts = {
+        "Roboto": "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
+    }
+    page.font_family = "Roboto"
+    page.bgcolor = "#fffff5"
 
     screen_manager = GUIScreenManager(page)
     BaseController(screen_manager).iniciar()

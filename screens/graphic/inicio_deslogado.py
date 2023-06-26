@@ -6,7 +6,6 @@ from flet import (
     Image,
     ImageFit,
     ImageRepeat,
-    icons,
     MainAxisAlignment,
     Margin,
     OutlinedButton,
@@ -16,10 +15,11 @@ from flet import (
     TextAlign,
     TextButton,
     TextThemeStyle,
-    colors,
+    icons,
 )
 
 from screens.graphic.abstract_pages import Page
+from screens.graphic.tipo_usuario import TipoUsuario
 from utils.constants import ABSOLUTE_IMAGES_PATH
 
 LOGO_LETTERS_IMAGE_PATH = (
@@ -33,6 +33,7 @@ class InicioDeslogado(Page):
         super().__init__(route)
 
     def exibir_pagina(self) -> None:
+        self.usuario_logado = TipoUsuario.DESLOGADO
         self.padding = Padding(16, 48, 16, 48)
 
         self.controls = [
@@ -44,7 +45,7 @@ class InicioDeslogado(Page):
                     fit=ImageFit.CONTAIN,
                     repeat=ImageRepeat.NO_REPEAT,
                 ),
-                bgcolor=colors.TEAL_ACCENT_700,
+                #
                 actions=[
                     Container(
                         content=Row(

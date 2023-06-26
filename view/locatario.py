@@ -23,7 +23,9 @@ class LocatarioView(View):
         self.screen_manager.feedback_erro(mensagem)
 
     def iniciar(self, name) -> None:
-        self.screen_manager.trocar_de_tela(Telas.INICIO_LOCATARIO, name=name)
+        self.screen_manager.trocar_de_tela(
+            Telas.INICIO_LOCATARIO, data={"name": name}
+        )
         resposta = self.screen_manager.esperar_comando_usuario()
 
         match resposta:
@@ -50,7 +52,12 @@ class LocatarioView(View):
         self.screen_manager.trocar_de_tela(
             Telas.EDITAR_PERFIL_LOCATARIO, data=data
         )
-        return self.screen_manager.esperar_comando_usuario()
+        resposta = self.screen_manager.esperar_comando_usuario()
+
+        if not resposta:
+            return ComandoUsuario.VOLTAR
+
+        return resposta
 
     def aluguel_realizado_com_sucesso(self) -> None:
         self.screen_manager.feedback_sucesso("Aluguel realizado com sucesso!")
@@ -63,7 +70,7 @@ class LocatarioView(View):
 
     def ver_contrato(self, contrato_data: dict) -> None:
         self.screen_manager.trocar_de_tela(
-            Telas.VER_CONTRATO_ALUGUEL, contrato_data=contrato_data
+            Telas.VER_CONTRATO_ALUGUEL, data=contrato_data
         )
         comando = self.screen_manager.esperar_comando_usuario()
 
@@ -81,8 +88,10 @@ class LocatarioView(View):
     def erro_devolver_imovel(self) -> None:
         self.screen_manager.feedback_erro("Erro ao devolver imóvel!")
 
-    def diarias(self):
-        self.screen_manager.trocar_de_tela(Telas.DIARIAS)
+    def diarias(self, preco):
+        self.screen_manager.trocar_de_tela(
+            Telas.DIARIAS, data={"preco": preco}
+        )
         comando = self.screen_manager.esperar_comando_usuario()
 
         if comando == "0" or not comando:

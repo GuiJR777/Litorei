@@ -29,6 +29,13 @@ class LocatarioController(Controller):
         if dados_locatario == ComandoUsuario.VOLTAR:
             self.__base_controller.cadastrar_usuario()
 
+        e_valido = self.__validar_cadastro(dados_locatario)
+
+        if e_valido != "OK":
+            self.__locatario_view.erro_cadastro(e_valido)
+            self.cadastrar()
+            return
+
         try:
             novo_locatario = Locatario(**dados_locatario)
             # self.__locatarios.append(novo_locatario)
@@ -59,6 +66,37 @@ class LocatarioController(Controller):
             case ComandoUsuario.VER_CONTRATOS_LOCATARIO:
                 self.__ver_contrato()
 
+    def __validar_cadastro(self, dados_locatario) -> str:
+        if "@" not in dados_locatario["email"]:
+            return "Email inválido!"
+
+        if dados_locatario.get("senha") and dados_locatario.get(
+            "confirmar_senha"
+        ):  # noqa
+            if dados_locatario["senha"] != dados_locatario["confirmar_senha"]:
+                return "Senhas não conferem!"
+            del dados_locatario["confirmar_senha"]
+
+        if dados_locatario["documento"] == "":
+            return "CPF inválido!"
+
+        if not dados_locatario["documento"].isnumeric():
+            return "CPF inválido!"
+
+        if len(dados_locatario["documento"]) != 11:
+            return "CPF inválido!"
+
+        if dados_locatario["telefone"] == "":
+            return "Telefone inválido!"
+
+        if not dados_locatario["telefone"].isnumeric():
+            return "Telefone inválido!"
+
+        if dados_locatario["nome"] == "":
+            return "Nome inválido!"
+
+        return "OK"
+
     def __mostrar_perfil(self):
         comando = self.__locatario_view.mostrar_perfil(
             self.__get_locatario_data()
@@ -85,29 +123,34 @@ class LocatarioController(Controller):
             self.__get_locatario_data()
         )
 
-        email_do_usuario_logado = self.__base_controller.usuario_logado.email
-        novo_usuario_logado = None
+        if dados_para_editar == ComandoUsuario.VOLTAR:
+            self.__mostrar_perfil()
 
-        locatarios = self.__locatarios.get_all()
-        for locatario in locatarios:
-            if locatario.email == email_do_usuario_logado:
-                self.__locatarios.remove(locatario.documento)
-                locatario.nome = dados_para_editar["nome"]
-                locatario.email = dados_para_editar["email"]
-                locatario.telefone = dados_para_editar["telefone"]
-                locatario.documento = dados_para_editar["documento"]
-                self.__locatarios.add(locatario)
-                novo_usuario_logado = locatario
-                break
+        e_valido = self.__validar_cadastro(dados_para_editar)
 
-        if novo_usuario_logado:
-            self.__base_controller.usuario_logado = novo_usuario_logado
+        if e_valido != "OK":
+            self.__locatario_view.erro_cadastro(e_valido)
+            self.cadastrar()
+            return
+
+        try:
+            usuario_logado = self.__base_controller.usuario_logado
+
+            usuario_logado.nome = dados_para_editar["nome"]
+            usuario_logado.email = dados_para_editar["email"]
+            usuario_logado.telefone = dados_para_editar["telefone"]
+            usuario_logado.documento = dados_para_editar["documento"]
+
             self.__locatario_view.cadastrado_com_sucesso()
             self.__mostrar_perfil()
+        except Exception:
+            self.__locatario_view.erro_cadastro(
+                "Erro ao editar! Tente de novo."
+            )
 
     def alugar_imovel(self, imovel) -> None:
         try:
-            diarias = self.__locatario_view.diarias()
+            diarias = self.__locatario_view.diarias(imovel.preco)
             if diarias == ComandoUsuario.VOLTAR:
                 self.iniciar()
             else:

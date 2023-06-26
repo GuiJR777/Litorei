@@ -24,6 +24,9 @@ class CadastroLocatario(Screen):
                 "senha": self.questionar(
                     "Qual é a sua senha?", TiposDeRespostas.SENHA
                 ),
+                "confirmar_senha": self.questionar(
+                    "Digite novamente a sua senha", TiposDeRespostas.SENHA
+                ),
                 "documento": self.questionar(
                     "Qual é o seu CPF?", TiposDeRespostas.NUMERICO
                 ),

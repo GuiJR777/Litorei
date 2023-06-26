@@ -9,7 +9,7 @@ class ImovelView(View):
 
     def listar_imoveis(self, imoveis_data: list[dict]) -> None:
         self.screen_manager.trocar_de_tela(
-            Telas.LISTAGEM_IMOVEIS, imoveis_data=imoveis_data
+            Telas.LISTAGEM_IMOVEIS, data={"imoveis": imoveis_data}
         )
         resposta = self.screen_manager.esperar_comando_usuario()
 
@@ -22,7 +22,7 @@ class ImovelView(View):
 
     def mostrar_imovel(self, imovel_data: dict) -> None:
         self.screen_manager.trocar_de_tela(
-            Telas.MOSTRAR_IMOVEL, imovel_data=imovel_data
+            Telas.MOSTRAR_IMOVEL, data={"data": imovel_data}
         )
         resposta = self.screen_manager.esperar_comando_usuario()
 
