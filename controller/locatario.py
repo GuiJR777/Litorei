@@ -88,7 +88,8 @@ class LocatarioController(Controller):
         email_do_usuario_logado = self.__base_controller.usuario_logado.email
         novo_usuario_logado = None
 
-        for locatario in self.__locatario:
+        locatarios = self.__locatarios.get_all()
+        for locatario in locatarios:
             if locatario.email == email_do_usuario_logado:
                 locatario.nome = dados_para_editar["nome"]
                 locatario.email = dados_para_editar["email"]

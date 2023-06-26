@@ -53,7 +53,8 @@ class Proprietario(Usuario):
 
     @validar_tipo_do_parametro(str)
     def buscar_imovel(self, identificador: str) -> Imovel:
-        for imovel in self.__imoveis:
+        imoveis = self.__imoveis.get_all()
+        for imovel in imoveis:
             if imovel.identificador == identificador:
                 return imovel
         raise ImovelNaoEncontradoException(identificador)
@@ -61,6 +62,6 @@ class Proprietario(Usuario):
     @validar_tipo_do_parametro(str)
     def remover_imovel(self, identificador: str) -> None:
         imovel = self.buscar_imovel(identificador)
-
+        
         if imovel:
-            self.__imoveis.remove(imovel)
+            self.__imoveis.remove(identificador)

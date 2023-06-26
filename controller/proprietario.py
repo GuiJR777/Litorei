@@ -99,7 +99,8 @@ class ProprietarioController(Controller):
         email_do_usuario_logado = self.__base_controller.usuario_logado.email
         novo_usuario_logado = None
 
-        for proprietario in self.__proprietarios:
+        proprietarios = self.__proprietarios.get_all()
+        for proprietario in proprietarios:
             if proprietario.email == email_do_usuario_logado:
                 proprietario.nome = dados_para_editar["nome"]
                 proprietario.email = dados_para_editar["email"]
@@ -115,7 +116,7 @@ class ProprietarioController(Controller):
 
     def __mostrar_imoveis_proprietario(self):
         imoveis_para_exibir = []
-        imoveis = self.__base_controller.usuario_logado.imoveis
+        imoveis = list(self.__base_controller.usuario_logado.imoveis.get_all())
 
         for imovel in imoveis:
             imoveis_para_exibir.append(

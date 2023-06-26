@@ -9,19 +9,21 @@ from view.imovel import ImovelView
 
 class ImovelController(Controller):
     def __init__(self, base_controller) -> None:
-        self.__imoveis_lista = []
+        #self.__imoveis_lista = []
         self.__imoveis = ImovelDAO()
         self.__base_controller = base_controller
         self.__imovel_view = ImovelView(self.__base_controller.screen_manager)
 
     def listar_imoveis(self):
+        imoveis = list(self.__imoveis.get_all())
         imoveis_data = []
 
-        if len(self.__imoveis_lista) == 0:
+        if len(imoveis) == 0:
             self.__imovel_view.erro_listar_imoveis()
             self.__base_controller.iniciar()
 
-        for imovel in self.__imoveis_lista:
+
+        for imovel in imoveis:
             if imovel.status != StatusImovel.DISPONIVEL:
                 continue
 
@@ -38,7 +40,7 @@ class ImovelController(Controller):
             self.__base_controller.iniciar()
 
         else:
-            self.__mostrar_imovel(self.__imoveis_lista[resposta])
+            self.__mostrar_imovel(imoveis[resposta])
 
     def __mostrar_imovel(self, imovel) -> None:
         imovel_data = {
